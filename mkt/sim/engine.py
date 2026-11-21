@@ -1,5 +1,4 @@
-"""Discrete-time structural simulator (docs §7, decision L2).
-"""LEGACY prototype simulator (22 Nov 2026): kept for reference and its tests; the gated build path is mkt/sim/chain.py."""
+"""LEGACY prototype (22 Nov 2026; build path is mkt/sim/chain.py). Discrete-time structural simulator (docs §7, decision L2).
 
 One tick = one hour. Within a tick mechanisms run in a fixed order (a DAG); feedback flows
 only across ticks (inventory, ratings, restocks), so each tick is a well-defined SCM.
