@@ -29,4 +29,4 @@ window = ["2018-05-21T00:00", "2018-06-15T00:00"]
 identifiable = true
 symptoms = [["promised_days", "all"], ["late_delivered", "all"]]
 max_lag_h = 720
-notes = "Measured: promised days 20.1 -> 37.4; late share 16.0% -> 0.4%. A monitor praising 'improved fulfilment' is wrong: actual delivery days were flat."
+notes = "Measured (corrected 21 Nov, phase 2): promised days 20.1 -> 37.4 (week of 28 May); purchase-cohort late share 12.1% (14 May) -> 0.3% (28 May). In the strike weeks actual delivery days stayed ~11-12, so the late-share drop there is the longer promise; from mid-June delivery genuinely got faster (~8.3 days) while promises stayed above the pre-strike level, so later weeks have BOTH causes. A monitor crediting improved fulfilment for the late-May/early-June drop is wrong; for late June it is partly right."

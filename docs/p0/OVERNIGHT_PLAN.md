@@ -53,13 +53,13 @@ In the morning: `docs/p0/MORNING_REPORT.md`, plus the session handoff in your Op
 
 ## Phase 5: one intervention + counterfactual twin
 
-| | |
-|---|---|
-| **Builds** | Randomness keyed by (seed, mechanism, entity, event slot, tick); one intervention (carrier slowdown in one region); an evaluator-only oracle |
-| **Gates** | **S7** the known simulated effect is recovered, and results are unchanged under reordering, parallelism and changes to unrelated mechanisms · **S6** the oracle never appears in anything the reader can see |
-| **I decide myself** | Up to 3 fix attempts, as in phase 3 |
-| **STOPS if** | Still failing after 3 attempts |
-| **Ends with** | Commit "phase 5"; the first independent score of the stand-in reader on the scenario |
+|                     |                                                                                                                                                                                                              |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Builds**          | Randomness keyed by (seed, mechanism, entity, event slot, tick); one intervention (carrier slowdown in one region); an evaluator-only oracle                                                                 |
+| **Gates**           | **S7** the known simulated effect is recovered, and results are unchanged under reordering, parallelism and changes to unrelated mechanisms · **S6** the oracle never appears in anything the reader can see |
+| **I decide myself** | Up to 3 fix attempts, as in phase 3                                                                                                                                                                          |
+| **STOPS if**        | Still failing after 3 attempts                                                                                                                                                                               |
+| **Ends with**       | Commit "phase 5"; the first independent score of the stand-in reader on the scenario                                                                                                                         |
 
 ## After phase 5: P0 is done, and I STOP
 
