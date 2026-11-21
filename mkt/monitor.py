@@ -16,7 +16,7 @@ import polars as pl
 from .replay import Replayer
 
 HOURLY = [("order_created", None), ("order_created", "device"), ("checkout_error", None), ("checkout_error", "device"),
-          ("session_start", None), ("payment_settled", None)]
+          ("session_start", None), ("payment_approved", None)]
 Z = 4.0
 
 
@@ -58,7 +58,7 @@ def run(replayer: Replayer, warmup_days: int = 4) -> list[dict]:
         # daily quality metrics
         d = f.filter(pl.col("event_type") == "delivered").select("region", "value")
         day_acc["late"].append(d)
-        day_acc["score"].append(f.filter(pl.col("event_type") == "review_created").select("region", "value"))
+        day_acc["score"].append(f.filter(pl.col("event_type") == "review_submitted").select("region", "value"))
         day_acc["promise"].append(f.filter(pl.col("event_type") == "order_created").select("value"))
         if cur_day is None:
             cur_day = clock.date()

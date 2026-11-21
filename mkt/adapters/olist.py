@@ -65,28 +65,40 @@ def build(manifest: SourceManifest, out: pathlib.Path) -> dict:
 
 
 def build_events(out: pathlib.Path) -> int:
-    """Canonical observed events for the real-only replay track."""
+    """Canonical observed events for the real-only replay track.
+
+    Semantics follow docs/p0/PHASE1_SOURCE_SEMANTICS.md (gate S1):
+      order_created      purchase time; order-level amount; NO seller/product (orders can span sellers)
+      order_item         one per item at purchase time: seller, product, amount = price, value = freight
+      payment_approved   approval time; amount = sum of payment records (Olist has no settlement data)
+      handed_to_carrier  seller's handover to the logistics partner (can precede approval: data quirk)
+      delivered          customer delivery; value = days late vs the promise
+      survey_sent        Olist emails the satisfaction survey (date only)
+      review_submitted   the CUSTOMER answers the survey; value = score
+      order_status_snapshot  final status at the data cut (cancellation has no timestamp in the source)
+    """
     c = duckdb.connect()
     for t in ["orders", "order_items", "payments", "reviews", "sellers", "products"]:
         c.execute(f"create view {t} as select * from '{out}/{t}.parquet'")
-    # order-level category/seller: the first item's (orders with several sellers keep the first; flagged)
-    c.execute("""create view order_head as select o.*, i.seller_id, i.product_id, p.category,
-             (select sum(price+freight) from order_items x where x.order_id=o.order_id) amount,
-             date_diff('day', o.purchased_at, o.promised_at) promised_days
-             from orders o left join (select * from order_items where item_no=1) i using(order_id)
-             left join products p using(product_id)""")
-    base = "buyer_id, order_id, seller_id, product_id, buyer_region as region, category"
+    cut = c.execute("""select greatest(max(purchased_at), max(approved_at), max(shipped_at), max(delivered_at)) from orders""").fetchone()[0]
+    c.execute("""create view o2 as select o.*, date_diff('day', o.purchased_at, o.promised_at) promised_days,
+             (select sum(price + freight) from order_items x where x.order_id = o.order_id) items_amount,
+             (select sum(amount) from payments p where p.order_id = o.order_id) paid_amount from orders o""")
+    c.execute("""create view items_ev as select i.*, p.category, o.buyer_id, o.buyer_region, o.purchased_at
+             from order_items i join orders o using(order_id) left join products p using(product_id)""")
+    o_cols = "buyer_id, order_id, null::varchar seller_id, null::varchar product_id, buyer_region as region, null::varchar category"
     parts = [
-        f"select 'order_created' event_type, purchased_at event_time, {base}, amount, promised_days::double value from order_head",
-        f"select 'order_unavailable', purchased_at, {base}, amount, null from order_head where status in ('unavailable','canceled')",
-        f"select 'payment_approved', approved_at, {base}, amount, null from order_head where approved_at is not null",
-        f"""select 'payment_settled', approved_at, {base}, (select sum(amount) from payments p where p.order_id=order_head.order_id), null
-            from order_head where approved_at is not null""",
-        f"select 'shipped', shipped_at, {base}, null, null from order_head where shipped_at is not null",
-        f"""select 'delivered', delivered_at, {base}, null, date_diff('day', promised_at, delivered_at)::double
-            from order_head where delivered_at is not null""",
-        f"""select 'review_created', r.created_at, {base.replace('buyer_id','h.buyer_id').replace('order_id','h.order_id')}, null, r.score::double
-            from reviews r join order_head h using(order_id)""",
+        f"select 'order_created' event_type, purchased_at event_time, {o_cols}, items_amount amount, promised_days::double value, null::varchar metric from o2",
+        """select 'order_item', purchased_at, buyer_id, order_id, seller_id, product_id, buyer_region, category, price, freight, null from items_ev""",
+        f"select 'payment_approved', approved_at, {o_cols}, paid_amount, null, null from o2 where approved_at is not null",
+        f"select 'handed_to_carrier', shipped_at, {o_cols}, null, null, null from o2 where shipped_at is not null",
+        f"""select 'delivered', delivered_at, {o_cols}, null, date_diff('day', promised_at, delivered_at)::double, null
+            from o2 where delivered_at is not null""",
+        f"""select 'survey_sent', r.created_at, {o_cols.replace('buyer_id', 'h.buyer_id').replace('order_id', 'h.order_id')}, null, null, null
+            from reviews r join o2 h using(order_id)""",
+        f"""select 'review_submitted', r.answered_at, {o_cols.replace('buyer_id', 'h.buyer_id').replace('order_id', 'h.order_id')}, null, r.score::double, null
+            from reviews r join o2 h using(order_id) where r.answered_at is not null""",
+        f"select 'order_status_snapshot', timestamp '{cut}', {o_cols}, null, null, status from o2",
     ]
     df = c.sql(" union all ".join(parts)).pl()
     df = df.with_columns(

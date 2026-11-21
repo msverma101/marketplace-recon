@@ -28,17 +28,17 @@ def check_run(run: pathlib.Path) -> dict[str, tuple[bool, str]]:
     out["ids_rekeyed"] = (not shared, f"{len(shared)} buyer ids appear in both observable and truth")
 
     o = w.filter(pl.col("order_id").is_not_null() & pl.col("event_type").is_in(
-        ["order_created", "payment_approved", "shipped", "delivered"])).pivot(
+        ["order_created", "payment_approved", "handed_to_carrier", "delivered"])).pivot(
         on="event_type", index="order_id", values="event_time", aggregate_function="first")
-    cols = [c for c in ["order_created", "payment_approved", "shipped", "delivered"] if c in o.columns]
+    cols = [c for c in ["order_created", "payment_approved", "handed_to_carrier", "delivered"] if c in o.columns]
     viol = 0
     for a, b in zip(cols, cols[1:]):
         viol += o.filter(pl.col(a).is_not_null() & pl.col(b).is_not_null() & (pl.col(b) < pl.col(a))).height
     out["order_lifecycle_monotone"] = (viol == 0, f"{viol} order-step inversions")
 
-    amt = w.filter(pl.col("event_type").is_in(["order_created", "payment_settled"])).pivot(
+    amt = w.filter(pl.col("event_type").is_in(["order_created", "payment_approved"])).pivot(
         on="event_type", index="order_id", values="amount", aggregate_function="first").drop_nulls()
-    mism = amt.filter((pl.col("order_created") - pl.col("payment_settled")).abs() > 0.01).height if amt.height else 0
+    mism = amt.filter((pl.col("order_created") - pl.col("payment_approved")).abs() > 0.01).height if amt.height else 0
     out["payments_reconcile"] = (mism == 0, f"{mism} of {amt.height} orders: payment != price + freight")
 
     dup = w.group_by("event_id").len().filter(pl.col("len") > 1).height

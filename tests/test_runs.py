@@ -77,6 +77,6 @@ def test_fidelity_against_heldout_olist(cfg, params, world):
     # documented tolerance: the 2017 fit is slower than 2018 (README 'Known fidelity gaps')
     assert abs(days.median() - hold["delivery_days_q"][2]) / hold["delivery_days_q"][2] < 0.35
     assert 0.5 * hold["late_share"] < (late > 0).mean() < 2.0 * hold["late_share"]
-    rv = r.events.filter(pl.col("event_type") == "review_created")["value"].mean()
+    rv = r.events.filter(pl.col("event_type") == "review_submitted")["value"].mean()
     real = sum(v["mean"] * v["n"] for v in hold["score_by_bucket"].values()) / sum(v["n"] for v in hold["score_by_bucket"].values())
     assert abs(rv - real) < 0.3

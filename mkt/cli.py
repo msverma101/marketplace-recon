@@ -24,6 +24,17 @@ def cmd_source(a, cfg):
         _p([{"ns": m.ns, "version": m.version, "licence": m.licence, "path": m.path} for m in registry.list_sources(cfg.artifacts)])
 
 
+def cmd_semantics(a, cfg):
+    from . import registry, semantics
+    src = pathlib.Path(registry.load("olist", cfg.artifacts).path)
+    res = semantics.audit(src)
+    out = pathlib.Path("docs/p0"); out.mkdir(parents=True, exist_ok=True)
+    (out / "phase1_semantics.json").write_text(json.dumps(res, indent=1, default=str))
+    (out / "PHASE1_SOURCE_SEMANTICS.md").write_text(semantics.report_md(res))
+    _p({"gates": res["gates"], "report": str(out / "PHASE1_SOURCE_SEMANTICS.md")})
+    return 0 if all(v == "PASS" for v in res["gates"].values()) else 1
+
+
 def cmd_ingest(a, cfg):
     from . import pipeline
     p = pipeline.canonical_olist(cfg, force=a.force)
@@ -137,6 +148,7 @@ def main(argv: list[str] | None = None) -> int:
     s = sub.add_parser("source", help="register or list raw sources")
     s.add_argument("action", choices=["add", "list"]); s.add_argument("ns", nargs="?"); s.add_argument("--path")
     s.set_defaults(fn=cmd_source)
+    s = sub.add_parser("semantics", help="phase-1 Olist field dictionary + gates S1/S2"); s.set_defaults(fn=cmd_semantics)
     s = sub.add_parser("ingest", help="build canonical Olist tables + events"); s.add_argument("--force", action="store_true"); s.set_defaults(fn=cmd_ingest)
     s = sub.add_parser("profile", help="profile canonical tables"); s.set_defaults(fn=cmd_profile)
     s = sub.add_parser("fit", help="calibrate mechanisms (with held-out stats)"); s.add_argument("--force", action="store_true"); s.set_defaults(fn=cmd_fit)

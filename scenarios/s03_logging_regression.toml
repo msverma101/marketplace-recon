@@ -26,4 +26,4 @@ window = ["2018-03-14T00:00", "2018-03-16T00:00"]
 identifiable = true
 symptoms = [["order_created", "all"]]
 max_lag_h = 3
-notes = "World is unchanged (zero factual-twin effect). payment_settled (finance stream) still shows full volume: reconciliation separates logging failure from a demand drop."
+notes = "World is unchanged (zero factual-twin effect). payment_approved (payments stream) still shows full volume: reconciliation separates logging failure from a demand drop."

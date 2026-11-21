@@ -318,11 +318,11 @@ def _orders(ev, order_truth, world: World, sched: Schedule, won, n_orders, offer
         ev.add(etype, t[i], **{c: v[i] for c, v in common.items()}, **{c: (v[i] if not np.isscalar(v) else v) for c, v in extra.items()})
 
     emit("order_created", t_order, amount=amount, value=pdays)
+    emit("order_item", t_order, amount=price, value=world.offer_freight[off])
     emit("payment_approved", approved, amount=amount)
-    emit("payment_settled", approved + 60_000_000, amount=amount)
-    emit("shipped", shipped)
+    emit("handed_to_carrier", shipped)
     emit("delivered", delivered, value=late_days)
-    emit("review_created", rtime, mask=reviewed, value=score)
+    emit("review_submitted", rtime, mask=reviewed, value=score)
     due = reviewed & (rtime < end_us)
     tick_of = (rtime[due] - start_us) // H
     for kk in np.unique(tick_of):

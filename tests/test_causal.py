@@ -64,7 +64,7 @@ def test_observation_intervention_leaves_world_untouched(world):
     real = _cnt(plain, "order_created", window=w)
     assert 0.35 * real < seen < 0.65 * real
     # finance stream is unaffected: reconciliation evidence survives
-    assert _cnt(obs.unique("event_id"), "payment_settled", window=w) == _cnt(plain, "payment_settled", window=w)
+    assert _cnt(obs.unique("event_id"), "payment_approved", window=w) == _cnt(plain, "payment_approved", window=w)
 
 
 def test_carrier_slowdown_raises_lateness_and_lowers_scores(world):
@@ -72,7 +72,10 @@ def test_carrier_slowdown_raises_lateness_and_lowers_scores(world):
                       selector="region in ['SP', 'RJ', 'MG']", window=(datetime(2018, 3, 1), datetime(2018, 3, 8)))
     twin = simulate(world, START, 40)
     fact = simulate(world, START, 40, [iv])
-    late = lambda r: (r.orders["late_days_true"] > 0).mean()
-    assert late(fact) > late(twin) + 0.05
-    score = lambda r: r.events.filter(pl.col("event_type") == "review_created")["value"].mean()
+    # measure where the cause acts: orders whose shipment got the slower carrier (diluted otherwise)
+    hit = fact.orders.filter(pl.col("transit_multiplier") > 1)
+    assert hit.height > 50
+    assert (hit["late_days_true"] > 0).mean() > (twin.orders["late_days_true"] > 0).mean() + 0.15
+    assert twin.orders["transit_multiplier"].max() == 1.0      # the twin never sees the intervention
+    score = lambda r: r.events.filter(pl.col("event_type") == "review_submitted")["value"].mean()
     assert score(fact) < score(twin)
