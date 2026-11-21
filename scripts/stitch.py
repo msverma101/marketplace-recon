@@ -612,7 +612,19 @@ def run(args) -> int:
     return rc
 
 
+SUPERSEDED = """scripts/stitch.py is SUPERSEDED (22 Nov 2026) and refuses to run.
+It predates the dataset audit and the adopted architecture: it reads ~/.cache/mkt-probe, uses Amazon-M2
+(dropped; Taobao now backs sessions), takes position effects from Open Bandit (no position effect measured;
+Expedia random-order replaces it) and writes no transport cards or trained_through dates.
+Per ARCHITECTURE.md §13.0 phase 7, transferred sources are added one at a time with a transport card and a
+held-out gain. Set MKT_ALLOW_OLD_STITCH=1 to run the old plan-only mode anyway."""
+
+
 def main(argv=None) -> int:
+    import os
+    if os.environ.get("MKT_ALLOW_OLD_STITCH") != "1":
+        print(SUPERSEDED, file=sys.stderr)
+        return 3
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("command", choices=["plan", "run"])
     ap.add_argument("--data", default=str(DEFAULT_DATA), help="raw data root (default: %(default)s)")
