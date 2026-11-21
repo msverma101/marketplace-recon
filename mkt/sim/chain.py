@@ -20,6 +20,7 @@ import polars as pl
 from scipy.special import ndtri
 
 QS = np.linspace(0.0, 1.0, 201)
+EPOCH = date(2017, 1, 1)     # origin of global day indices for keyed randomness
 BUCKETS = ["on_time", "late_1_3", "late_4_10", "late_gt10", "undelivered"]
 H = 3600.0
 
@@ -192,13 +193,17 @@ def simulate(p: ChainParams, start: date, end: date, seed: int = 1, cut: datetim
     for d in range(days):
         day = start + timedelta(days=d)
         lam_day = max(p.level_a + p.level_b * (day - date(2018, 1, 1)).days, 0.0) * 7 * p.dow[day.isoweekday() - 1]
-        g = np.random.Generator(np.random.Philox(key=int(_key(seed, "arrivals")), counter=[d, 0, 0, 0]))
+        gday = (day - EPOCH).days                                          # global day index: independent of the run's start
+        g = np.random.Generator(np.random.Philox(key=int(_key(seed, "arrivals")), counter=[gday, 0, 0, 0]))
         gen_counts.append(g.poisson(lam_day * np.array(p.hour)))
     counts = np.array(gen_counts)                                   # days x 24
     n = int(counts.sum())
-    idx = np.arange(n, dtype=np.int64)                              # order index: stable (arrivals don't depend on outcomes)
     day_i = np.repeat(np.repeat(np.arange(days), 24), counts.ravel())
     hour_i = np.repeat(np.tile(np.arange(24), days), counts.ravel())
+    # GLOBAL order key = (global day, hour, k-th order in that hour): identical whether the run is split, chunked or extended
+    within = np.concatenate([np.arange(c) for c in counts.ravel()]) if n else np.zeros(0, np.int64)
+    gday0 = (start - EPOCH).days
+    idx = (((gday0 + day_i).astype(np.int64) * 24 + hour_i) * 100_000 + within).astype(np.int64)
     t0 = datetime.combine(start, datetime.min.time())
     purchase_s = day_i * 86400.0 + hour_i * H + uniform(seed, "minute", idx) * H
     reg = np.array(p.buyer_regions)[np.searchsorted(np.array(p.buyer_cum) / p.buyer_cum[-1], uniform(seed, "region", idx))]

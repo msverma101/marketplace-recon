@@ -1,6 +1,6 @@
 # Phase 3: minimal simulated chain (demand → orders → fulfilment → survey/review)
 
-**Gate S5 (realism): PASS on the preregistered seed, 10/10 (attempt 2 of 3).** **Fragile:** seeds 2–5 pass 8–9 of 10.
+**Gate S5 (realism), FINAL after the phase-5 key fix: 9/10 on the preregistered seed. F2 (weekday share) misses by 0.0005 on every seed; accepted as a documented exception (decision #6 in `STRATEGY_CHANGES.md`).** Before the key fix it was 10/10 on seed 1, but that was partly luck from run-relative random keys.
 **Gate S3 (no look-ahead in fitting): PASS.** Everything is fitted on 2017 (`trained_through` 2017-12-31), and the simulator refuses to start earlier (tested).
 
 Tolerances were preregistered and committed **before** building or measuring (`PHASE3_TOLERANCES.md`, commit `2b759c4`).
@@ -45,3 +45,15 @@ Tolerances were preregistered and committed **before** building or measuring (`P
 ## Mechanisms (all class "fitted on Olist", no transferred data)
 Demand trend (Theil–Sen over 2017 weekly medians) × weekday × hour · buyer state · seller depending on buyer state · seller handling time (partial pooling) · approval delay · transit by destination with a fitted 2017 drift · promise by destination · delivery probability · survey sent at min(delivery, promise) · answer lag · score depending on 7 lateness bins.
 Randomness is keyed by (seed, mechanism, order index); tests show earlier orders are unchanged when the horizon grows.
+
+## Re-measurement after global randomness keys (phase 5, decision #5/#6)
+
+| Seed | Passes | Failing |
+|---|---|---|
+| 1 (preregistered) | 9/10 | F2 (max diff 0.0205 vs 0.02) |
+| 2 | 9/10 | F2 |
+| 3 | 9/10 | F2 |
+| 4 | 9/10 | F2 |
+| 5 | 8/10 | F2, F6 |
+
+F2 is now a **consistent** miss: Fridays are 15.4% of simulated orders vs 13.4% real. 2017's weekday pattern differs slightly from 2018's. All other checks pass on every seed except one F6 miss (seed 5). Results: `phase3_fidelity_attempt2-global-key.json`.
