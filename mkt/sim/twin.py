@@ -15,12 +15,14 @@ import polars as pl
 from ..interventions import parse_selector
 from ..v3 import FailureCode, InterventionEvent, InterventionSpec
 from .chain import ChainParams, simulate
-from .observe_chain import EmulatorPort, ObservationModel, observe
+from .chain import uniform
+from .observe_chain import EmulatorPort, ObservationModel, SessionEmulatorPort, observe
 
 EVENT_TYPES = {"order_created", "payment_approved", "handed_to_carrier", "delivered", "survey_sent", "review_submitted"}
 ALLOWED = {
     "carrier.transit_multiplier": {"layer": "world", "operators": {"scale"}, "bounds": (0.5, 5.0), "selector_keys": {"region"}},
     "demand.multiplier": {"layer": "world", "operators": {"scale"}, "bounds": (0.2, 3.0), "selector_keys": set()},
+    "checkout.failure_rate": {"layer": "world", "operators": {"set"}, "bounds": (0.0, 0.9), "selector_keys": set()},
     "logging.drop_rate": {"layer": "observation", "operators": {"set"}, "bounds": (0.0, 0.9), "selector_keys": {"event_type"}},
 }
 
@@ -68,6 +70,8 @@ def gateway(spec: InterventionSpec, regions: set[str], horizon: tuple[datetime, 
     if spec.target == "demand.multiplier":
         d0, d1 = spec.window_start.date(), spec.window_end.date()
         return ok, {"kind": "demand", "fn": lambda day: factor if d0 <= day < d1 else 1.0}
+    if spec.target == "checkout.failure_rate":
+        return ok, {"kind": "checkout_fail", "rate": factor, "w0": w0, "w1": w1}
     etypes = [v for _, _, vals in clauses for v in vals] or sorted(EVENT_TYPES)
     return ok, {"kind": "drop", "drops": [(e, spec.window_start, spec.window_end, factor) for e in etypes]}
 
@@ -81,18 +85,22 @@ class Truth:
     per_order: pl.DataFrame | None = None                # only for paired world interventions on fulfilment
     effect_late_share_affected: float = 0.0
     effect_late_share_region_weeks: dict[str, float] = field(default_factory=dict)
+    sessions_factual: tuple | None = None                # (sessions, views) world frames, evaluator-only
+    sessions_twin: tuple | None = None
 
     @property
     def spec(self) -> InterventionSpec:                  # backwards compatible (single intervention)
         return self.specs[0]
 
 
-def run(params: ChainParams, start: date, end: date, seed: int, specs, om: ObservationModel = ObservationModel()):
-    """specs: None, one InterventionSpec, or a list. Returns (events, factual, twin, port, truth)."""
+def run(params: ChainParams, start: date, end: date, seed: int, specs, om: ObservationModel = ObservationModel(), session_params=None):
+    """specs: None, one InterventionSpec, or a list. Returns (events, factual, twin, port, truth).
+    session_params: if given, the P1-2 session layer wraps the chain and the port serves funnel metrics;
+    truth.sessions_factual / sessions_twin then hold the world-level sessions (evaluator-only)."""
     specs = [] if specs is None else ([specs] if isinstance(specs, InterventionSpec) else list(specs))
     horizon = (datetime.combine(start, datetime.min.time()), datetime.combine(end, datetime.min.time()))
     regions = set(params.buyer_regions)
-    events, transit, demand, drops = [], None, None, []
+    events, transit, demand, drops, cfail = [], None, None, [], None
     for sp in specs:
         ev, eff = gateway(sp, regions, horizon)
         events.append(ev)
@@ -102,17 +110,36 @@ def run(params: ChainParams, start: date, end: date, seed: int, specs, om: Obser
             transit = eff["fn"]
         elif eff["kind"] == "demand":
             demand = eff["fn"]
+        elif eff["kind"] == "checkout_fail":
+            cfail = eff
         else:
             drops += eff["drops"]
-    factual = simulate(params, start, end, seed=seed, transit_multiplier=transit, demand_multiplier=demand)
+    reached = simulate(params, start, end, seed=seed, transit_multiplier=transit, demand_multiplier=demand)   # orders that reached checkout
     twin = simulate(params, start, end, seed=seed)
-    port = EmulatorPort(observe(factual, om, seed=seed, drops=drops), params, om, horizon[0], seed)
+    failed = np.zeros(reached.height, bool)
+    if cfail is not None:
+        pu = reached["purchased_at"].cast(pl.Int64).to_numpy()
+        failed = (pu >= cfail["w0"]) & (pu < cfail["w1"]) & (uniform(seed, "checkout:fail", reached["order_idx"].to_numpy()) < cfail["rate"])
+    factual = reached.filter(pl.Series(~failed))
+    observed = observe(factual, om, seed=seed, drops=drops)
+    sess_f = sess_t = None
+    if session_params is not None:
+        from .sessions import build, observe_sessions
+        sess_f = build(reached, session_params, params, start, end, seed, failed=failed, demand_multiplier=demand)
+        sess_t = build(twin, session_params, params, start, end, seed)
+        observed = pl.concat([observed, observe_sessions(*sess_f, seed=seed, web_delay_median_s=om.web_delay_median_s)],
+                             how="diagonal_relaxed").sort("available_at")
+        port = SessionEmulatorPort(observed, params, om, horizon[0], seed, session_params)
+    else:
+        port = EmulatorPort(observed, params, om, horizon[0], seed)
     executed = [sp for sp, ev in zip(specs, events) if ev.status == "executed"]
     if not executed:
-        return (events[0] if len(events) == 1 else events), factual, twin, port, None
+        return (events[0] if len(events) == 1 else events), factual, twin, port, (
+            Truth(specs=[], causes=[], world_changed=False, sessions_factual=sess_f, sessions_twin=sess_t) if sess_f else None)
     truth = Truth(specs=executed, world_changed=not factual.equals(twin),
                   causes=[{"target": sp.target, "layer": ALLOWED[sp.target]["layer"], "scope": sp.scope, "value": sp.value,
-                           "window_start": sp.window_start.isoformat(), "window_end": sp.window_end.isoformat()} for sp in executed])
+                           "window_start": sp.window_start.isoformat(), "window_end": sp.window_end.isoformat()} for sp in executed],
+                  sessions_factual=sess_f, sessions_twin=sess_t)
     if transit is not None and factual.height == twin.height:
         late = lambda w: ((w["delivered_at"].dt.truncate("1d") - w["promised_at"]).dt.total_days() > 0)
         po = pl.DataFrame({"order_idx": factual["order_idx"], "region": factual["buyer_region"],

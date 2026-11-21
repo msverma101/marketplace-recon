@@ -53,6 +53,17 @@ METRICS = [
                      formula="mean(review_score)", grain=["week", "month"], population="surveys answered within the window"),
 ]
 METRIC_BY_ID = {m.id: m for m in METRICS}
+# Session-layer metrics (served only by ports whose frame has session events). Funnel order is declared
+# through identities "funnel_after: <previous stage>" (provisional notation, see P1_2_SESSION_LAYER_PREREG.md).
+SESSION_METRICS = [
+    MetricDefinition(id="sessions_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(session_started)",
+                     grain=["day", "week", "month"], population="all sessions (buying, research, non-buying)"),
+    MetricDefinition(id="cart_adds_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(cart_added)",
+                     grain=["day", "week", "month"], population="sessions with a cart add", empirical_identities=["funnel_after: sessions_count"]),
+    MetricDefinition(id="checkouts_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(checkout_started)",
+                     grain=["day", "week", "month"], population="sessions that started checkout", empirical_identities=["funnel_after: cart_adds_count"]),
+]
+SESSION_EVENT = {"sessions_count": "session_started", "cart_adds_count": "cart_added", "checkouts_count": "checkout_started"}
 TRUNC = {"day": "1d", "week": "1w", "month": "1mo"}
 
 
@@ -77,13 +88,15 @@ class EventFramePort:
         self.trained_through = trained_through
 
     # -------------------------------------------------------------------------------------------
+    metrics: list = METRICS
+
     def variables(self) -> list[VariableDefinition]:
         out = [VariableDefinition(id=k, kind=v[1], value_schema=v[2], scope="orders", description=f"Olist {v[0]} event")
                for k, v in EVENT_VARS.items()]
-        return out + METRICS
+        return out + list(self.metrics)
 
     def capabilities(self) -> CapabilitySpec:
-        shapes = {k: ["event_sequence"] for k in EVENT_VARS} | {m.id: ["series", "aggregate"] for m in METRICS}
+        shapes = {k: ["event_sequence"] for k in EVENT_VARS} | {m.id: ["series", "aggregate"] for m in self.metrics}
         return CapabilitySpec(
             source_id=self.source_id, environment_id=self.env.id, variables=list(shapes), accepted_shapes=shapes,
             supported_requests=["query"], required_metadata=["as_of"],
@@ -150,12 +163,14 @@ class EventFramePort:
         return EvidenceResult(observations=[obs], evidence=[ev])
 
     def _metric(self, req, vis, flags):
-        m = METRIC_BY_ID[req.variable_id]
+        m = {x.id: x for x in self.metrics}[req.variable_id]
         grain = req.grain or "week"
         if req.shape == "series" and grain not in m.grain:
             return Refusal(code=FailureCode.UNSUPPORTED_SHAPE, reason=f"{m.id} grains are {m.grain}")
         placed = self._window(vis.filter(pl.col("event_type") == "order_created"), req)
-        if m.id == "orders_count":
+        if m.id in SESSION_EVENT:
+            base, val = self._window(vis.filter(pl.col("event_type") == SESSION_EVENT[m.id]), req), pl.len()
+        elif m.id == "orders_count":
             base, val = placed, pl.len()
         elif m.id == "payments_count":
             base, val = self._window(vis.filter(pl.col("event_type") == "payment_approved"), req), pl.len()

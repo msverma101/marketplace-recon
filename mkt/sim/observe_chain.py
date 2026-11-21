@@ -142,3 +142,22 @@ class EmulatorPort(EventFramePort):
         if tt >= sim_start:
             raise ValueError("gate S3: mechanisms trained through a date at/after the simulation start")
         super().__init__(observed, env, root, event_rows_max, trained_through=tt)
+
+
+class SessionEmulatorPort(EmulatorPort):
+    """Emulator port whose frame also holds session-layer events; serves the funnel metrics.
+    Transferred shapes are referenced by transport-card id and status in the environment scope."""
+    def __init__(self, observed, params, om, sim_start, seed, session_params, event_rows_max: int = 200_000):
+        from ..replay_port import METRICS, SESSION_METRICS
+        orders = next(m for m in METRICS if m.id == "orders_count")
+        orders = orders.model_copy(update={"empirical_identities": orders.empirical_identities + ["funnel_after: checkouts_count"]})
+        self.metrics = [orders if m.id == "orders_count" else m for m in METRICS] + SESSION_METRICS
+        super().__init__(observed, params, om, sim_start, seed, event_rows_max)
+        sp = session_params
+        tt = datetime.fromisoformat(sp.trained_through)
+        if tt >= sim_start:
+            raise ValueError("gate S3: a session card was trained through a date at/after the simulation start")
+        self.env = self.env.model_copy(update={
+            "mechanism_versions": self.env.mechanism_versions | {f"card:{k}": v for k, v in sp.cards.items()},
+            "assumptions": self.env.assumptions + ["session shapes transferred (see transport cards); levels anchored to the chain",
+                                                   "A-13 checkout lead 1-10 min (assumed)", "A-14 non-buying visit length (assumed)"]})

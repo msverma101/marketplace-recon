@@ -182,6 +182,12 @@ def fit(canon, trained_through: date = date(2017, 12, 31)) -> ChainParams:
 
 
 # ------------------------------------------------------------------ simulation
+def daily_rate(p: ChainParams, day: date, demand_multiplier=None) -> float:
+    """Expected orders on a day (trend x weekday share), times an optional demand multiplier. Shared with the session layer."""
+    lam = max(p.level_a + p.level_b * (day - date(2018, 1, 1)).days, 0.0) * 7 * p.dow[day.isoweekday() - 1]
+    return lam * (demand_multiplier(day) if demand_multiplier is not None else 1.0)
+
+
 def simulate(p: ChainParams, start: date, end: date, seed: int = 1, cut: datetime = datetime(2018, 10, 17, 23, 59),
              transit_multiplier=None, demand_multiplier=None) -> pl.DataFrame:
     """Orders purchased in [start, end) and their fulfilment/survey outcomes, events after `cut` censored.
@@ -192,9 +198,7 @@ def simulate(p: ChainParams, start: date, end: date, seed: int = 1, cut: datetim
     gen_counts = []
     for d in range(days):
         day = start + timedelta(days=d)
-        lam_day = max(p.level_a + p.level_b * (day - date(2018, 1, 1)).days, 0.0) * 7 * p.dow[day.isoweekday() - 1]
-        if demand_multiplier is not None:
-            lam_day *= demand_multiplier(day)
+        lam_day = daily_rate(p, day, demand_multiplier)
         gday = (day - EPOCH).days                                          # global day index: independent of the run's start
         g = np.random.Generator(np.random.Philox(key=int(_key(seed, "arrivals")), counter=[gday, 0, 0, 0]))
         gen_counts.append(g.poisson(lam_day * np.array(p.hour)))

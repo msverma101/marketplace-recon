@@ -49,8 +49,8 @@ def rr1(c) -> dict:
     nb, b = ~buy, buy
 
     def pmf(x):
-        x = np.minimum(x, 50)
-        return (np.bincount(x, minlength=51) / len(x)).tolist()
+        x = np.minimum(x, 1000)                       # cap far in the tail: the mean must survive (F1)
+        return (np.bincount(x) / len(x)).tolist()
 
     half = t0 < np.median(t0)
     est = {"views_mean_buying": float(views[b].mean()), "views_mean_nonbuying": float(views[nb].mean()),
