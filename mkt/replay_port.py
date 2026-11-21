@@ -31,7 +31,11 @@ EVENT_VARS = {   # variable id -> (canonical event_type, kind, value schema, mis
 }
 METRICS = [
     MetricDefinition(id="orders_count", value_schema={"value": "int"}, unit="orders", scope="orders", formula="count(order_placed)",
-                     grain=["day", "week", "month"], population="all orders"),
+                     grain=["day", "week", "month"], population="all orders",
+                     empirical_identities=["orders_count ~ payments_count (each order is paid once; Olist: 1 of 99,441 without payment)"]),
+    MetricDefinition(id="payments_count", value_schema={"value": "int"}, unit="orders", scope="orders", formula="count(payment_approved)",
+                     grain=["day", "week", "month"], population="orders with an approved payment (by approval time)",
+                     empirical_identities=["payments_count ~ orders_count"]),
     MetricDefinition(id="gmv", value_schema={"value": "float"}, unit="BRL", scope="orders", formula="sum(order_placed.amount)",
                      grain=["day", "week", "month"], population="all orders", empirical_identities=["gmv = sum(item_sold.price + item_sold.freight)"]),
     MetricDefinition(id="late_share", value_schema={"value": "float"}, unit="share", scope="delivered orders",
@@ -153,6 +157,8 @@ class EventFramePort:
         placed = self._window(vis.filter(pl.col("event_type") == "order_created"), req)
         if m.id == "orders_count":
             base, val = placed, pl.len()
+        elif m.id == "payments_count":
+            base, val = self._window(vis.filter(pl.col("event_type") == "payment_approved"), req), pl.len()
         elif m.id == "gmv":
             base, val = placed, pl.col("amount").sum()
         elif m.id == "mean_promised_days":

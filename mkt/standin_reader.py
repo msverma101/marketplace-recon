@@ -115,3 +115,67 @@ def localise_change(port: EvidenceAccessPort, metric: str, filters: dict[str, st
     sd = max(1.4826 * median([abs(v - mu) for v in vals]), 1e-9)
     flagged = {t: v - mu for t, v in pts if (v - mu) / sd >= z_threshold}
     return {"flagged": flagged, "baseline": mu, "cited": [r.observations[0].id], "certainty": "observational association"}
+
+
+class Diagnosis(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    metric: str
+    classification: str              # "measurement_suspected" | "real_change" | "no_change" | "undetermined"
+    periods: list[str]
+    rationale: str
+    cited_observations: list[str]
+
+
+def _weekly(port, var, start, end, as_of):
+    r = port.query(EvidenceRequest(variable_id=var, shape="series", grain="week", as_of=as_of, window_start=start, window_end=end))
+    if isinstance(r, Refusal):
+        return None, {}
+    return r.observations[0].id, {p["t"][:10]: p["value"] for p in r.observations[0].payload if p["value"] is not None}
+
+
+def _robust_z(series: dict) -> dict:
+    vals = list(series.values())
+    mu = median(vals)
+    sd = max(1.4826 * median([abs(v - mu) for v in vals]), 1e-9)
+    return {t: (v - mu) / sd for t, v in series.items()}
+
+
+def diagnose_change(port: EvidenceAccessPort, metric: str, start: datetime, end: datetime, as_of: datetime,
+                    z_flag: float = 3.0, z_quiet: float = 2.0) -> Diagnosis:
+    """Is a change in `metric` real, or a measurement problem? Uses only declared empirical identities
+    (MetricDefinition.empirical_identities, 'a ~ b'): if the metric moves but its identity partners do not,
+    the identity is broken -> measurement suspected; if partners move the same way -> real change; else abstain."""
+    defs = {v.id: v for v in port.variables()}
+    oid, series = _weekly(port, metric, start, end, as_of)
+    if not series:
+        return Diagnosis(metric=metric, classification="undetermined", periods=[], rationale="no data", cited_observations=[])
+    z = _robust_z(series)
+    flagged = [t for t, v in z.items() if abs(v) >= z_flag]
+    if not flagged:
+        return Diagnosis(metric=metric, classification="no_change", periods=[], rationale="no period beyond the robust threshold",
+                         cited_observations=[oid])
+    partners = []
+    for ident in getattr(defs.get(metric), "empirical_identities", []) or []:
+        lhs, _, rest = ident.partition("~")
+        cand = rest.strip().split(" ")[0]
+        if lhs.strip() == metric and cand in defs:
+            partners.append(cand)
+    if not partners:
+        return Diagnosis(metric=metric, classification="undetermined", periods=flagged,
+                         rationale="change found, but no declared identity to cross-check it against", cited_observations=[oid])
+    cited, votes = [oid], []
+    for pt in partners:
+        poid, ps = _weekly(port, pt, start, end, as_of)
+        cited.append(poid)
+        pz = _robust_z(ps) if ps else {}
+        for t in flagged:
+            same_dir = t in pz and abs(pz[t]) >= z_flag and (pz[t] > 0) == (z[t] > 0)
+            quiet = t in pz and abs(pz[t]) < z_quiet
+            votes.append("real" if same_dir else "measurement" if quiet else "unclear")
+    if votes and all(v == "measurement" for v in votes):
+        cls, why = "measurement_suspected", f"{metric} moved but its identity partner(s) {partners} did not: the identity is broken"
+    elif votes and all(v == "real" for v in votes):
+        cls, why = "real_change", f"{metric} and its identity partner(s) {partners} moved together"
+    else:
+        cls, why = "undetermined", f"identity partners gave mixed evidence ({votes}): abstaining"
+    return Diagnosis(metric=metric, classification=cls, periods=flagged, rationale=why, cited_observations=[c for c in cited if c])

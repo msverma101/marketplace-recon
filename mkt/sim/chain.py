@@ -183,7 +183,7 @@ def fit(canon, trained_through: date = date(2017, 12, 31)) -> ChainParams:
 
 # ------------------------------------------------------------------ simulation
 def simulate(p: ChainParams, start: date, end: date, seed: int = 1, cut: datetime = datetime(2018, 10, 17, 23, 59),
-             transit_multiplier=None) -> pl.DataFrame:
+             transit_multiplier=None, demand_multiplier=None) -> pl.DataFrame:
     """Orders purchased in [start, end) and their fulfilment/survey outcomes, events after `cut` censored.
     transit_multiplier: optional callable(order_frame) -> array, the phase-5 intervention hook."""
     if start <= p.trained_through:
@@ -193,6 +193,8 @@ def simulate(p: ChainParams, start: date, end: date, seed: int = 1, cut: datetim
     for d in range(days):
         day = start + timedelta(days=d)
         lam_day = max(p.level_a + p.level_b * (day - date(2018, 1, 1)).days, 0.0) * 7 * p.dow[day.isoweekday() - 1]
+        if demand_multiplier is not None:
+            lam_day *= demand_multiplier(day)
         gday = (day - EPOCH).days                                          # global day index: independent of the run's start
         g = np.random.Generator(np.random.Philox(key=int(_key(seed, "arrivals")), counter=[gday, 0, 0, 0]))
         gen_counts.append(g.poisson(lam_day * np.array(p.hour)))

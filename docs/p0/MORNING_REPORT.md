@@ -51,3 +51,25 @@ cd ~/marketplace-recon && git log --oneline main..p0/phase1-source-semantics
 
 ## After P0 (what I continue with overnight, per "don't wait on me")
 See the section appended below, if any work happened after this report was first written.
+
+---
+
+## After P0: P1 item 1, the look-alike pair (decision #7)
+
+**Why:** P0's score was an easy detection case. This tests **reasoning**: two causes that look identical on the orders chart.
+- **8a logging failure:** 40% of order records missing from the web log for one week; real orders and payments unaffected.
+- **8b real demand drop:** 40% fewer real orders that week.
+
+**How the reader tells them apart (domain-agnostic):** metric definitions now declare an **empirical identity** (`orders_count ~ payments_count`). The reader checks whether a changed metric's declared partner moved too: partner quiet means the identity is broken, so measurement is suspected; partner moved the same way means a real change; mixed evidence means it abstains. It knows no domain words (tested).
+
+**Result (5 seeds each; not a gate; no tuning of the reader):**
+
+| Scenario | Correct | Notes |
+|---|---|---|
+| 8a logging failure | 4/5 | 1 honest abstention ("undetermined") |
+| 8b real demand drop | 5/5 | |
+| Control (no intervention) | 4/5 | 1 false "real change" (seed 31, mid-March): the stand-in's baseline ignores the growth trend; a known reader limit |
+
+**Mechanics tested** (`tests/test_p1_lookalike.py`): a logging failure leaves the world bit-identical to the twin, and the identity partner is untouched. A demand drop changes the world only inside its window (everything before it is identical, thanks to the global keys). Both new levers are guarded by the gateway (wrong selector, unknown event type, out-of-bounds values, wrong operator).
+
+Tests: **61, all green.**

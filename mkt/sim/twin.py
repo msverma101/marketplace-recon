@@ -1,11 +1,12 @@
-"""Phase 5: action gateway, one intervention, counterfactual twin, evaluator-only oracle.
+"""Phase 5 (+P1 look-alike scenarios): action gateway, interventions, counterfactual twin, evaluator-only oracle.
 
-The oracle (true per-order and aggregate effects) is returned in a separate `Truth` object and is
-never given to the EmulatorPort; the reader only ever sees the port (gate S6).
+The oracle (`Truth`) is returned separately and is never given to the EmulatorPort; the reader only
+ever sees the port (gate S6). World interventions change the simulated marketplace; observation
+interventions change only what is logged (the twin's world equals the factual world).
 """
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date, datetime
 
 import numpy as np
@@ -16,13 +17,16 @@ from ..v3 import FailureCode, InterventionEvent, InterventionSpec
 from .chain import ChainParams, simulate
 from .observe_chain import EmulatorPort, ObservationModel, observe
 
+EVENT_TYPES = {"order_created", "payment_approved", "handed_to_carrier", "delivered", "survey_sent", "review_submitted"}
 ALLOWED = {
-    "carrier.transit_multiplier": {"operators": {"scale"}, "bounds": (0.5, 5.0), "selector_keys": {"region"}},
+    "carrier.transit_multiplier": {"layer": "world", "operators": {"scale"}, "bounds": (0.5, 5.0), "selector_keys": {"region"}},
+    "demand.multiplier": {"layer": "world", "operators": {"scale"}, "bounds": (0.2, 3.0), "selector_keys": set()},
+    "logging.drop_rate": {"layer": "observation", "operators": {"set"}, "bounds": (0.0, 0.9), "selector_keys": {"event_type"}},
 }
 
 
 def gateway(spec: InterventionSpec, regions: set[str], horizon: tuple[datetime, datetime]):
-    """Validate against the allowlist; return (InterventionEvent, transit_multiplier callable | None)."""
+    """Validate against the allowlist; return (InterventionEvent, effect dict | None)."""
     def reject(code: FailureCode, why: str):
         return InterventionEvent(spec_id=spec.id, status="rejected", at=spec.window_start, failure_code=code.value, reason=why), None
 
@@ -38,50 +42,78 @@ def gateway(spec: InterventionSpec, regions: set[str], horizon: tuple[datetime, 
         clauses = parse_selector(spec.scope)
     except ValueError as e:
         return reject(FailureCode.UNSUPPORTED_REQUEST, str(e))
+    known = {"region": regions, "event_type": EVENT_TYPES}
     for key, _, vals in clauses:
         if key not in rule["selector_keys"]:
-            return reject(FailureCode.UNSUPPORTED_REQUEST, f"selector key {key!r} not allowed")
-        if not set(vals) <= regions:
-            return reject(FailureCode.UNSUPPORTED_REQUEST, f"unknown region(s) {sorted(set(vals) - regions)}")
+            return reject(FailureCode.UNSUPPORTED_REQUEST, f"selector key {key!r} not allowed for {spec.target}")
+        if not set(vals) <= known[key]:
+            return reject(FailureCode.UNSUPPORTED_REQUEST, f"unknown {key}(s) {sorted(set(vals) - known[key])}")
     if not (horizon[0] <= spec.window_start < spec.window_end <= horizon[1]):
         return reject(FailureCode.UNSUPPORTED_REQUEST, "window outside the simulation horizon")
 
     w0 = int(np.datetime64(spec.window_start, "us").astype(np.int64))
     w1 = int(np.datetime64(spec.window_end, "us").astype(np.int64))
     factor = float(spec.value)
+    ok = InterventionEvent(spec_id=spec.id, status="executed", at=spec.window_start)
 
-    def multiplier(df: pl.DataFrame) -> np.ndarray:
-        shipped_us = df["shipped_us"].to_numpy()                       # absolute time: chunk-invariant
-        m = (shipped_us >= w0) & (shipped_us < w1)
-        for key, op, vals in clauses:
-            hit = np.isin(df["buyer_region"].to_numpy(), vals)
-            m &= ~hit if op == "!=" else hit
-        return np.where(m, factor, 1.0)
-
-    return InterventionEvent(spec_id=spec.id, status="executed", at=spec.window_start), multiplier
+    if spec.target == "carrier.transit_multiplier":
+        def transit(df: pl.DataFrame) -> np.ndarray:
+            shipped_us = df["shipped_us"].to_numpy()                   # absolute time: chunk-invariant
+            m = (shipped_us >= w0) & (shipped_us < w1)
+            for key, op, vals in clauses:
+                hit = np.isin(df["buyer_region"].to_numpy(), vals)
+                m &= ~hit if op == "!=" else hit
+            return np.where(m, factor, 1.0)
+        return ok, {"kind": "transit", "fn": transit}
+    if spec.target == "demand.multiplier":
+        d0, d1 = spec.window_start.date(), spec.window_end.date()
+        return ok, {"kind": "demand", "fn": lambda day: factor if d0 <= day < d1 else 1.0}
+    etypes = [v for _, _, vals in clauses for v in vals] or sorted(EVENT_TYPES)
+    return ok, {"kind": "drop", "drops": [(e, spec.window_start, spec.window_end, factor) for e in etypes]}
 
 
 @dataclass
 class Truth:
     """Evaluator-only. Never passed to the port or the reader."""
-    spec: InterventionSpec
-    per_order: pl.DataFrame          # order_idx, affected, late_fact, late_twin, score_fact, score_twin
-    effect_late_share_affected: float
-    effect_late_share_region_weeks: dict[str, float]   # week -> factual - twin, in the scoped region (cohort by purchase week)
+    specs: list[InterventionSpec]
+    causes: list[dict]                                   # [{target, layer, window_start, window_end, scope, value}]
+    world_changed: bool                                  # factual world != twin world
+    per_order: pl.DataFrame | None = None                # only for paired world interventions on fulfilment
+    effect_late_share_affected: float = 0.0
+    effect_late_share_region_weeks: dict[str, float] = field(default_factory=dict)
+
+    @property
+    def spec(self) -> InterventionSpec:                  # backwards compatible (single intervention)
+        return self.specs[0]
 
 
-def run(params: ChainParams, start: date, end: date, seed: int, spec: InterventionSpec | None,
-        om: ObservationModel = ObservationModel()):
+def run(params: ChainParams, start: date, end: date, seed: int, specs, om: ObservationModel = ObservationModel()):
+    """specs: None, one InterventionSpec, or a list. Returns (events, factual, twin, port, truth)."""
+    specs = [] if specs is None else ([specs] if isinstance(specs, InterventionSpec) else list(specs))
     horizon = (datetime.combine(start, datetime.min.time()), datetime.combine(end, datetime.min.time()))
     regions = set(params.buyer_regions)
-    event, mult = (None, None)
-    if spec is not None:
-        event, mult = gateway(spec, regions, horizon)
-    factual = simulate(params, start, end, seed=seed, transit_multiplier=mult)
+    events, transit, demand, drops = [], None, None, []
+    for sp in specs:
+        ev, eff = gateway(sp, regions, horizon)
+        events.append(ev)
+        if eff is None:
+            continue
+        if eff["kind"] == "transit":
+            transit = eff["fn"]
+        elif eff["kind"] == "demand":
+            demand = eff["fn"]
+        else:
+            drops += eff["drops"]
+    factual = simulate(params, start, end, seed=seed, transit_multiplier=transit, demand_multiplier=demand)
     twin = simulate(params, start, end, seed=seed)
-    port = EmulatorPort(observe(factual, om, seed=seed), params, om, horizon[0], seed)
-    truth = None
-    if mult is not None:
+    port = EmulatorPort(observe(factual, om, seed=seed, drops=drops), params, om, horizon[0], seed)
+    executed = [sp for sp, ev in zip(specs, events) if ev.status == "executed"]
+    if not executed:
+        return (events[0] if len(events) == 1 else events), factual, twin, port, None
+    truth = Truth(specs=executed, world_changed=not factual.equals(twin),
+                  causes=[{"target": sp.target, "layer": ALLOWED[sp.target]["layer"], "scope": sp.scope, "value": sp.value,
+                           "window_start": sp.window_start.isoformat(), "window_end": sp.window_end.isoformat()} for sp in executed])
+    if transit is not None and factual.height == twin.height:
         late = lambda w: ((w["delivered_at"].dt.truncate("1d") - w["promised_at"]).dt.total_days() > 0)
         po = pl.DataFrame({"order_idx": factual["order_idx"], "region": factual["buyer_region"],
                            "week": factual["purchased_at"].dt.truncate("1w").dt.date().cast(pl.Utf8),
@@ -89,10 +121,10 @@ def run(params: ChainParams, start: date, end: date, seed: int, spec: Interventi
                            "late_fact": late(factual), "late_twin": late(twin),
                            "score_fact": factual["score"], "score_twin": twin["score"]})
         aff = po.filter(pl.col("affected"))
-        scoped = [v for _, _, vals in parse_selector(spec.scope) for v in vals]
+        scoped = [v for sp in executed if sp.target == "carrier.transit_multiplier" for _, _, vals in parse_selector(sp.scope) for v in vals]
         reg = po.filter(pl.col("region").is_in(scoped) & pl.col("late_fact").is_not_null() & pl.col("late_twin").is_not_null())
         weeks = reg.group_by("week").agg((pl.col("late_fact").mean() - pl.col("late_twin").mean()).alias("d")).sort("week")
-        truth = Truth(spec=spec, per_order=po,
-                      effect_late_share_affected=float(aff["late_fact"].mean() - aff["late_twin"].mean()) if aff.height else 0.0,
-                      effect_late_share_region_weeks=dict(zip(weeks["week"].to_list(), weeks["d"].to_list())))
-    return event, factual, twin, port, truth
+        truth.per_order = po
+        truth.effect_late_share_affected = float(aff["late_fact"].mean() - aff["late_twin"].mean()) if aff.height else 0.0
+        truth.effect_late_share_region_weeks = dict(zip(weeks["week"].to_list(), weeks["d"].to_list()))
+    return (events[0] if len(events) == 1 else events), factual, twin, port, truth

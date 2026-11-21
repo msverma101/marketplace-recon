@@ -45,7 +45,8 @@ def _us(col: str) -> pl.Expr:
     return pl.col(col).cast(pl.Int64)
 
 
-def observe(world: pl.DataFrame, om: ObservationModel = ObservationModel(), seed: int = 1) -> pl.DataFrame:
+def observe(world: pl.DataFrame, om: ObservationModel = ObservationModel(), seed: int = 1, drops: list | None = None) -> pl.DataFrame:
+    """drops: [(event_type, window_start, window_end, rate)] observation-layer logging failures (world unchanged)."""
     """Canonical observed events (same vocabulary as the real adapter) with available_at and revisions."""
     idx = world["order_idx"].to_numpy()
     oid = pl.Series([f"sim:o{i}" for i in idx])
@@ -104,6 +105,11 @@ def observe(world: pl.DataFrame, om: ObservationModel = ObservationModel(), seed
     add("review_submitted", world["answered_at"], np.full(len(idx), int(om.review_delay_s * S)), world["score"].cast(pl.Float64))
 
     ev = pl.concat(parts, how="diagonal_relaxed")
+    for etype, w0, w1, rate in (drops or []):
+        oidx = ev["order_id"].str.slice(5).cast(pl.Int64).to_numpy()
+        u_drop = uniform(seed, f"observe:drop:{etype}", oidx)
+        hit = ((ev["event_type"] == etype) & (ev["event_time"] >= w0) & (ev["event_time"] < w1)).to_numpy() & (u_drop < rate)
+        ev = ev.filter(pl.Series(~hit))
     ev = ev.with_columns(
         (pl.col("event_type") + pl.lit(":") + pl.col("order_id")).alias("record_key"),
         pl.lit(None, pl.Utf8).alias("product_id"), pl.lit(None, pl.Float64).alias("amount"), pl.lit(None, pl.Utf8).alias("metric"),
