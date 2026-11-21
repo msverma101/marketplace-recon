@@ -73,3 +73,14 @@ See the section appended below, if any work happened after this report was first
 **Mechanics tested** (`tests/test_p1_lookalike.py`): a logging failure leaves the world bit-identical to the twin, and the identity partner is untouched. A demand drop changes the world only inside its window (everything before it is identical, thanks to the global keys). Both new levers are guarded by the gateway (wrong selector, unknown event type, out-of-bounds values, wrong operator).
 
 Tests: **61, all green.**
+
+## Where I stopped, and why
+After P0 and P1 item 1, I also **guarded the outdated `scripts/stitch.py`** so it refuses to run (decision #8). I stopped there on purpose: each remaining P1 item adds a new mechanism layer and is a scope choice worth your input.
+
+**Suggested next P1 items, in my order of value:**
+1. **Search/exposure layer with Expedia's position curve:** the first transferred source, with its transport card and a held-out gain test (gate S4).
+2. **Observation sensitivity suite:** rerun 8a/8b across the assumed ranges (delays, correction rate).
+3. **Plug in the real v3 core** in place of the stand-in reader (gates S9, S10), with its owner.
+4. **Multi-seed pass rule** for future realism gates (lesson from phase 3).
+
+**Your decisions:** accept the F2 exception? Merge `p0/phase1-source-semantics` into `main`? Which P1 item next? A1/A2/A5?
