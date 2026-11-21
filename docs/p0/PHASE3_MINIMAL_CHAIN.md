@@ -1,6 +1,6 @@
 # Phase 3: minimal simulated chain (demand → orders → fulfilment → survey/review)
 
-**Gate S5 (realism), FINAL after the phase-5 key fix: 9/10 on the preregistered seed. F2 (weekday share) misses by 0.0005 on every seed; accepted as a documented exception (decision #6 in `STRATEGY_CHANGES.md`).** Before the key fix it was 10/10 on seed 1, but that was partly luck from run-relative random keys.
+**Gate S5 (realism), FINAL after the phase-5 key fix: 9/10 on the preregistered seed. F2 (weekday share) misses by 0.0005 on every seed; accepted as a documented exception (decision #6 in `STRATEGY_CHANGES.md`), **confirmed by you on 22 Nov 2026**.** Before the key fix it was 10/10 on seed 1, but that was partly luck from run-relative random keys.
 **Gate S3 (no look-ahead in fitting): PASS.** Everything is fitted on 2017 (`trained_through` 2017-12-31), and the simulator refuses to start earlier (tested).
 
 Tolerances were preregistered and committed **before** building or measuring (`PHASE3_TOLERANCES.md`, commit `2b759c4`).

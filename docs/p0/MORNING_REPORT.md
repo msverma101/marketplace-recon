@@ -19,7 +19,7 @@
 | S2 joins & lineage | 1, 2 | **PASS** |
 | S8 core compatibility | 2 | **PASS** (real data, no simulator, no experiment fields; explicit refusals) |
 | S6 evidence firewall | 2, 5 | **PASS** (origin classes on every record; oracle unreachable) |
-| S5 realism | 3 | **PASS 9/10 with documented exception (F2)**, see above |
+| S5 realism | 3 | **PASS 9/10 with documented exception (F2), accepted by you 22 Nov** |
 | S3 no look-ahead | 3, 4 | **PASS** |
 | S7 intervention correctness | 5 | **PASS** (exact pairing; chunk- and change-invariant randomness) |
 | S4, S9, S10 | — | **not run**: need transferred mechanisms (P1) and the real core |
