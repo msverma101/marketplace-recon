@@ -1,6 +1,6 @@
 # Dataset retrieval and audit
 
-*Generated 2026-11-21 21:10 by `scripts/datasets.py report`. Data under `/home/sneha/data/mkt/raw`.*
+*Generated 2026-11-21 21:10 by `scripts/datasets.py report`. Data under `~/data/mkt/raw`.*
 
 **Claims:** FAIL 1, PARTIAL 16, PASS 46
 
