@@ -40,6 +40,6 @@ Rules unchanged: no deleting data, no paid sources, no push (you push). Commit a
 | R6 | Observation sensitivity suite (rerun the look-alike pair across the assumed ranges) | — | — |
 | R7 | Replace the stand-in reader with the real causal core v3 (needs its owner) | contact with the v3 owner | S9, S10 |
 | R8 | Optional: human click-through sessions in the shop (A5) | R4 | — |
-| R9 | You: create a remote and push (`gh repo create marketplace-recon --private --source . --push`) | — | — |
+| R9 | ~~Create a remote and push~~ **done 22 Nov**: github.com/msverma101/marketplace-recon (private) | — | — |
 
 Auto-resume is scheduled for 00:13 on 22 Nov (backup at 01:13) and works through steps 2–5 of the table above. It only runs while this Claude Code session stays open.
