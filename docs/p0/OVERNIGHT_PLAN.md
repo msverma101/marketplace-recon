@@ -67,6 +67,10 @@ No P1 work (more datasets, Astronomy Shop, feedback loops) without you.
 
 ---
 
+## Update ~22:30: "don't wait on me; make decisions where necessary"
+
+I make every decision needed to keep going, including ones I'd otherwise have asked about (e.g. A1, A5, and after P0 the next step), and log each in `docs/p0/STRATEGY_CHANGES.md` with its reasoning, for your review. Still excluded, because nothing requires them and they can't be cleanly undone: **deleting data, merging to `main`, pushing or publishing, and paid sources.**
+
 ## Never without you (any phase)
 
 - deleting any data;
