@@ -102,7 +102,7 @@ def run(cfg: Config, name_or_path: str, seed: int | None = None) -> pathlib.Path
 
 
 SERIES_TYPES = ["session_start", "checkout_start", "checkout_error", "order_created", "order_unavailable",
-                "delivered", "review_created", "payment_settled"]
+                "delivered", "review_submitted", "payment_approved"]
 
 
 def _series(ev: pl.DataFrame) -> pl.DataFrame:

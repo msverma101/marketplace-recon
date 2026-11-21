@@ -44,8 +44,9 @@ EVENT_SCHEMA: dict[str, pl.DataType] = {
 EVENT_STREAMS = {
     "session_start": "web", "product_view": "web", "add_to_cart": "web",
     "checkout_start": "web", "checkout_error": "web", "order_created": "web",
-    "order_unavailable": "web", "payment_approved": "payments", "payment_settled": "finance",
-    "shipped": "logistics", "delivered": "logistics", "review_created": "reviews",
+    "order_item": "web", "order_unavailable": "web", "payment_approved": "payments",
+    "handed_to_carrier": "logistics", "delivered": "logistics",
+    "survey_sent": "reviews", "review_submitted": "reviews", "order_status_snapshot": "ops",
     "price_change": "catalog", "stock_out": "catalog", "restock": "catalog",
     "metric_sample": "telemetry", "announcement": "ops",
 }
