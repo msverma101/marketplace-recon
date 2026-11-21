@@ -1,5 +1,5 @@
 """Generate docs/current-architecture.excalidraw: one overview of the architecture as it stands on
-21 Nov 2026 (verified data foundation, pipeline, emulator, optional storefront, evaluation, open decisions)."""
+22 Nov 2026 (verified data foundation, pipeline, emulator, optional storefront, evaluation, open decisions)."""
 import pathlib
 import sys
 
@@ -10,9 +10,9 @@ reset(7)
 OK, PART, DROP, NA, BUILT, PLAN, HOLD, PRIV, CORE = ("#d3f9d8", "#fff3bf", "#e9ecef", "#ffe3e3", "#b2f2bb", "#ffffff",
                                                      "#f1f3f5", "#ffc9c9", "#e7f5ff")
 
-text("Marketplace emulator: architecture as it stands now (21 Nov 2026)", 0, -130, 2800, 30)
-text("Green = verified / built · grey dashed = on hold · "
-     "white = designed, not built. Decisions on the right; nothing is stitched or run until they're made.",
+text("Marketplace emulator: architecture as it stands now (22 Nov 2026)", 0, -130, 2800, 30)
+text("Green = verified / built · grey dashed = on hold · white = designed, not built. "
+     "P0 is built and gated (S1–S8); transferred sources are added one at a time from P1.",
      0, -86, 2800, 16, color="#495057")
 
 # 1. data foundation -------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ text("Audit: 47 pass · 18 partial · 1 fail (historical).\nPer data type: 21 us
 # 2. pipeline ----------------------------------------------------------------------------------------
 lane("2  Build pipeline", 600, -40, 440, 1180)
 ds = box("scripts/datasets.py\nretrieve · fingerprint · audit\nDONE", 620, 40, 400, BUILT, 15)
-st = box("scripts/stitch.py  (data stitching)\nwritten, NOT run\nwaits for D7; runs phase by phase (S1–S10)", 620, 230, 400, PLAN, 15, style="dashed")
+st = box("scripts/stitch.py  (old all-at-once plan)\nSUPERSEDED, refuses to run\nreplaced by: one source at a time (phase 7)", 620, 230, 400, PLAN, 15, style="dashed")
 cal = box("Calibration + re-anchoring\nlevels from Olist, shapes from the rest", 620, 420, 400, PLAN, 15)
 mlib = box("Mechanism library\nfitted / transferred / bridged + explicit assumptions\neach with a transport card + trained_through date\n(assumed: fee-change response, payouts, logging faults)", 620, 590, 400, PLAN, 14, minh=110)
 for g in gboxes[:7]:
@@ -51,10 +51,10 @@ arrow(cal, mlib, "b", "t")
 
 # 3. emulator + core --------------------------------------------------------------------------------
 lane("3  Emulator (only business truth) + causal core", 1100, -40, 640, 1180)
-gate = box("Action gateway\nallowlist · budgets · audit · rejects invalid", 1120, 40, 600, PLAN, 15)
-kern = box("Simulator kernel\n1 h ticks + event queue · counterfactual twin · snapshot / restore\nrandomness keyed by (seed, mechanism, entity, event slot, tick)", 1120, 200, 600, PLAN, 15, minh=96)
+gate = box("Action gateway  BUILT (P0)\nallowlist · bounds · rejects invalid · 3 levers", 1120, 40, 600, BUILT, 15)
+kern = box("Simulator kernel  BUILT (P0 chain)\n1 h ticks + event queue · counterfactual twin · snapshot / restore\nrandomness keyed by (seed, mechanism, entity, event slot, tick)", 1120, 200, 600, PLAN, 15, minh=96)
 led = box("Business ledger (event-sourced)", 1120, 360, 600, PLAN, 15)
-obs = box("Observation layer\ndelays · sampling · gaps · ID loss → watermarked public stream", 1120, 470, 600, PLAN, 15)
+obs = box("Observation layer  BUILT (P0)\ndelays · rounding · gaps · corrections as revisions", 1120, 470, 600, BUILT, 15)
 port = box("Evidence qualification + v3 adapter\nObservation · ExperimentRecord · InterventionSpec · EvidenceRecord\nEnvironmentScope · CapabilitySpec · evidence-class firewall (no oracle)", 1120, 600, 600, CORE, 14, minh=96)
 core = box("Causal core v3 (variable-first, domain-agnostic)\n→ findings, evidence gaps, identification certificates, action proposals", 1120, 760, 600, CORE, 15, minh=90)
 arrow(mlib, kern, "r", "l", "mechanisms")
@@ -105,10 +105,10 @@ for head, body in decisions:
     b = box(body.replace("**", ""), X + 20, dy + 30, 600, "#ffffff", 13)
     dy += 30 + b["height"] + 18
 text("Then, in order", X + 20, dy + 6, 600, 18)
-for i, t in enumerate(["D7  ✔ APPROVED (conditional on gates S1–S10 per phase)",
-                       "Phase P0: Olist spine → real-only replay via v3 → one chain → one intervention",
-                       "D8  prototype code: keep as starting point / park / delete",
-                       "A1–A5  Astronomy Shop: deferred until after P0 (A2 checks optional)"]):
+for i, t in enumerate(["D7 ✔ approved · D8 ✔ reuse · P0 ✔ built, merged to main (S5 F2 exception accepted)",
+                       "P1 now: session → exposure → cart → checkout layer, one source at a time (S4)",
+                       "A2 ✔ approved: Astronomy Shop feasibility experiments (Docker)",
+                       "A1 ✔ approved, after the session layer · A5: human sessions optional"]):
     box(t, X + 20, dy + 40 + i * 52, 600, HOLD, 13, style="dashed")
 
 out = pathlib.Path(__file__).resolve().parents[1] / "current-architecture.excalidraw"

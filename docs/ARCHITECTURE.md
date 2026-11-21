@@ -82,6 +82,8 @@ Categories considered and **not** added (no material gain for decisions): seller
 
 ## 3. Verified source inventory
 
+> **Status (22 Nov 2026):** pre-audit survey, kept as the record of what was checked. The current dataset set is decision L10 and the stitching table in §7.5; datasets mentioned here but not there (Amazon-M2, Tmall, iPinYou, Yahoo R3, Keepa) were dropped or archived.
+
 Columns: **contribution** = what it gives the world; **join** = exact-join potential with the spine.
 
 | Source | Size / access | Schema essentials | Contribution | Join to spine | Licence | Limits & biases |
@@ -114,6 +116,8 @@ Columns: **contribution** = what it gives the world; **join** = exact-join poten
 ---
 
 ## 4. Dataset compatibility and overlap plan
+
+> **Status (22 Nov 2026):** pre-audit overlap measurements, kept as evidence. The current dataset set is decision L10 and the stitching table in §7.5; datasets mentioned here but not there (Amazon-M2, Tmall, iPinYou, Yahoo R3, Keepa) were dropped or archived.
 
 ### 4.1 Measured results (executed this session)
 
@@ -194,6 +198,8 @@ where e.product_locale='us' using sample 1000;
 ---
 
 ## 5. Interaction ontology
+
+> **Status (22 Nov 2026):** the ontology is current; the *source* column predates the audit (position effects now come from Expedia's random-order log, not Open Bandit). The current dataset set is decision L10 and the stitching table in §7.5; datasets mentioned here but not there (Amazon-M2, Tmall, iPinYou, Yahoo R3, Keepa) were dropped or archived.
 
 Each row is a mechanism `M-xx`. *Type*: **Det** = deterministic/accounting, **Emp** = empirically estimated, **Hyp** = hypothesised and calibrated by transfer, **Asm** = assumed.
 
@@ -323,29 +329,51 @@ Olist supplies the operational backbone. Every data type it lacks is **stitched*
 | **Synthetic bridge** | A synthetic entity is *dressed* with a real record from another source (e.g. a synthetic product gets a real Amazon title and its real search queries). Explicitly **not** an identity claim: the bridge table is public, versioned and random | `bridged:<source>` |
 | **Text/value pooling** | Real values sampled into synthetic events by matching condition (e.g. real Olist review text drawn by score) | `bridged:pool:<source>` |
 
-#### Stitching matrix (every missing type from §2)
+#### Stitching table (current; updated 22 Nov 2026)
 
-| Missing data type | Stitched from | Method | What stays real | What is generated | Check after stitching |
+The original matrix here predated the dataset audit (Amazon-M2, Tmall, iPinYou, Yahoo R3 and Keepa are now dropped; Taobao, Expedia, Google Analytics and Statcounter added). The current table, with one primary and at most one justified secondary per data type, is below. Dataset evidence is in `docs/datasets/AUDIT.md` and `NOTES.md`.
+
+<!-- stitching-table:start -->
+*Generated from `docs/tools/make_stitching_excalidraw.py` by `docs/tools/stitching_table.py`; do not edit by hand.*
+
+| Layer | Data type | Method | Primary | Secondary (why) | What works / what doesn't |
 |---|---|---|---|---|---|
-| Product titles, brands, attributes | ESCI-US ∩ Reviews 2023 pool (447,879 items **[M]**) via a hand-made Olist→Amazon category map (assumption A-13) | Synthetic bridge | Real title, brand, bullets, Amazon category | Which synthetic product gets which item | Category-map coverage ≥ 90% of Olist item volume |
-| **Search queries + relevance** | ESCI queries and E/S/C/I labels of the bridged items **[M: columns exist]** | Synthetic bridge | Real query text, real human relevance labels | Which session issues which query | Label mix in generated impressions ≈ ESCI-US mix |
-| Impressions, positions, clicks | Open Bandit **random-policy** logs (unbiased by construction) | Distribution transfer | Relative click curve over 3 positions | Absolute click rate (re-anchored) | Composed funnel still yields Olist orders/day |
-| Recommendation policy + propensities | Open Bandit Bernoulli-TS vs random logs | Distribution transfer | Real logged propensities, so off-policy estimators have a real answer | Policy applied to synthetic items | OPE estimate vs on-policy value (real) |
-| Sessions: length, revisits, order of views | Amazon-M2 (3.6M sessions **[M]**), Retailrocket | Distribution transfer | Session-length and repeat-view distributions | Concrete item sequences | Held-out M2 length distribution (KS) |
-| Funnel timing (view → cart → purchase) | Retailrocket timestamps (2.76M events **[M]**) | Distribution transfer | Step probabilities and inter-event gaps | Session events | 12% purchases without a prior view preserved |
-| Sponsored placement / ad effect | Criteo uplift (randomised, with treatment ≠ exposure) | Distribution transfer | Relative lift on visit/conversion, non-compliance rate | Ad slots, spend (CPC assumed, A-14) | Simulated A/B on ads recovers Criteo-like lift |
-| Stock levels, stock-outs, restock time | Retailrocket `available` flag over time (417k items **[M]**) | Distribution transfer | Share of time unavailable, outage-spell lengths | Inventory counts (never observed anywhere) | Simulated stock-out spells match Retailrocket spell distribution |
-| Price changes, promotions, elasticity | Retailrocket price property (hashed; *unverified*), M5 Walmart sell prices + SNAP events (*not downloaded*) | Distribution transfer | Change frequency, promo depth, elasticity estimate | Prices of synthetic offers | Revenue response to a simulated promo within M5-derived range |
-| Returns, cancellations | Olist statuses (`canceled`, `unavailable`: real), UCI Online Retail II cancellation share (*not downloaded*) | Exact (Olist) + transfer (UCI) | Olist cancellation rate; UCI return share as prior | Return events, refund timing | Refund + GMV reconciliation still balances |
-| Repeat purchases | Olist `customer_unique_id` (3.1% repeat **[M]**), Instacart / UCI intervals (*Instacart needs competition-rule acceptance*) | Exact anchor + transfer | Olist repeat rate | Inter-purchase intervals | Repeat share stays at Olist level |
-| Review text | Olist's own Portuguese review texts (40,977 **[M]**), pooled by **star score × delivery outcome** | Text pooling | Real text whose content matches its cause: late 1–2★ reviews mention delay 41.2% vs product problems 2.4%; on-time 1–2★ mention product problems 21.7% **[M]** | Which order gets which text | Cause–text consistency check on a sample (decision R2, 21 Nov) |
-| Fake reviews / manipulation | YelpChi / Amazon fraud graphs (*not downloaded*) | Distribution transfer | Burst size, reviewer-graph density | Fraud rings | Ring detectability vs source |
-| Seller entry and ramp-up | Olist Marketing Funnel (380 sellers joinable **[M]**) | Exact join | Real acquisition channel → first sale | Sellers beyond the 380 | Entry curve vs real |
-| External demand (holidays, macro, strike) | Brazil holiday calendar, BCB SGS series, strike dates | Exact join (date, state) | Real context series | Their effect sizes (fitted on Olist: Black Friday 6.2× **[M]**) | Placebo dates show no effect |
-| Infrastructure telemetry | NAB anomaly shapes, LogHub | Distribution transfer (shape only) | Real anomaly *shapes* | Levels, causal link to conversion (assumed A-07) | — (assumption, flagged) |
-| Logging / measurement faults | none exists | Assumed | — | All (A-11) | Scenario S3 |
+| L0 | Seasonality, holidays, Black Friday | fit + join on date | Olist | Holidays (fills gap: holiday dates) | Olist Black Friday 6.2×; holiday rules verified |
+| L0 | Macro: inflation, FX, interest | join on date | BCB SGS | — | 3 series 2016–18, values plausible |
+| L0 | External shocks (2018 strike) | replay + fit | Olist | Public record (check: strike dates) | strike visible in Olist; dates confirmed |
+| L1 | Buyers, regions | fit | Olist | — | 27 Brazilian states |
+| L1 | Sellers, regions, size | fit | Olist | — | 3,095 sellers with state and volume |
+| L1 | Products, categories, titles | fit + bridge | Olist | ESCI (fills gap: English titles) | Olist has no titles → ESCI (mixed-language shop, labelled) |
+| L1 | Devices, channels | prior + transfer | Statcounter | Google Analytics (other part: conversion) | Brazil device share (page views); desktop converts 3.9× mobile |
+| L2 | Prices, promotions | fit + transfer | Olist | M5 (fills gap: price changes) | prices yes, promo flags nowhere |
+| L2 | Multi-seller offers | fit + assumed | Olist | Expedia (other part: shown together) | only 123 of 1,225 multi-seller products sold by 2 sellers in the same week |
+| L2 | Inventory, stock-outs | transfer | Retailrocket | — | real availability flag over time (417k items) |
+| L2 | Search queries, relevance | bridge | ESCI | Reviews 2023 (fills gap: category map) | 130k queries with human labels |
+| L3 | Handling time, reliability | fit | Olist | — | approval → carrier timestamps |
+| L3 | Seller entry, ramp-up | exact join | Olist Funnel | Olist (other part: first sale) | won date → first sale (380 join) |
+| L3 | Seller exit | fit | Olist | — | no sale after May 2018: small sellers 92%, large 11% (censored) |
+| L3 | Fees, payouts | assumed (A-10) | Assumed | — | no public fee/payout data found; range from general sources |
+| L4 | Traffic volume, calendar | anchor (levels) | Olist | — | orders + hourly/weekly shape; visit level via funnel anchor |
+| L4 | Session length, revisits | transfer | Taobao | Retailrocket (check: visitor-days) | second-level gaps; median 76 s |
+| L4 | Funnel view → cart → buy, timing | transfer | Retailrocket | Taobao (other part: timing) | step rates + second-level timing |
+| L4 | Exposure, position, clicks | transfer | Expedia | — | randomised order: position 10 gets 33% of position-1 clicks |
+| L4 | Recommendation policy, propensities | transfer | Open Bandit | — | uniform + BTS propensities logged |
+| L4 | Repeat purchases | fit + transfer | Olist | Instacart (other part: intervals) | 3.1% repeat; 7-day median gap |
+| L4 | Ads, sponsored lift | transfer | Criteo | Hillstrom (check: 2nd randomised) | randomised lift + non-compliance |
+| L5 | Orders, items, payments | replay + fit | Olist | — | clean joins; payments reconcile 99.75% |
+| L5 | Delivery promise, delays | fit | Olist | — | on time 4.29★ vs late 1.71★ |
+| L5 | Cancellations, returns | fit + transfer | Olist | UCI (fills gap: returns) | Olist has no returns → UCI 'C' invoices |
+| L6 | Review score given delivery | fit | Olist | — | strong delay → score link |
+| L6 | Review text | pool | Olist | — | pt-BR, pooled by stars × delivery outcome (cause-consistent) |
+| L6 | Review timing (survey sent, answered) | fit | Olist | — | survey at delivery/estimate; customer answers after median 40 h |
+| L6 | Who leaves reviews (MNAR) | fit + transfer | Olist | Coat (fills gap: selection) | Olist ~99% reviewed → Coat gives the shape |
+| L6 | Fake reviews, fraud rings | transfer | YelpChi | Amazon fraud (other part: user rings) | no timestamps in either |
+| L7 | Service telemetry, faults | live + shape | Astronomy Shop | NAB / LogHub (fallback: shapes) | shop on hold (A2) → NAB shapes meanwhile |
+| L7 | Experiments, assignments | transfer | Open Bandit | Criteo (check: 2nd randomised) | randomised logs available |
+| L9 | Logging gaps, delays, late data | assumed (A-11) + evidence | Assumed | Retailrocket (evidence: missing views) | assumption, with real evidence |
+<!-- stitching-table:end -->
 
-Coverage: 14 of 17 missing types get real evidence from at least one source; telemetry levels, logging faults and ad prices remain assumptions, which is now explicit rather than hidden.
+**How sources enter the simulator:** not all at once. Per §13.0 phase 7, each transferred or bridged source is added one at a time, with a transport card (§7.6) and a held-out gain test (gate S4). `scripts/stitch.py` (the original all-at-once plan) is superseded and refuses to run.
 
 #### How stitched pieces stay consistent (the hard part)
 
@@ -360,12 +388,14 @@ flowchart LR
   OL[Olist backbone<br/>real orders, sellers,<br/>delivery, reviews] --> AN[Re-anchoring solve<br/>levels from Olist]
   subgraph Stitch[Stitch stage]
     ESCI[ESCI + Reviews 2023] -->|bridge| CAT[Bridged catalog<br/>titles, queries, labels]
-    OB[Open Bandit] -->|transfer| POS[Position curve,<br/>propensities]
-    M2[Amazon-M2 + Retailrocket] -->|transfer| SES[Session length,<br/>funnel timing, stock-outs]
+    EX[Expedia random order] -->|transfer| POS[Position curve]
+    OB[Open Bandit] -->|transfer| PROP[Propensities, OPE reference]
+    RR[Retailrocket + Taobao] -->|transfer| SES[Session length,<br/>funnel timing, stock-outs]
+    GA[Google Analytics + Statcounter] -->|transfer / join on date| DEV[Device mix,<br/>traffic sources]
     CR[Criteo] -->|transfer| ADS[Ad lift,<br/>non-compliance]
     OT[Olist texts, funnel,<br/>UCI, holidays] -->|pool / join| MISC[Review text, returns,<br/>seller entry, context]
   end
-  CAT & POS & SES & ADS & MISC --> AN
+  CAT & POS & PROP & SES & DEV & ADS & MISC --> AN
   AN --> MLIB[Mechanism library] --> SIM[Simulator]
   CAT -. bridge table, public, versioned .-> PROV[(Provenance)]
 ```
@@ -814,6 +844,8 @@ Prioritised; P1 = in the 48-hour scope. "Refuse" = conditions under which correc
 
 ### 13.1 Revised plan for a 4-hour build (D5), superseded by §13.0
 
+> **Status (22 Nov 2026):** historical. The current dataset set is decision L10 and the stitching table in §7.5; datasets mentioned here but not there (Amazon-M2, Tmall, iPinYou, Yahoo R3, Keepa) were dropped or archived.
+
 | Hour | Work | Done when |
 |---|---|---|
 | 0–1 | Core: contracts (+`bridged`, `text`), Olist adapter, calibration with hold-out, artifact cache | `mkt fit` reproduces the §4.1b numbers |
@@ -824,6 +856,8 @@ Prioritised; P1 = in the 48-hour scope. "Refuse" = conditions under which correc
 Deferred past 4 hours: Criteo ads, M5 prices, UCI returns, fraud rings, S2/S5/S9–S12, the 10M-event benchmark.
 
 ### 13.2 Prototype status (written before the "architecture only" clarification)
+
+> **Status (22 Nov 2026): two simulators exist.** `mkt/sim/engine.py` (with `world.py`, `scenario.py`, scenarios S0–S13) is the **legacy prototype**: kept for reference and its tests, not the build path. `mkt/sim/chain.py` + `observe_chain.py` + `twin.py` is the **gated P0 simulator** (v3 contracts, keyed randomness, gates S1–S8). New layers (sessions, exposure, checkout) are added to the chain only. See `docs/p0/MORNING_REPORT.md`.
 
 Some code was written after "take these decisions" was read as approval to build. It is **uncommitted** in `~/marketplace-recon` and kept only pending D8:
 - Built: hours 0–2 of §13.1 plus scenarios S0/S1/S3/S4/S13, baseline monitor, evaluator and CLI. There is no stitch stage yet.
