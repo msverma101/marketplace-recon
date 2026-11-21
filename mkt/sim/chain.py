@@ -205,7 +205,12 @@ def simulate(p: ChainParams, start: date, end: date, seed: int = 1, cut: datetim
     gday0 = (start - EPOCH).days
     idx = (((gday0 + day_i).astype(np.int64) * 24 + hour_i) * 100_000 + within).astype(np.int64)
     t0 = datetime.combine(start, datetime.min.time())
-    purchase_s = day_i * 86400.0 + hour_i * H + uniform(seed, "minute", idx) * H
+    # exact integer microseconds from a fixed origin: identical whether the run is split or not
+    epoch_us = int(np.datetime64(EPOCH, "us").astype(np.int64))
+    t0_us = int(np.datetime64(t0, "us").astype(np.int64))
+    purchase_us = (epoch_us + ((gday0 + day_i).astype(np.int64) * 86400 + hour_i.astype(np.int64) * 3600) * 1_000_000
+                   + np.floor(uniform(seed, "minute", idx) * 3_600_000_000).astype(np.int64))
+    purchase_s = (purchase_us - t0_us) / 1e6                       # run-relative, used only for durations below
     reg = np.array(p.buyer_regions)[np.searchsorted(np.array(p.buyer_cum) / p.buyer_cum[-1], uniform(seed, "region", idx))]
     u_sel = uniform(seed, "seller", idx)
     if p.seller_cum_by_region:
@@ -228,14 +233,14 @@ def simulate(p: ChainParams, start: date, end: date, seed: int = 1, cut: datetim
         m = (reg == r) & (same if lab == "same" else ~same)
         transit_s[m] = qdraw(np.array(q), u_tr[m]) * 86400.0
     if p.transit_drift_per_day:
-        t_rel = (np.datetime64(start) - np.datetime64("2017-07-01")).astype("timedelta64[D]").astype(float) + purchase_s / 86400.0
+        t_rel = (purchase_us - int(np.datetime64("2017-07-01", "us").astype(np.int64))) / 86_400_000_000   # absolute, chunk-invariant
         drift = np.where(same, p.transit_drift_per_day.get("same", 0.0), p.transit_drift_per_day.get("diff", 0.0))
         transit_s = transit_s * np.exp(drift * t_rel)
     df = pl.DataFrame({"order_idx": idx, "buyer_region": reg, "seller_id": np.array(p.sellers)[s_i], "seller_region": s_reg,
                        "same": same})
-    shipped_s = purchase_s + approval_s + handling_s
+    shipped_us = purchase_us + np.round(approval_s + handling_s).astype(np.int64) * 1_000_000
     if transit_multiplier is not None:
-        transit_s = transit_s * transit_multiplier(df.with_columns(pl.Series("shipped_s", shipped_s)), t0)
+        transit_s = transit_s * transit_multiplier(df.with_columns(pl.Series("shipped_us", shipped_us)))
     delivered_ok = uniform(seed, "delivered", idx) < p.p_delivered
     pq_same, pq_diff = np.array(p.promise_q["same"]), np.array(p.promise_q["diff"])
     u_pr = uniform(seed, "promise", idx)
@@ -245,7 +250,7 @@ def simulate(p: ChainParams, start: date, end: date, seed: int = 1, cut: datetim
         m = (reg == r) & (same if lab == "same" else ~same)
         promise_raw[m] = qdraw(np.array(q), u_pr[m])
     promise_days = np.round(promise_raw)
-    purchase = pl.Series([t0 + timedelta(seconds=float(s)) for s in purchase_s]).cast(pl.Datetime("us"))
+    purchase = pl.Series(purchase_us).cast(pl.Datetime("us"))
     df = df.with_columns(
         purchased_at=purchase,
         approved_at=purchase + pl.duration(seconds=pl.Series(approval_s.round())),

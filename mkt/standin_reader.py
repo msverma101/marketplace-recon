@@ -99,3 +99,19 @@ def investigate_change(port: EvidenceAccessPort, metrics: list[str], at: datetim
         gaps.append(EvidenceGap(statement="cause of the changes is not identified: the source is observational only",
                                 would_resolve="a natural-experiment design (e.g. region-level difference-in-differences) or an external record of the shock"))
     return Report(question=q, findings=findings, gaps=gaps, refusals=refusals)
+
+
+def localise_change(port: EvidenceAccessPort, metric: str, filters: dict[str, str], start: datetime, end: datetime,
+                    as_of: datetime, z_threshold: float = 3.0) -> dict:
+    """Which periods of a metric deviate from its own robust baseline, and by how much (descriptive only).
+    Baseline = median of all periods, scale = 1.4826 * MAD; excess = value - baseline."""
+    r = port.query(EvidenceRequest(variable_id=metric, shape="series", grain="week", as_of=as_of,
+                                   window_start=start, window_end=end, filters=filters))
+    if isinstance(r, Refusal):
+        return {"refused": r.code.value, "flagged": {}, "cited": []}
+    pts = [(p["t"][:10], p["value"]) for p in r.observations[0].payload if p["value"] is not None]
+    vals = [v for _, v in pts]
+    mu = median(vals)
+    sd = max(1.4826 * median([abs(v - mu) for v in vals]), 1e-9)
+    flagged = {t: v - mu for t, v in pts if (v - mu) / sd >= z_threshold}
+    return {"flagged": flagged, "baseline": mu, "cited": [r.observations[0].id], "certainty": "observational association"}
