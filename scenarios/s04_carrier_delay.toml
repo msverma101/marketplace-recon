@@ -1,0 +1,29 @@
+id = "s04-carrier-delay"
+version = 1
+kind = "simulated"
+description = "Carrier transit to RJ is 2.5x slower for shipments handed over during 3 days; late deliveries and bad reviews follow with a lag."
+
+[world]
+start = "2018-03-01"
+days = 42
+scale = 0.5
+seed = 14
+
+[[interventions]]
+id = "iv-carrier"
+layer = "world"
+target = "carrier.transit_multiplier"
+operator = "scale"
+value = 2.5
+selector = "region == 'RJ'"
+window = ["2018-03-10T00:00", "2018-03-13T00:00"]
+
+[[truth]]
+kind = "cause"
+target = "logistics:carrier_slowdown"
+segment = "region=RJ"
+window = ["2018-03-10T00:00", "2018-03-13T00:00"]
+identifiable = true
+symptoms = [["late_delivered", "region=RJ"], ["review_score", "region=RJ"]]
+max_lag_h = 504
+notes = "Symptoms lag the cause by days to weeks (late deliveries surface only once promises expire). Competing explanation: product quality; discriminator: region-specific and seller-agnostic."

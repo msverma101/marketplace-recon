@@ -1,0 +1,32 @@
+id = "s13-truckers-strike-real"
+version = 1
+kind = "real_replay"
+description = "REAL Olist data, Apr-Jul 2018. Brazil's truckers' strike (21 May - 1 Jun 2018) cut orders; Olist widened delivery promises (20 -> 37 days), so the late-delivery rate FELL. No simulation."
+limitations = """Ground truth here is historical record + measurement on Olist data (docs §4.1b), not a simulator.
+Strike dates are from public reporting; whether promise widening was platform policy or seller-set is not identifiable from the data.
+Olist timestamps are local naive times; available_at uses the default measurement delays (assumption A-11)."""
+
+[world]
+start = "2018-04-01"
+end = "2018-07-15"
+seed = 113
+
+[[truth]]
+kind = "cause"
+target = "external:truckers_strike"
+segment = "all"
+window = ["2018-05-21T00:00", "2018-06-01T00:00"]
+identifiable = true
+symptoms = [["order_created", "all"]]
+max_lag_h = 72
+notes = "Measured: orders/week 1,805 -> 941."
+
+[[truth]]
+kind = "cause"
+target = "policy:promise_widened"
+segment = "all"
+window = ["2018-05-21T00:00", "2018-06-15T00:00"]
+identifiable = true
+symptoms = [["promised_days", "all"], ["late_delivered", "all"]]
+max_lag_h = 720
+notes = "Measured: promised days 20.1 -> 37.4; late share 16.0% -> 0.4%. A monitor praising 'improved fulfilment' is wrong: actual delivery days were flat."

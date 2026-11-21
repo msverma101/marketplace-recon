@@ -1,0 +1,30 @@
+id = "s01-checkout-outage"
+version = 1
+kind = "simulated"
+description = "Sanity: mobile checkout errors jump to 35% for 2.5 h. Desktop unaffected."
+
+[world]
+start = "2018-03-01"
+days = 21
+scale = 0.5
+seed = 11
+
+[[interventions]]
+id = "iv-outage"
+layer = "world"
+target = "infra.checkout.error_rate"
+operator = "set"
+value = 0.35
+selector = "device == 'mobile'"
+window = ["2018-03-15T19:00", "2018-03-15T21:30"]
+observable = false
+
+[[truth]]
+kind = "cause"
+target = "infra:checkout_outage"
+segment = "device=mobile"
+window = ["2018-03-15T19:00", "2018-03-15T21:30"]
+identifiable = true
+symptoms = [["checkout_error", "device=mobile"], ["order_created", "device=mobile"], ["checkout_error_rate", "device=mobile"]]
+max_lag_h = 2
+notes = "Discriminating evidence: device split, error telemetry. Sessions are unaffected (do() descendants test)."
