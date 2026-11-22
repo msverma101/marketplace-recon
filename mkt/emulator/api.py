@@ -135,6 +135,11 @@ class Emulator:
             s, v = __import__("mkt.sim.sessions", fromlist=["build"]).build(reached, self.sp, self.params, a, b, self.seed,
                                                                              failed=outcome.astype(str), demand_multiplier=demand)
             seg["sessions"], seg["views"] = s, v
+        if storefront is not None and self.cfg.sessions and getattr(self, "_sf_browse", 0):
+            browse = self.browse_plans(seg["sessions"])               # step 3: browsing-only visits through the shop
+            if browse:
+                results = storefront(browse)
+                self.commands += [{**b, **results.get(b["command_id"], {"outcome": "timeout"})} for b in browse]
         self.segments.append(seg)
         n = len(self.segments) - 1
         orders.write_parquet(self.priv / "ledger" / f"orders-{n:04d}.parquet")
@@ -160,8 +165,22 @@ class Emulator:
         return [{"row": int(i), "order_idx": int(idx[i]), "command_id": _h([self.seed, "cmd", int(idx[i])])[:20],
                  "session_alias": _h([self.seed, "alias", int(idx[i])])[:16], "purchased_at": pu[int(i)].isoformat()} for i in sel]
 
-    def start_storefront(self, window_start: datetime, window_end: datetime, max_sessions: int | None = None) -> None:
+    def browse_plans(self, sessions: pl.DataFrame) -> list[dict]:
+        """Non-buying and research visits starting inside the storefront window (sessions=True) -> browse plans.
+        Browsing changes no business state: results are recorded for correlation, never committed to the ledger."""
+        win = getattr(self, "_sf_window", None)
+        if win is None:
+            return []
+        t = sessions["start_us"].cast(pl.Datetime("us"))
+        sel = sessions.filter((sessions["kind"] != "buying") & (t >= win[0]) & (t < win[1])).sort("start_us").head(self._sf_browse)
+        return [{"kind": "browse", "order_idx": int(r["key"]) % 2_000_000_000, "command_id": _h([self.seed, "browse", r["session_id"]])[:20],
+                 "session_alias": _h([self.seed, "alias", r["session_id"]])[:16], "n_views": int(min(r["n_views"], 5)),
+                 "cart": r["cart_us"] is not None} for r in sel.to_dicts()]
+
+    def start_storefront(self, window_start: datetime, window_end: datetime, max_sessions: int | None = None,
+                         browse_sessions: int = 0) -> None:
         self._sf_window = (window_start, window_end, max_sessions)
+        self._sf_browse = browse_sessions
         self._audit("storefront", {"start": window_start.isoformat(), "end": window_end.isoformat(), "max_sessions": max_sessions})
 
     # ------------------------------------------------------------------ public plane

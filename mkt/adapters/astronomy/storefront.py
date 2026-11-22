@@ -122,6 +122,8 @@ class SessionDriver:
         return out
 
     def _execute(self, p: dict) -> dict:
+        if p.get("kind") == "browse":
+            return self._browse(p)
         pid, user = self.product_for(p["order_idx"]), p["session_alias"]
         bag = f"session.id={user},synthetic_request=true,mkt.command_id={p['command_id']}"
         lat = {}
@@ -138,6 +140,24 @@ class SessionDriver:
             return {"command_id": p["command_id"], "outcome": "ok", "storefront_order_id": body["orderId"], "product": pid, "latency_s": lat}
         outcome = {422: "payment_failed", -1: "timeout"}.get(c, "checkout_failed")
         return {"command_id": p["command_id"], "outcome": outcome, "http": c, "product": pid, "latency_s": lat}
+
+
+    def _browse(self, p: dict) -> dict:
+        """Browsing-only visit: n product views (keyed product choice), optional cart add, never a checkout."""
+        user = p["session_alias"]
+        bag = f"session.id={user},synthetic_request=true,mkt.command_id={p['command_id']}"
+        lat, pids = {}, []
+        for k in range(p["n_views"]):
+            pid = self.product_for(p["order_idx"] * 8 + k)
+            c, _, lat[f"view{k}"] = _call("GET", f"/api/products/{pid}?currencyCode=USD", baggage=bag)
+            if c != 200:
+                return {"command_id": p["command_id"], "outcome": "catalog_failed" if c > 0 else "timeout", "http": c, "latency_s": lat}
+            pids.append(pid)
+        if p["cart"] and pids:
+            c, _, lat["cart"] = _call("POST", "/api/cart", {"item": {"productId": pids[-1], "quantity": 1}, "userId": user}, baggage=bag)
+            if c != 200:
+                return {"command_id": p["command_id"], "outcome": "cart_failed" if c > 0 else "timeout", "http": c, "latency_s": lat}
+        return {"command_id": p["command_id"], "outcome": "ok", "views": len(pids), "carted": bool(p["cart"]), "latency_s": lat}
 
 
 class FlagAdapter:
