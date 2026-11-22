@@ -21,16 +21,19 @@ SCEN = {"9a_checkout_failure": InterventionSpec(id="9a", target="checkout.failur
         "control": None}
 EXPECT = {"9a_checkout_failure": ("localised", "checkouts_count -> orders_count"),
           "9b_demand_drop": ("localised", "upstream of sessions_count"), "control": ("no_change", None)}
+POSTHOC = "--posthoc" in sys.argv          # count-floor reader on NEW seeds; supplementary, not the gate
+SEEDS = (71, 72, 73, 74, 75) if POSTHOC else (61, 62, 63, 64, 65)
 rows = []
-for layer in (True, False):
+for layer in ((True,) if POSTHOC else (True, False)):
     for name, spec in SCEN.items():
-        for seed in (61, 62, 63, 64, 65):
+        for seed in SEEDS:
             _, _, _, port, _ = twin.run(p, date(2018, 1, 1), date(2018, 4, 2), seed, spec, session_params=sp if layer else None)
-            r = standin_reader.localise_funnel(port, "orders_count", datetime(2018, 1, 1), datetime(2018, 4, 2), datetime(2018, 5, 1))
+            r = standin_reader.localise_funnel(port, "orders_count", datetime(2018, 1, 1), datetime(2018, 4, 2), datetime(2018, 5, 1),
+                                               count_floor=POSTHOC)
             rows.append({"layer": layer, "scenario": name, "seed": seed, "classification": r.classification, "stage": r.stage,
                          "periods": r.periods, "correct": (r.classification, r.stage) == EXPECT[name], "rationale": r.rationale})
             print(layer, name, seed, r.classification, r.stage, r.periods, flush=True)
-pathlib.Path("docs/p0/p1_2_s10_score.json").write_text(json.dumps(rows, indent=1))
-for layer in (True, False):
+pathlib.Path("docs/p0/p1_2_s10_posthoc.json" if POSTHOC else "docs/p0/p1_2_s10_score.json").write_text(json.dumps(rows, indent=1))
+for layer in ((True,) if POSTHOC else (True, False)):
     print("with layer" if layer else "without layer",
           {n: sum(r["correct"] for r in rows if r["layer"] == layer and r["scenario"] == n) for n in SCEN})

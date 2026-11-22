@@ -191,8 +191,22 @@ class FunnelLocalisation(BaseModel):
     cited_observations: list[str]
 
 
+def _ratio_z(num: dict, den: dict, weeks, count_floor: bool) -> dict:
+    """Robust z of a weekly ratio. count_floor (post-hoc, 22 Nov): the scale is at least the counting
+    uncertainty of that week's ratio, r*sqrt(1/num + 1/den), so near-constant ratios don't turn noise into breaks."""
+    r = {w: num[w] / den[w] for w in weeks if den[w]}
+    vals = list(r.values())
+    mu = median(vals)
+    mad = 1.4826 * median([abs(v - mu) for v in vals])
+    out = {}
+    for w, v in r.items():
+        sd = max(mad, (v * (1 / max(num[w], 1) + 1 / max(den[w], 1)) ** 0.5) if count_floor else 0.0, 1e-9)
+        out[w] = (v - mu) / sd
+    return out
+
+
 def localise_funnel(port: EvidenceAccessPort, metric: str, start: datetime, end: datetime, as_of: datetime,
-                    z_flag: float = 3.0, z_quiet: float = 2.0) -> FunnelLocalisation:
+                    z_flag: float = 3.0, z_quiet: float = 2.0, count_floor: bool = False) -> FunnelLocalisation:
     """Walk the declared funnel ("funnel_after: <previous stage>" identities) back from `metric`.
     For each period where the metric moved, report the first transition whose ratio broke while the others
     stayed quiet; if no ratio broke but the root level moved the same way, the change is upstream of the root."""
@@ -222,7 +236,7 @@ def localise_funnel(port: EvidenceAccessPort, metric: str, start: datetime, end:
     weeks = sorted(set.intersection(*(set(s) for s in lv.values())))
     ratio_z = {}
     for a, b in zip(chain, chain[1:]):
-        ratio_z[f"{a} -> {b}"] = _robust_z({w: lv[b][w] / lv[a][w] for w in weeks if lv[a][w]})
+        ratio_z[f"{a} -> {b}"] = _ratio_z(lv[b], lv[a], weeks, count_floor)
     root_z = _robust_z({w: lv[chain[0]][w] for w in weeks})
     verdicts = []
     for t in flagged:
