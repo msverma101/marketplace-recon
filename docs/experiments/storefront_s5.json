@@ -16,25 +16,25 @@
   {
    "day": "2018-02-21",
    "outcome": "ok",
-   "len": 197
+   "len": 186
   },
   {
    "day": "2018-02-21",
    "outcome": "payment_failed",
-   "len": 51
+   "len": 62
   }
  ],
  "ledger_orders": {
   "2018-02-19": 263,
   "2018-02-20": 247,
-  "2018-02-21": 197,
+  "2018-02-21": 186,
   "2018-02-22": 219
  },
  "telemetry_error_rates": {
   "A:payment": 0.0,
   "A:checkout": 0.0,
-  "B:payment": 0.2056451612903226,
-  "B:checkout": 0.2056451612903226
+  "B:payment": 0.25,
+  "B:checkout": 0.25
  },
  "telemetry_requests": {
   "A:payment": 247.0,
@@ -43,10 +43,10 @@
   "B:checkout": 248.0
  },
  "wall_seconds": [
-  9.1,
-  8.3
+  8.9,
+  8.0
  ],
- "leak_hits": 0,
+ "leak_hits": 1,
  "checks": {
   "every ok command is a committed ledger order": true,
   "no failed command is in the ledger": true,
@@ -55,7 +55,7 @@
   "duplicate injection: identical results": true,
   "telemetry: payment error rate rises in the fault day": true,
   "telemetry: role SANDBOX_OBSERVED": true,
-  "leak scan (hidden faults): 0 hits": true
+  "leak scan (hidden faults): 0 hits": false
  },
- "all_pass": true
+ "all_pass": false
 }

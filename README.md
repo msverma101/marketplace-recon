@@ -1,6 +1,8 @@
 # Marketplace Martha
 
-**Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches, investigates, asks for the evidence she needs, and says so when she can't tell.**
+**MARTHA: MARketplace Tracing through causal Hindsight & Adaptation**
+
+*Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches continuously, traces every alarm back to its cause, proposes a fix with its expected effect, and adapts as the evidence comes in. She acts only with a person's approval.*
 
 ### Why "Martha"?
 A marketplace is a living place: buyers, sellers, carriers, payments, reviews, and the software in between. When something goes wrong, dashboards show *that* a number moved. Someone still has to work out *why*, check whether it's real, and decide what to do. Martha is that caretaker:
@@ -18,17 +20,17 @@ A marketplace is a living place: buyers, sellers, carriers, payments, reviews, a
 
 ## 🎬 Demo video
 
-[![Marketplace Martha: watching the real Astronomy Shop, raising an alarm, proposing a fix and waiting for approval](docs/media/demo_thumbnail.png)](causal_core_demo_video/videos/uc2_silent.mp4)
+https://github.com/user-attachments/assets/7ee3e0f6-abe5-433f-a240-3645c502f7d0
 
-**▶ [Watch the 3-minute demo](causal_core_demo_video/videos/uc2_silent.mp4)** (marketplace watcher on the real Astronomy Shop, 3:00, subtitled)
+**▶ [Watch / download the 3-minute demo (MP4)](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_team.mp4)** (marketplace watcher on the real Astronomy Shop, 3:00, subtitled, ends with the team and LinkedIn QR codes)
 
 | Video | What it shows | Length |
 |---|---|---|
-| [**Main demo**](causal_core_demo_video/videos/uc2_silent.mp4) | Shoppers from the emulator go through the real shop; payments start failing (hidden from Martha); she raises the alarm, rules out a demand drop, proposes turning the faulty flag off with an expected effect, and acts only after a person approves | 3:00 |
-| [Pitch](causal_core_demo_video/videos/uc2_pitch.mp4) | The idea and how it works | 1:40 |
-| [Demo cut](causal_core_demo_video/videos/uc2_demo_cut.mp4) | The dashboard sequence only | 1:20 |
-| [Experiment watcher](causal_core_demo_video/videos/uc1.mp4) | Second use case: Martha watching A/B experiments (Statsig-shaped), refusing to estimate a broken 50/50 split | 2:23 |
-| [Full screen recording](causal_core_demo_video/videos/uc2_screen.mp4) | The whole paced run, uncut | 6:57 |
+| [**Main demo**](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_team.mp4) | Shoppers from the emulator go through the real shop; payments start failing (hidden from Martha); she raises the alarm, rules out a demand drop, proposes turning the faulty flag off with an expected effect, and acts only after a person approves; ends with the team card (LinkedIn QR codes) | 3:00 |
+| [Main demo without the team card](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_silent.mp4) | The same cut, original ending | 3:00 |
+| [Pitch](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_pitch.mp4) | The idea and how it works | 1:40 |
+| [Demo cut](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_demo_cut.mp4) | The dashboard sequence only | 1:20 |
+| [Full screen recording](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_screen.mp4) | The whole paced run, uncut | 6:57 |
 
 How the videos are recorded and rebuilt: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
 
@@ -90,6 +92,28 @@ mkdir -p ~/data/mkt/stitch && unzip -q share/stitch_samples.zip -d ~/data/mkt/st
 | Contract check against the core's contracts (+ the core's own parser over 340 samples) | `.venv/bin/python -I scripts/conform.py` | ~70 s |
 | Contract samples for all 106 variables | `.venv/bin/python -I scripts/stitch_samples.py` | ~35 s |
 | Re-stitch every dataset into cards (needs the raw datasets) | `.venv/bin/python -I scripts/stitch.py run` | ~80 s |
+
+### Watch Martha live (agent dashboard + real shop)
+```bash
+cd causal_core_demo_video
+scripts/uc2_shop.sh up --traces      # start the Astronomy Shop (with Jaeger traces); scripts/uc2_shop.sh status to check
+scripts/uc2_watch.sh                 # run the payment-fault scenario at watchable speed (~8 min); --fast for full speed (~6 min)
+scripts/uc2_shop.sh down             # stop the shop
+```
+Then open:
+| What | URL |
+|---|---|
+| **Martha's dashboard**: shoppers, checkouts per block, the engine's stages, the policy gate, the proposed action waiting for approval | http://127.0.0.1:8765/scenes/uc2_live.html |
+| The shop itself | http://localhost:8080 |
+| Requests flowing through the services (if started with `--traces`) | http://localhost:8080/jaeger/ui/ |
+
+Optional, in another terminal: `docker logs -f --since 1s payment` (failed charges appear during the fault) · `docker stats` (CPU and memory per container).
+
+**On Linux** (the scripts were written on a Mac): point them at this repo's Python and open the URLs yourself:
+```bash
+PY=$PWD/../.venv/bin/python NO_OPEN=1 scripts/uc2_watch.sh
+```
+Outputs land in `causal_core_demo_video/outputs/uc2/`. Details: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
 
 ### Optional: the live shop
 ```bash
@@ -175,5 +199,10 @@ The shop UI is at **http://localhost:8080** while it runs.
 Working: everything in *Results so far*. Next: fix the core's default monitoring window, make its baseline robust to marketplace growth, and connect the remaining 18 stitched data types (prices, stock, search, recommendations, returns, reviews, sellers, ads, fraud) as simulator layers. Details: [`docs/HANDOVER.md`](docs/HANDOVER.md).
 
 ## Team
-<!-- Add names, roles and links here. -->
-_Add team members here._
+| | Sneha Verma | Stefan Dye |
+|---|:---:|:---:|
+| | <img src="causal_core_demo_video/scenes/team/photos/sneha-verma.jpg" width="140" alt="Sneha Verma"> | <img src="causal_core_demo_video/scenes/team/photos/stefan-dye.jpg" width="140" alt="Stefan Dye"> |
+| Role | _job title_ | _job title_ |
+| LinkedIn | <img src="causal_core_demo_video/scenes/team/qr-sneha-verma.png" width="140" alt="QR: Sneha Verma on LinkedIn"><br>[msverma101](https://www.linkedin.com/in/msverma101/) | <img src="causal_core_demo_video/scenes/team/qr-stefan-dye.png" width="140" alt="QR: Stefan Dye on LinkedIn"><br>[stefan-dye](https://www.linkedin.com/in/stefan-dye-782b962b/) |
+
+**Team page for the demo:** [`causal_core_demo_video/scenes/team/index.html`](causal_core_demo_video/scenes/team/index.html). While `uc2_watch.sh` runs it is served at **http://127.0.0.1:8765/scenes/team/**, next to Martha's dashboard.
