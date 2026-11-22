@@ -93,6 +93,28 @@ mkdir -p ~/data/mkt/stitch && unzip -q share/stitch_samples.zip -d ~/data/mkt/st
 | Contract samples for all 106 variables | `.venv/bin/python -I scripts/stitch_samples.py` | ~35 s |
 | Re-stitch every dataset into cards (needs the raw datasets) | `.venv/bin/python -I scripts/stitch.py run` | ~80 s |
 
+### Watch Martha live (agent dashboard + real shop)
+```bash
+cd causal_core_demo_video
+scripts/uc2_shop.sh up --traces      # start the Astronomy Shop (with Jaeger traces); scripts/uc2_shop.sh status to check
+scripts/uc2_watch.sh                 # run the payment-fault scenario at watchable speed (~8 min); --fast for full speed (~6 min)
+scripts/uc2_shop.sh down             # stop the shop
+```
+Then open:
+| What | URL |
+|---|---|
+| **Martha's dashboard**: shoppers, checkouts per block, the engine's stages, the policy gate, the proposed action waiting for approval | http://127.0.0.1:8765/scenes/uc2_live.html |
+| The shop itself | http://localhost:8080 |
+| Requests flowing through the services (if started with `--traces`) | http://localhost:8080/jaeger/ui/ |
+
+Optional, in another terminal: `docker logs -f --since 1s payment` (failed charges appear during the fault) · `docker stats` (CPU and memory per container).
+
+**On Linux** (the scripts were written on a Mac): point them at this repo's Python and open the URLs yourself:
+```bash
+PY=$PWD/../.venv/bin/python NO_OPEN=1 scripts/uc2_watch.sh
+```
+Outputs land in `causal_core_demo_video/outputs/uc2/`. Details: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
+
 ### Optional: the live shop
 ```bash
 git clone --branch 3.1.0 --depth 1 https://github.com/open-telemetry/opentelemetry-demo.git ~/.cache/otel-demo-3.1.0
