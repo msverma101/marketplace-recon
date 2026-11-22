@@ -1,0 +1,11 @@
+# Optional (scripts/uc2_shop.sh up --traces): also send the same redacted spans to Jaeger, for people to watch.
+# The agent never reads Jaeger; it reads only the file export through marketplace-recon's telemetry port.
+exporters:
+  otlp_grpc/jaeger:
+    endpoint: "jaeger:4317"
+    tls:
+      insecure: true
+service:
+  pipelines:
+    traces:
+      exporters: [debug, span_metrics, file/spans, otlp_grpc/jaeger]
