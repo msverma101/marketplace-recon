@@ -98,6 +98,8 @@ class Emulator:
                 demand = eff["fn"]
             elif eff["kind"] == "checkout_fail":
                 cfail = eff
+            elif eff["kind"] == "flag":
+                continue                                    # operational: applied to the storefront by the flag adapter
             else:
                 drops += eff["drops"]
         return transit, demand, cfail, drops
@@ -138,6 +140,8 @@ class Emulator:
         orders.write_parquet(self.priv / "ledger" / f"orders-{n:04d}.parquet")
         if self.cfg.sessions:
             seg["sessions"].write_parquet(self.priv / "ledger" / f"sessions-{n:04d}.parquet")
+        if self.commands:
+            pl.DataFrame(self.commands).drop("latency_s", strict=False).write_parquet(self.priv / "correlation.parquet")
         self.clock = until
         self._audit("step", {"from": a.isoformat(), "to": b.isoformat(), "orders": orders.height,
                              "lost": int((outcome != OUTCOME_OK).sum())})
@@ -213,3 +217,8 @@ class Emulator:
             raise RuntimeError("restore: ledger does not match the snapshot")
         self._audit("restore", {"clock": self.clock.isoformat()})
         return {"run_id": self.run_id, "clock": self.clock.isoformat()}
+
+    def operational_flags(self) -> list[dict]:
+        """Accepted operational interventions (for the storefront harness to apply through the flag adapter)."""
+        horizon = (datetime.combine(self.cfg.start, time()), datetime.combine(self.cfg.horizon_end, time()))
+        return [eff for sp in self.specs for _, eff in [gateway(sp, set(self.params.buyer_regions), horizon)] if eff and eff["kind"] == "flag"]

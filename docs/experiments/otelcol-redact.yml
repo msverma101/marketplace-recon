@@ -7,12 +7,19 @@ processors:
         - 'resource.attributes["service.name"] == "flagd"'
         - 'IsMatch(name, "(?i)flagd|feature_flag")'
         - 'attributes["server.address"] == "flagd" or attributes["rpc.service"] != nil and IsMatch(attributes["rpc.service"], "(?i)flagd")'
+        - 'attributes["http.url"] != nil and IsMatch(attributes["http.url"], "(?i)flagd|flagservice|openfeature")'
+        - 'attributes["url.full"] != nil and IsMatch(attributes["url.full"], "(?i)flagd|flagservice|openfeature")'
+        - 'attributes["url.path"] != nil and IsMatch(attributes["url.path"], "(?i)flagd|flagservice|openfeature")'
       spanevent:
         - 'IsMatch(name, "(?i)feature_flag")'
     logs:
       log_record:
         - 'resource.attributes["service.name"] == "flagd"'
         - 'resource.attributes["service.name"] == "otelcol-contrib"'
+        - 'IsMatch(body, "(?i)flagd|flagservice|openfeature")'
+        - 'attributes["url.full"] != nil and IsMatch(attributes["url.full"], "(?i)flagd|flagservice|openfeature")'
+        - 'attributes["url.path"] != nil and IsMatch(attributes["url.path"], "(?i)flagd|flagservice|openfeature")'
+        - 'IsMatch(instrumentation_scope.name, "(?i)openfeature")'
   transform/hide_faults:
     error_mode: ignore
     trace_statements:

@@ -23,6 +23,7 @@ ALLOWED = {
     "carrier.transit_multiplier": {"layer": "world", "operators": {"scale"}, "bounds": (0.5, 5.0), "selector_keys": {"region"}},
     "demand.multiplier": {"layer": "world", "operators": {"scale"}, "bounds": (0.2, 3.0), "selector_keys": set()},
     "checkout.failure_rate": {"layer": "world", "operators": {"set"}, "bounds": (0.0, 0.9), "selector_keys": set()},
+    "storefront.payment_failure": {"layer": "operational", "operators": {"set"}, "bounds": (0.0, 1.0), "selector_keys": set()},
     "logging.drop_rate": {"layer": "observation", "operators": {"set"}, "bounds": (0.0, 0.9), "selector_keys": {"event_type"}},
 }
 
@@ -70,6 +71,11 @@ def gateway(spec: InterventionSpec, regions: set[str], horizon: tuple[datetime, 
     if spec.target == "demand.multiplier":
         d0, d1 = spec.window_start.date(), spec.window_end.date()
         return ok, {"kind": "demand", "fn": lambda day: factor if d0 <= day < d1 else 1.0}
+    if spec.target == "storefront.payment_failure":            # executed by the flag adapter in storefront windows
+        variants = {0.0: "off", 0.1: "10%", 0.25: "25%", 0.5: "50%", 0.75: "75%", 1.0: "100%"}
+        if factor not in variants:
+            return reject(FailureCode.UNSUPPORTED_REQUEST, f"payment failure must be one of {sorted(variants)}")
+        return ok, {"kind": "flag", "flag": "paymentFailure", "variant": variants[factor], "w0": w0, "w1": w1}
     if spec.target == "checkout.failure_rate":
         return ok, {"kind": "checkout_fail", "rate": factor, "w0": w0, "w1": w1}
     etypes = [v for _, _, vals in clauses for v in vals] or sorted(EVENT_TYPES)
