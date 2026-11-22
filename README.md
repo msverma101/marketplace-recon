@@ -202,6 +202,7 @@ Working: everything in *Results so far*. Next: fix the core's default monitoring
 ## Team
 | | Sneha Verma | Stefan Dye |
 |---|:---:|:---:|
+| | <img src="causal_core_demo_video/scenes/team/photos/sneha-verma.jpg" width="140" alt="Sneha Verma"> | <img src="causal_core_demo_video/scenes/team/photos/stefan-dye.jpg" width="140" alt="Stefan Dye"> |
 | Role | _job title_ | _job title_ |
 | LinkedIn | <img src="causal_core_demo_video/scenes/team/qr-sneha-verma.png" width="140" alt="QR: Sneha Verma on LinkedIn"><br>[msverma101](https://www.linkedin.com/in/msverma101/) | <img src="causal_core_demo_video/scenes/team/qr-stefan-dye.png" width="140" alt="QR: Stefan Dye on LinkedIn"><br>[stefan-dye](https://www.linkedin.com/in/stefan-dye-782b962b/) |
 
