@@ -18,14 +18,19 @@ A marketplace is a living place: buyers, sellers, carriers, payments, reviews, a
 
 ## 🎬 Demo video
 
-<!-- Replace the placeholder below with your video. Options:
-     - YouTube/Vimeo:  [![Demo](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
-     - File in repo:   put it under docs/media/demo.mp4 and link it: [Watch the demo](docs/media/demo.mp4)
-     - GitHub upload:  drag the .mp4 into this README in the GitHub editor; GitHub inserts the player link. -->
+[![Marketplace Martha: watching the real Astronomy Shop, raising an alarm, proposing a fix and waiting for approval](docs/media/demo_thumbnail.png)](causal_core_demo_video/videos/uc2_silent.mp4)
 
-> **📺 Demo video: coming soon**
->
-> _Add the video link here._
+**▶ [Watch the 3-minute demo](causal_core_demo_video/videos/uc2_silent.mp4)** (marketplace watcher on the real Astronomy Shop, 3:00, subtitled)
+
+| Video | What it shows | Length |
+|---|---|---|
+| [**Main demo**](causal_core_demo_video/videos/uc2_silent.mp4) | Shoppers from the emulator go through the real shop; payments start failing (hidden from Martha); she raises the alarm, rules out a demand drop, proposes turning the faulty flag off with an expected effect, and acts only after a person approves | 3:00 |
+| [Pitch](causal_core_demo_video/videos/uc2_pitch.mp4) | The idea and how it works | 1:40 |
+| [Demo cut](causal_core_demo_video/videos/uc2_demo_cut.mp4) | The dashboard sequence only | 1:20 |
+| [Experiment watcher](causal_core_demo_video/videos/uc1.mp4) | Second use case: Martha watching A/B experiments (Statsig-shaped), refusing to estimate a broken 50/50 split | 2:23 |
+| [Full screen recording](causal_core_demo_video/videos/uc2_screen.mp4) | The whole paced run, uncut | 6:57 |
+
+How the videos are recorded and rebuilt: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
 
 **What the demo shows (≈ 5 min):**
 1. **A normal day:** the emulator produces orders, sessions, deliveries and reviews; the real shop serves the same shoppers.
