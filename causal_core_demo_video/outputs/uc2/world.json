@@ -1,8 +1,9 @@
 {
  "canonical": "f9e857bce15c8244",
  "catalog_products_synced": 200,
+ "catalog_pictures_fixed": 200,
  "orders_before_window": 8486,
- "setup_s": 2.3,
+ "setup_s": 2.8,
  "normal_days": [
   "2018-02-12",
   "2018-02-13",

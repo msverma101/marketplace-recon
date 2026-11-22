@@ -15,4 +15,5 @@ chmod 777 "$HOME/data/mkt/astronomy/live"
 cp "$DEMO/src/flagd/demo.flagd.json" "$HOME/data/mkt/astronomy/flags/demo.flagd.json"
 cp "$B/demo/data/bcb_usd_brl_2017.json" "$HOME/data/mkt/raw/bcb/usd_brl.json"
 chmod +x "$B"/demo/scripts/*.sh
-echo "Setup done. Next: start Docker Desktop, then  cd $B/demo && scripts/uc2_shop.sh up"
+echo "Setup done. Next: start Docker Desktop, then:"
+echo "  cd $B/demo && scripts/uc2_shop.sh up --traces && scripts/uc2_watch.sh"

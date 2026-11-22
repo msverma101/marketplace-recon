@@ -27,6 +27,9 @@ path, not a quieter market. It expected +43 orders from the fix (range 29 to 62)
 **How it could be improved.**
 - **Faster alarms when traffic is low.** At night the shop sees only a handful of checkouts per 3-hour block, so the
   alarm came 9 simulated hours after the first failure. Checking per minute, or setting the alarm by traffic, would help.
+- **Re-estimate after the alarm.** An estimate made the moment an alarm fires runs high, because alarms fire when the
+  sample looks worst. In 1 of 5 test runs the range missed (55 to 123 expected, about 53 saved). Re-estimating one
+  block later fixes this.
 - **A completeness check per data source.** Payment telemetry arrived in delayed batches.
 - **Sharper what-if predictions.** In an internal test, a pre-trained table model cut the error from about 91 to 9 on
   a world with a bend and an interaction.

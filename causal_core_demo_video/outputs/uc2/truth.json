@@ -35,12 +35,12 @@
   {
    "day": "2018-02-16",
    "outcome": "ok",
-   "len": 224
+   "len": 228
   },
   {
    "day": "2018-02-16",
    "outcome": "payment_failed",
-   "len": 15
+   "len": 11
   },
   {
    "day": "2018-02-17",
@@ -48,10 +48,10 @@
    "len": 173
   }
  ],
- "failed_before_fix": 15,
+ "failed_before_fix": 11,
  "failed_after_fix": 0,
- "fixed_at": "2018-02-16T12:22:00Z",
- "orders_saved_vs_no_fix_expected": 45.8,
- "first_failure_sim": "2018-02-16T00:36:54.036067Z",
- "checkouts_after_fix": 183
+ "fixed_at": "2018-02-16T09:22:00Z",
+ "orders_saved_vs_no_fix_expected": 53.2,
+ "first_failure_sim": "2018-02-16T00:03:14.817475Z",
+ "checkouts_after_fix": 213
 }

@@ -71,9 +71,11 @@ svg text{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;font-varian
   <div class="col" style="width:1080px">
     <div style="display:flex;gap:16px">
       <div class="card" style="width:452px;padding:12px">
-        <div class="ttl">The shop <span class="side">real Astronomy Shop · local</span></div>
+        <div class="ttl">The shop <span class="side" id="shopside">real Astronomy Shop · local</span></div>
         <img id="shopimg" src="../videos/uc2_images/shop_home.png" style="width:426px;height:240px;object-fit:cover;object-position:top;border-radius:8px;border:1px solid var(--border)" onerror="this.style.visibility='hidden'">
-        <div class="foot" style="margin-top:8px">200 real Olist products synced into its catalog</div>
+        <div id="shopbox" style="display:none;width:426px;height:240px;overflow:hidden;border-radius:8px;border:1px solid var(--border);background:#fff">
+          <iframe id="shopframe" src="about:blank" style="width:1278px;height:720px;border:0;transform:scale(.3333);transform-origin:0 0" scrolling="no"></iframe></div>
+        <div class="foot" style="margin-top:8px" id="shopfoot">200 real Olist products synced into its catalog</div>
       </div>
       <div class="card" style="flex:1">
         <div class="ttl">Shoppers going through the shop <span class="side">the world · not visible to the agent</span></div>
@@ -108,7 +110,17 @@ const hm = s => { const d = new Date(s); return `${String(d.getUTCHours()).padSt
 const STAGES = ["FRAME", "AUDIT_INPUTS", "SELECT_CAPABILITIES", "ACQUIRE", "EVALUATE", "CHALLENGE", "REPORT"];
 const STAGE_TXT = { FRAME: "question → plan state", AUDIT_INPUTS: "contracts, scope, clocks checked", SELECT_CAPABILITIES: "which methods can apply",
   ACQUIRE: "evidence requested through the port", EVALUATE: "methods run", CHALLENGE: "assumptions and refusals checked", REPORT: "report revision published" };
-let lastTask = null, animStart = 0;
+let lastTask = null, animStart = 0, shopAt = 0, shopPid = null;
+const SHOP = q.get("shop") || "http://localhost:8080";
+function liveShop(L) {                     // live mode: the real shop, on the product a shopper just bought (max every 8 s)
+  const s = (L.sessions || []).slice().reverse().find(x => x.pid);
+  if (!s || s.pid === shopPid || performance.now() - shopAt < 8000) return;
+  shopPid = s.pid; shopAt = performance.now();
+  $("#shopimg").style.display = "none"; $("#shopbox").style.display = "block";
+  $("#shopframe").src = `${SHOP}/product/${s.pid}`;
+  $("#shopside").textContent = "live · the product a shopper just bought";
+  $("#shopfoot").textContent = `${s.product?.[0] || ""} · one of 200 real Olist products synced into the shop`;
+}
 
 function render(L, animate) {
   const phaseCls = L.fixed ? "ok" : L.alarm ? "bad" : L.phase === "fault day" ? "neutral" : "neutral";
@@ -183,7 +195,7 @@ if (q.get("snap")) {                      // static render of a saved snapshot (
   let L = null;
   const poll = () => fetch("../outputs/uc2/live.json?" + Date.now()).then(r => r.json()).then(x => { L = x; }).catch(() => {});
   setInterval(poll, 400); poll();
-  const loop = () => { if (L) render(L, true); requestAnimationFrame(loop); }; loop();
+  const loop = () => { if (L) { render(L, true); if (!q.has("noshop")) liveShop(L); } requestAnimationFrame(loop); }; loop();
 }
 </script>
 </body>

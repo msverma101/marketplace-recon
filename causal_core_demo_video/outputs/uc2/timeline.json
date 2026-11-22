@@ -1,84 +1,84 @@
 [
  {
-  "wall": "2026-11-22T13:12:12.475286Z",
+  "wall": "2026-11-22T13:49:08.368896Z",
   "sim": "2018-02-12T00:00:00Z",
   "kind": "day",
   "text": "2018-02-12",
   "paced": false
  },
  {
-  "wall": "2026-11-22T13:13:14.001614Z",
+  "wall": "2026-11-22T13:50:11.012692Z",
   "sim": "2018-02-13T00:00:00Z",
   "kind": "day",
   "text": "2018-02-13",
   "paced": false
  },
  {
-  "wall": "2026-11-22T13:14:14.863131Z",
+  "wall": "2026-11-22T13:51:11.796493Z",
   "sim": "2018-02-14T00:00:00Z",
   "kind": "day",
   "text": "2018-02-14",
   "paced": false
  },
  {
-  "wall": "2026-11-22T13:15:16.323229Z",
+  "wall": "2026-11-22T13:52:11.351156Z",
   "sim": "2018-02-15T00:00:00Z",
   "kind": "day",
   "text": "2018-02-15",
-  "paced": true
+  "paced": false
  },
  {
-  "wall": "2026-11-22T13:16:28.591141Z",
+  "wall": "2026-11-22T13:53:12.699597Z",
   "sim": "2018-02-16T00:00:00Z",
   "kind": "day",
   "text": "2018-02-16",
-  "paced": true
+  "paced": false
  },
  {
-  "wall": "2026-11-22T13:17:00.113733Z",
-  "sim": "2018-02-16T12:03:00Z",
+  "wall": "2026-11-22T13:53:33.153818Z",
+  "sim": "2018-02-16T09:03:00Z",
   "kind": "engine",
-  "text": "ALARM checkout errors up (7/29 checkouts failed this block) \u00b7 task chk-2018-02-16-3 in 7 ms"
+  "text": "ALARM checkout errors up (5/12 checkouts failed this block) \u00b7 task chk-2018-02-16-2 in 6 ms"
  },
  {
-  "wall": "2026-11-22T13:17:04.131977Z",
-  "sim": "2018-02-16T12:04:00Z",
+  "wall": "2026-11-22T13:53:33.162860Z",
+  "sim": "2018-02-16T09:04:00Z",
   "kind": "engine",
-  "text": "diagnosis: checkout attempts 50 vs usual 60 \u2192 demand unchanged; checkouts failing 11/50 = 22% [14%, 33%]; payment service errors 11 of 50 \u2192 the failures are in the payment path"
+  "text": "diagnosis: checkout attempts 21 vs usual 24 \u2192 demand unchanged; checkouts failing 9/21 = 43% [27%, 60%]; payment service errors 9 of 21 \u2192 the failures are in the payment path"
  },
  {
-  "wall": "2026-11-22T13:17:08.144191Z",
-  "sim": "2018-02-16T12:05:00Z",
+  "wall": "2026-11-22T13:53:33.169522Z",
+  "sim": "2018-02-16T09:05:00Z",
   "kind": "policy",
   "text": "DENY: requested action 'turn the payment fault flag off': P0 has no actuation or test-execution port (I15, G17); pro"
  },
  {
-  "wall": "2026-11-22T13:17:12.162695Z",
-  "sim": "2018-02-16T12:06:00Z",
+  "wall": "2026-11-22T13:53:33.170148Z",
+  "sim": "2018-02-16T09:06:00Z",
   "kind": "proposal",
-  "text": "PROPOSAL set_flag paymentFailure=off \u00b7 expected +37 orders today [23, 55] \u00b7 sandbox local-astronomy-shop"
+  "text": "PROPOSAL set_flag paymentFailure=off \u00b7 expected +87 orders today [55, 123] \u00b7 sandbox local-astronomy-shop"
  },
  {
-  "wall": "2026-11-22T13:17:17.497311Z",
-  "sim": "2018-02-16T12:21:00Z",
+  "wall": "2026-11-22T13:53:33.319941Z",
+  "sim": "2018-02-16T09:21:00Z",
   "kind": "approval",
   "text": "APPROVED set_flag paymentFailure=off (on-call marketplace lead)"
  },
  {
-  "wall": "2026-11-22T13:17:22.542649Z",
-  "sim": "2018-02-16T12:22:00Z",
+  "wall": "2026-11-22T13:53:34.890134Z",
+  "sim": "2018-02-16T09:22:00Z",
   "kind": "execution",
   "text": "EXECUTED: flag paymentFailure 25% \u2192 off (read back through flagd: True)"
  },
  {
-  "wall": "2026-11-22T13:18:03.349488Z",
+  "wall": "2026-11-22T13:54:15.372436Z",
   "sim": "2018-02-17T00:00:00Z",
   "kind": "day",
   "text": "2018-02-17",
   "paced": false
  },
  {
-  "wall": "2026-11-22T13:19:02.010731Z",
+  "wall": "2026-11-22T13:55:15.577942Z",
   "sim": null,
   "kind": "end",
   "text": "run complete"

@@ -176,6 +176,25 @@ def task(tid: str, question: dict, cut: datetime, trigger: str = "monitor"):
     return api.parse_reasoning_task(raw)
 
 
+def fix_pictures(container: str = "astronomy-db") -> int:
+    """marketplace-recon's catalog sync points every synced product at 'Telescope.jpg', which the shop's image service
+    does not have (404). Point each marketplace product at one of the pictures the shop really serves (the demo
+    products' own pictures), chosen by product id so it is stable. Sandbox shop database only."""
+    import subprocess
+    psql = ["docker", "exec", "-i", container, "psql", "-U", "postgres", "-d", "astronomy_db", "-v", "ON_ERROR_STOP=1", "-q", "-tA"]
+    served = subprocess.run(psql + ["-c", "select distinct picture from catalog.products where description not like 'Marketplace offer%' "
+                                    "order by 1"], capture_output=True, text=True, check=True).stdout.split()
+    if not served:
+        return 0
+    n = len(served)
+    sql = ("update catalog.products set picture = (array['" + "','".join(served) + "'])"
+           f"[1 + (('x' || substr(md5(id), 1, 8))::bit(32)::bigint % {n})::int] where description like 'Marketplace offer%';")
+    out = subprocess.run(psql, input=sql, capture_output=True, text=True, check=True)
+    return int(subprocess.run(psql + ["-c", "select count(*) from catalog.products where description like 'Marketplace offer%' "
+                                      f"and picture = any(array['" + "','".join(served) + "'])"], capture_output=True, text=True,
+                              check=True).stdout.strip() or 0)
+
+
 def wilson(k: int, n: int, z: float = 1.645) -> tuple[float, float]:
     if n == 0:
         return 0.0, 1.0
@@ -219,6 +238,7 @@ def run(pace_block: float = 0.0, event_pause: float = 0.0, paced_days: tuple[dat
     params = chain.fit(canon)
     cat = sf.build_catalog(canon, HOME / "data/mkt/raw", n=200)
     synced = sf.catalog_sync(cat)
+    pictures_fixed = fix_pictures()
     people = json.loads(PEOPLE.read_text())
     driver = sf.SessionDriver(cat, RUN / "privileged/driver_results.jsonl", people[0], SEED)
     flags = sf.FlagAdapter(FLAGS)
@@ -227,7 +247,8 @@ def run(pace_block: float = 0.0, event_pause: float = 0.0, paced_days: tuple[dat
     emu = Emulator(params, RUN)
     emu.initialize(EmulatorConfig(start=date(2018, 1, 1), horizon_end=date(2018, 3, 15)), seed=SEED)
     emu.step(NORMAL_DAYS[0])
-    world_meta = {"canonical": canon.name, "catalog_products_synced": synced, "orders_before_window": int(emu._world().height),
+    world_meta = {"canonical": canon.name, "catalog_products_synced": synced, "catalog_pictures_fixed": pictures_fixed,
+                  "orders_before_window": int(emu._world().height),
                   "setup_s": round(time.perf_counter() - t_setup, 1)}
     names = {r["public_id"]: (f"{r['category_en'].replace('_', ' ').title()} {r['public_id'][:4]}", round(r["price_usd"], 2))
              for r in cat.to_dicts()}
@@ -411,7 +432,7 @@ def run(pace_block: float = 0.0, event_pause: float = 0.0, paced_days: tuple[dat
                     out.update(res)
                     r1 = res.get(p["command_id"], {})
                     L["sessions"] = (L["sessions"] + [{"sim": p["purchased_at"], "product": names.get(r1.get("product"), (r1.get("product"), None)),
-                                                       "outcome": r1.get("outcome")}])[-14:]
+                                                       "pid": r1.get("product"), "outcome": r1.get("outcome")}])[-14:]
                     L["sim"] = iso(datetime.fromisoformat(p["purchased_at"]).replace(tzinfo=U))
                     live.write()
                 apply_due(z)

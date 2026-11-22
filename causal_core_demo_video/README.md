@@ -68,8 +68,9 @@ One-time setup (already done on this Mac): `~/.venvs/mkt-emulator` (duckdb, pola
 fastexcel), `~/.cache/otel-demo-3.1.0` (opentelemetry-demo @7a88536), `~/data/mkt/` folders, Docker Desktop.
 
 ```bash
-scripts/uc2_shop.sh up                                  # start the shop (http://localhost:8080)
-~/.venvs/mkt-emulator/bin/python -m agent.uc2           # full-speed run → outputs/uc2/ (~6 min)
+scripts/uc2_shop.sh up --traces                         # start the shop (http://localhost:8080) + Jaeger
+scripts/uc2_watch.sh                                    # watch it live, no recording: agent dashboard + Jaeger (~8 min)
+scripts/uc2_watch.sh --fast                             # same at full speed (~6 min)
 scripts/uc2_record.sh --open                            # paced run, dashboard recorded → videos/uc2_screen.mp4
 scripts/uc2_assemble.sh                                 # → videos/uc2_silent.mp4 (3:00, subtitles track) + NARRATION_UC2.md
 scripts/uc2_voice.sh                                    # prompter: plays the silent cut, records your voice in sync
@@ -77,6 +78,11 @@ scripts/uc2_assemble.sh videos/uc2_voice.webm           # → videos/uc2.mp4 wit
 scripts/uc2_bundle.sh                                   # → dist/uc2_bundle/ + dist/uc2_bundle.zip for someone else
 scripts/uc2_shop.sh down                                # stop the shop
 ```
+
+Watching live: the dashboard is at http://127.0.0.1:8765/scenes/uc2_live.html while a run is going. Jaeger
+(http://localhost:8080/jaeger/ui/, service "checkout" or "payment") shows real requests inside the shop; during the fault,
+failed payments appear as errors. Container logs: `docker logs -f --since 1s payment`; resource use: `docker stats`.
+The agent never reads Jaeger or container logs: only the redacted span file, through marketplace-recon's telemetry port.
 
 Outputs in `outputs/uc2/`: `blocks.json` (telemetry per block), `traces.json` (every engine task: stages and
 durations, evidence requests, methods considered, results, report revisions, policy verdicts, ledger rows written),
@@ -86,7 +92,10 @@ durations, evidence requests, methods considered, results, report revisions, pol
 
 Compatibility notes for this Mac (in `deploy/compose.uc2.yaml`, upstream untouched): Docker Compose 2.17 lacks
 `!override`; Docker Engine 23 serves API 1.42, so the collector's docker_stats receiver is pinned to it; the pinned
-upstream compose preloads a module the 3.1.0 payment image lacks, so payment uses the image's own preload.
+upstream compose preloads a module the 3.1.0 payment image lacks, so payment uses the image's own preload; its
+recommendation health check needs bash, which the 3.1.0 image lacks, so it uses the 3.1.0 tag's check. Product pictures:
+marketplace-recon's catalog sync points the 200 synced products at a picture the shop does not have, so the run points
+each one at a picture the shop serves (`agent/uc2.py`, `fix_pictures`).
 
 ## Videos
 

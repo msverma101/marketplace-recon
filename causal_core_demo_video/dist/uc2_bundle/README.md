@@ -9,14 +9,20 @@ Needs: macOS with Docker Desktop (4 GB+ memory for the shop), Python 3.11+, Node
 ```bash
 ./setup.sh                                   # once: Python venv, OpenTelemetry demo @7a88536, data folders
 cd demo
-scripts/uc2_shop.sh up                       # start the shop (first time pulls ~3-5 GB of images)
-~/.venvs/mkt-emulator/bin/python -m agent.uc2          # run the scenario at full speed → outputs/uc2/ (~5 min)
-scripts/uc2_record.sh --open                 # run it again at watchable speed and record the dashboard → videos/uc2_screen.mp4
+scripts/uc2_shop.sh up --traces              # start the shop + Jaeger (first time pulls ~3-5 GB of images)
+scripts/uc2_watch.sh                         # WATCH IT LIVE (no recording): opens the agent dashboard and Jaeger
+                                             #   shop: http://localhost:8080 · traces: http://localhost:8080/jaeger/ui/
+scripts/uc2_record.sh --open                 # optional: run at watchable speed and record the dashboard → videos/uc2_screen.mp4
 scripts/uc2_assemble.sh                      # silent cut with subtitles → videos/uc2_silent.mp4 (≤ 3 min)
 scripts/uc2_voice.sh                         # plays the silent cut and records your voice → videos/uc2_voice.m4a
 scripts/uc2_assemble.sh videos/uc2_voice.m4a # final video with your voice → videos/uc2.mp4
 scripts/uc2_shop.sh down                     # stop the shop
 ```
+
+Watching what happens: the agent dashboard (left: shoppers going through the shop, what the agent sees, its console;
+right: each engine step with its measured time, the policy decision, the action card). In Jaeger, pick service
+"checkout" or "payment" to see real requests flow through the services; during the fault, failed payments show as
+errors. Container logs: `docker logs -f --since 1s payment`. Live resource use: `docker stats`.
 
 What is real and what is simulated: the shop, its services and their telemetry are real (local containers); shoppers
 are simulated by the emulator (fitted on 2017 Olist orders); the payment fault is injected by the scenario; approvals

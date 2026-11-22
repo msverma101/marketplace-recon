@@ -1,7 +1,7 @@
 [
  {
   "proposal": {
-   "action_id": "act:ee644712f55e",
+   "action_id": "act:22df209007b7",
    "use_case": "uc2",
    "sandbox": "local-astronomy-shop",
    "target": "payment",
@@ -13,31 +13,31 @@
    "rationale": "checkouts fail in the payment service while demand is unchanged: the fault is in the payment path, not the market",
    "expected": {
     "metric": "orders recovered for the rest of the day by turning the payment fault off",
-    "mean": 36.63,
-    "lower": 23.21313651403731,
-    "upper": 54.83397788132831,
+    "mean": 87.10714285714286,
+    "lower": 54.74112193240937,
+    "upper": 122.7875688223671,
     "basis": "identity: orders = checkout attempts \u00d7 (1 \u2212 payment failure share); usual attempts from the 4 previous days; 90% Wilson range on the failure share. Arithmetic, not a fitted model."
    },
    "risk": "low",
    "evidence_refs": [
-    "chk-2018-02-16-3",
-    "att-2018-02-16-3",
-    "act-2018-02-16-3"
+    "chk-2018-02-16-2",
+    "att-2018-02-16-2",
+    "act-2018-02-16-2"
    ],
-   "created_at": "2018-02-16T12:06:00Z"
+   "created_at": "2018-02-16T09:06:00Z"
   },
   "approval": {
-   "action_id": "act:ee644712f55e",
+   "action_id": "act:22df209007b7",
    "approver": "on-call marketplace lead",
-   "approved_at": "2018-02-16T12:21:00+00:00",
-   "expires_at": "2018-02-16T16:21:00+00:00",
-   "token": "49720b5e6ab4a5d9ed35ee47e3530bdb436929b3736ff1008ba0a3e64e80cc4e"
+   "approved_at": "2018-02-16T09:21:00+00:00",
+   "expires_at": "2018-02-16T13:21:00+00:00",
+   "token": "dc9e79c7ee595844fcfd243e962c1796984dec5e78f9d81e0d1420d54f3363d9"
   },
   "receipt": {
-   "action_id": "act:ee644712f55e",
+   "action_id": "act:22df209007b7",
    "sandbox": "local-astronomy-shop",
-   "executed_at": "2018-02-16T12:22:00+00:00",
-   "idempotency_key": "d19a2d4d1beb332628fcb694968bff658de1b2a10d0c1775200d48dc363e2dc1",
+   "executed_at": "2018-02-16T09:22:00+00:00",
+   "idempotency_key": "844a36acbd628920d056201efa1ddc7fb0027bf47ee1e3317766e8863d2bd307",
    "result": "EXECUTED",
    "reason": "approved; executed in sandbox",
    "state_after": {

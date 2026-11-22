@@ -1,38 +1,38 @@
 [
  {
-  "sim": "2018-02-16T12:03:00Z",
+  "sim": "2018-02-16T09:03:00Z",
   "kind": "incident",
   "detail": "checkout errors above the error budget"
  },
  {
-  "sim": "2018-02-16T12:04:00Z",
+  "sim": "2018-02-16T09:04:00Z",
   "kind": "diagnosis",
-  "detail": "checkout attempts 50 vs usual 60 \u2192 demand unchanged; checkouts failing 11/50 = 22% [14%, 33%]; payment service errors 11 of 50 \u2192 the failures are in the payment path"
+  "detail": "checkout attempts 21 vs usual 24 \u2192 demand unchanged; checkouts failing 9/21 = 43% [27%, 60%]; payment service errors 9 of 21 \u2192 the failures are in the payment path"
  },
  {
-  "sim": "2018-02-16T12:05:00Z",
+  "sim": "2018-02-16T09:05:00Z",
   "kind": "policy",
   "detail": "DENY: requested action 'turn the payment fault flag off': P0 has no actuation or test-execution port (I15, G17); propose it as a test design instead"
  },
  {
-  "sim": "2018-02-16T12:06:00Z",
+  "sim": "2018-02-16T09:06:00Z",
   "kind": "proposal",
   "detail": "turn the payment fault flag off",
   "expected": {
    "metric": "orders recovered for the rest of the day by turning the payment fault off",
-   "mean": 36.63,
-   "lower": 23.21313651403731,
-   "upper": 54.83397788132831,
+   "mean": 87.10714285714286,
+   "lower": 54.74112193240937,
+   "upper": 122.7875688223671,
    "basis": "identity: orders = checkout attempts \u00d7 (1 \u2212 payment failure share); usual attempts from the 4 previous days; 90% Wilson range on the failure share. Arithmetic, not a fitted model."
   }
  },
  {
-  "sim": "2018-02-16T12:21:00Z",
+  "sim": "2018-02-16T09:21:00Z",
   "kind": "approval",
   "detail": "approved by on-call marketplace lead"
  },
  {
-  "sim": "2018-02-16T12:22:00Z",
+  "sim": "2018-02-16T09:22:00Z",
   "kind": "execution",
   "detail": "EXECUTED in local-astronomy-shop: {'flag': 'paymentFailure', 'before': '25%', 'after': 'off', 'read_back_ok': True}"
  }
