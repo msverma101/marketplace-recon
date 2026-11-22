@@ -58,3 +58,13 @@ Implementation fixes found while building, before scoring:
 1. **Accept the post-hoc result as indicative and move on.** The session layer stays in the build, labelled "S10 not yet passed", and scenarios that rely on it stay supplementary.
 2. **Preregister S10 v2:** count floor + a seasonal baseline, fixed in a committed file before running, then score on fresh seeds. Recommended. It's cheap (about 30 min of runs) and is the honest way to un-park the layer.
 3. **Wait for the real causal core v3** and test S10 with it instead of the stand-in.
+
+## 6. S10 v2: **PASS** (preregistered in `P1_2_S10_V2_PREREG.md`; fresh seeds 81–85; contract port + `standin_core` with a local baseline)
+
+| | 9a checkout failure | 9b demand drop | Control |
+|---|---|---|---|
+| **With the session layer** | **5/5**, located at `completion_rate` (checkouts → orders) | **4/5**, located upstream of `sessions_count` (1 abstention: mixed stage evidence) | **5/5**, no false alarms |
+| Without it | 0/5 (the change is found, but can't be located) | 0/5 | 5/5 |
+| Pass rule (unchanged) | ≥ 4/5 | ≥ 4/5 | ≤ 1/5 false alarms |
+
+**Verdict:** the session layer turns "can't tell" into "correct" on this look-alike pair, so it is **un-parked**. The local baseline also removed the New Year false alarms seen in the post-hoc run. No wrong localisations in any run.

@@ -6,7 +6,7 @@ Approved by you on 22 Nov 2026: sync the docs, continue the stitch plan (D7 is a
 |---|---|---|
 | 1 | Docs synced to the plan (§7.5 table generated from the diagram rows, status banners, overview diagram, legacy note on `engine.py`) | **done** (cfbbeff, 0803c01) |
 | 2 | Preregister the P1-2 session layer | **done** (df48c68, `P1_2_SESSION_LAYER_PREREG.md`) |
-| 3 | Session layer: 5 transport cards (2 labelled unsupported), fidelity 8/8, invariance pass. **S10 FAIL as preregistered** (9b 2/5); post-hoc fix on new seeds 4/5 + 4/5, 0 wrong; control 3/5 | **built**; S10 needs your choice (`P1_2_SESSION_LAYER.md` §5) |
+| 3 | Session layer: 5 transport cards (2 unsupported transfers), fidelity 8/8, invariance pass; S10 v1 FAIL → **S10 v2 PASS** (9a 5/5, 9b 4/5, control 5/5) | **done** |
 | 4 | Astronomy Shop M0 experiments: E1 47.6 checkouts/s; E2 stable; E3 leaks fixed by redaction (0 hits); E4 catalog ≤ ~1k offers; E5 no checkout idempotency | **done** (035525e, `docs/experiments/M0_REPORT.md`) |
 | 5 | Astronomy Shop integration M1–M5 (after conforming to `Contracts/`) | **done** (22 Nov; `INTEGRATION_M1_M5.md`): M3 6/6 seeds, scenario #5 all checks pass, leak scan 0 |
 
@@ -45,6 +45,6 @@ Rules unchanged: no deleting data, no paid sources, no push (you push). Commit a
 Auto-resume is scheduled for 00:13 on 22 Nov (backup at 01:13) and works through steps 2–5 of the table above. It only runs while this Claude Code session stays open.
 
 ## Waiting for you (22 Nov, after the overnight run)
-1. **S10 for the session layer:** option 1, 2 (recommended: preregister v2 and rerun on fresh seeds) or 3. See `P1_2_SESSION_LAYER.md` §5.
+1. ~~S10 for the session layer~~ **v2 passed** (22 Nov).
 2. ~~Astronomy Shop M1+~~ done after your go-ahead. Open: the contracts' owner gaps G1–G3 (`INTEGRATION_M1_M5.md`); deferred sim-recommendation, M6, M7.
 3. Push the new commits when you want: `cd ~/marketplace-recon && git push`.
