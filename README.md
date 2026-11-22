@@ -119,6 +119,38 @@ The shop UI is at **http://localhost:8080** while it runs.
 
 ---
 
+## Technical documentation
+**Start here**
+- [`docs/HANDOVER.md`](docs/HANDOVER.md): what's done, what's not, setup, commands (two pages)
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): the full design (taxonomy L0–L10, stitching §7.5, transport cards §7.6, gates S1–S10 §12.5, phased plan §13)
+- Diagrams (open in [excalidraw.com](https://excalidraw.com)): [`docs/architecture-and-stitching.excalidraw`](docs/architecture-and-stitching.excalidraw) · [`docs/current-architecture.excalidraw`](docs/current-architecture.excalidraw) · [`docs/stitch-pipeline.excalidraw`](docs/stitch-pipeline.excalidraw)
+
+**Causal core**
+- [`docs/master_implementation_blueprint.md`](docs/master_implementation_blueprint.md): Subsystem 2 specification (ports, tiers T0–T4, demo portfolio §10)
+- [`causal_core/README.md`](causal_core/README.md) and [`causal_core/docs/`](causal_core/docs/): the core's phases, demos and audits
+- [`docs/CONTRACT_SUGGESTIONS.md`](docs/CONTRACT_SUGGESTIONS.md): proposed contract additions (also GitHub issue #1)
+
+**Data and stitching**
+- [`docs/datasets/AUDIT.md`](docs/datasets/AUDIT.md): what every dataset contains, verified claims, what was dropped and why
+- [`docs/stitch/README.md`](docs/stitch/README.md): where the stitched data lives and how it's built
+- [`docs/stitch/STITCH_REPORT.md`](docs/stitch/STITCH_REPORT.md): all 33 transport cards, held-out checks, status
+- [`docs/p0/VARIABLE_CATALOG.md`](docs/p0/VARIABLE_CATALOG.md) · [`docs/p0/VARIABLE_TAXONOMY.md`](docs/p0/VARIABLE_TAXONOMY.md): the 106 variables and the served taxonomy
+- [`docs/stitch/SAMPLES_REPORT.md`](docs/stitch/SAMPLES_REPORT.md): contract samples per variable
+
+**Emulator build and gates** (each phase: design and tolerances first, then results)
+- [`PHASE1_SOURCE_SEMANTICS`](docs/p0/PHASE1_SOURCE_SEMANTICS.md) · [`PHASE2_REAL_INTEGRATION`](docs/p0/PHASE2_REAL_INTEGRATION.md) · [`PHASE3_TOLERANCES`](docs/p0/PHASE3_TOLERANCES.md) · [`PHASE3_MINIMAL_CHAIN`](docs/p0/PHASE3_MINIMAL_CHAIN.md) · [`PHASE4_OBSERVATION`](docs/p0/PHASE4_OBSERVATION.md) · [`PHASE5_INTERVENTION`](docs/p0/PHASE5_INTERVENTION.md)
+- Session layer: [`P1_2_SESSION_LAYER_PREREG`](docs/p0/P1_2_SESSION_LAYER_PREREG.md) → [`P1_2_SESSION_LAYER`](docs/p0/P1_2_SESSION_LAYER.md) · [`P1_2_S10_V2_PREREG`](docs/p0/P1_2_S10_V2_PREREG.md)
+- Decisions taken along the way, with reasons and how to undo them: [`docs/p0/STRATEGY_CHANGES.md`](docs/p0/STRATEGY_CHANGES.md)
+
+**Contracts and integration**
+- [`docs/p0/CONFORMANCE_AND_M1_M5_DESIGN.md`](docs/p0/CONFORMANCE_AND_M1_M5_DESIGN.md): contract conformance and integration design
+- [`docs/CONFORMANCE_REPORT.md`](docs/CONFORMANCE_REPORT.md): latest field-by-field contract diff and checks (`scripts/conform.py`)
+- [`docs/ASTRONOMY_SHOP_INTEGRATION.md`](docs/ASTRONOMY_SHOP_INTEGRATION.md): how the shop connects (projection, transactions, telemetry, redaction)
+- [`docs/experiments/M0_REPORT.md`](docs/experiments/M0_REPORT.md): shop feasibility experiments (throughput, leaks, catalog scale, idempotency)
+- [`docs/p0/INTEGRATION_M1_M5.md`](docs/p0/INTEGRATION_M1_M5.md): emulator API, closed loop, storefront and telemetry results
+
+---
+
 ## Data and licences
 - **Olist Brazilian E-Commerce** (Kaggle): CC BY-NC-SA 4.0. The processed tables in `artifacts/` derive from it; non-commercial use with attribution.
 - The other datasets (Retailrocket, Taobao, Expedia, Google Analytics sample, Statcounter, M5, ESCI, Open Bandit, Criteo, Hillstrom, Instacart, UCI Online Retail II, Coat, YelpChi, Amazon fraud graph, NAB/LogHub, Banco Central do Brasil) are **not redistributed**. `scripts/datasets.py` downloads them under each source's own terms; Kaggle and AIcrowd need your own accounts.
