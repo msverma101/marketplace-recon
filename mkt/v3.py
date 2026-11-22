@@ -19,6 +19,8 @@ from typing import Any, Literal, Protocol, Union
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 V3_SCHEMA = "mkt-input.v3.provisional-1"
+# SUPERSEDED for anything the core sees (22 Nov 2026): Contracts/ (schema 2.0) via mkt/core_port.py.
+# These types remain only as the internal engine's request/response format.
 
 
 class _Frozen(BaseModel):
@@ -232,4 +234,3 @@ class EvidenceAccessPort(Protocol):
     def capabilities(self) -> CapabilitySpec: ...
     def variables(self) -> list[VariableDefinition]: ...              # incl. MetricDefinitions with empirical identities
     def query(self, request: EvidenceRequest) -> Union[EvidenceResult, Refusal]: ...
-    def propose_intervention(self, spec: InterventionSpec) -> InterventionEvent: ...

@@ -59,3 +59,16 @@ simulator / Olist frames ──► EventFramePort (internal engine, unchanged)
 **Products:** the chain has no product IDs, so each storefront buying session draws its product from the top-N catalog weights. The draw is keyed by `order_idx`, so it's deterministic and leaves the chain unchanged.
 
 **Order of work:** Part 1 first, because the integration emits through the conformed port. Commit after each milestone.
+
+---
+## Part 1 result (22 Nov 2026)
+- `mkt/core_port.py` (`ContractPort`, `olist_port`, `emulator_port`) and `mkt/standin_core.py` (reads `ReasoningTask`, returns `TaskRevision` + `EvidenceGap`s).
+- `propose_intervention` removed from every port; `mkt/v3.py` is now internal to the engine only.
+- **Re-run gates on the contract port: S8 pass, S6 pass, S3 pass** (`tests/test_contracts_conformance.py`, 10 tests):
+  - every response survives strict JSON re-validation;
+  - unsupported requests and budget overruns are explained;
+  - roles and origins are consistent, and the contract itself rejects emulator output relabelled as real;
+  - hidden variables are absent until exposed;
+  - the import boundary holds (the core side imports only `Contracts`);
+  - no actuation methods exist.
+- **The look-alike pair through the conformed path** (supplementary; same seeds as P1-1): 8a 5/5, 8b 3/5, control 4/5, i.e. 12/15 against 13/15 for the old reader. The two 8b misses are near-threshold: the payments partner fell 2.8 standard units, against the 3.0 needed. Thresholds were not changed after seeing this.

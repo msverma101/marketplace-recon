@@ -64,9 +64,8 @@ def test_refusals_are_explicit(port):
     small.event_rows_max = 1000                                   # same data, tiny budget
     r = small.query(EvidenceRequest(variable_id="item_sold", shape="event_sequence", as_of=AS_OF))
     assert isinstance(r, Refusal) and r.code == FailureCode.BUDGET_EXCEEDED
-    ev = port.propose_intervention(InterventionSpec(id="i", target="price", scope="all", operator="scale", value=0.9,
-                                                    window_start=AS_OF, window_end=AS_OF, requested_by="test"))
-    assert ev.status == "rejected" and ev.failure_code == FailureCode.NO_INTERVENTIONS_IN_ENVIRONMENT.value
+    # read-only by construction (Contracts I15): no actuation method exists on the port at all
+    assert not any(hasattr(port, m) for m in ("propose_intervention", "act", "intervene", "write"))
 
 
 def test_origin_classes_and_lineage(port, cfg):

@@ -103,11 +103,7 @@ class EventFramePort:
             assumptions=self.env.assumptions + ["observational data only: no randomized studies in this source"],
             cost={"event_rows_per_query_max": float(self.event_rows_max)},
             failure_codes=[FailureCode.UNSUPPORTED_SHAPE, FailureCode.UNKNOWN_VARIABLE, FailureCode.NO_STUDIES_IN_SOURCE,
-                           FailureCode.NO_INTERVENTIONS_IN_ENVIRONMENT, FailureCode.BUDGET_EXCEEDED])
-
-    def propose_intervention(self, spec: InterventionSpec) -> InterventionEvent:
-        return InterventionEvent(spec_id=spec.id, status="rejected", at=self.cut, failure_code=FailureCode.NO_INTERVENTIONS_IN_ENVIRONMENT.value,
-                                 reason="this port is read-only; interventions are executed only by the emulator's action gateway")
+                           FailureCode.BUDGET_EXCEEDED])
 
     # -------------------------------------------------------------------------------------------
     def _evidence(self, origin: OriginClass, transforms: list[str]) -> EvidenceRecord:
