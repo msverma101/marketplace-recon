@@ -2,207 +2,117 @@
 
 **MARTHA: MARketplace Tracing through causal Hindsight & Adaptation**
 
-*Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches continuously, traces every alarm back to its cause, proposes a fix with its expected effect, and adapts as the evidence comes in. She acts only with a person's approval.*
+Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches continuously, traces every alarm back to its cause, proposes a fix with its expected effect, and adapts as the evidence comes in. She acts only with a person's approval.
 
-### Why "Martha"?
-A marketplace is a living place: buyers, sellers, carriers, payments, reviews, and the software in between. When something goes wrong, dashboards show *that* a number moved. Someone still has to work out *why*, check whether it's real, and decide what to do. Martha is that caretaker:
-- she **watches** every part of the marketplace continuously, with no fixed rules to configure;
-- she **investigates** a change instead of only alerting on it: a broken logging pipeline vs. real lost demand, a checkout fault vs. fewer shoppers;
-- she **asks for the cheapest evidence** that would settle the question, and revises her answer when it arrives;
-- she **knows her limits**: she abstains rather than guessing, and never acts on production without permission.
-
-### What's inside
-- **A marketplace emulator** calibrated on real e-commerce data (Olist, Brazil) and stitched with 18 public datasets. This is the world Martha looks after.
-- **A domain-agnostic causal reasoning core**: Martha's brain. She detects changes, separates look-alike causes, and requests discriminating evidence.
-- **A real microservice shop**, the [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), which can serve the emulator's shoppers, so faults and telemetry are real.
-
----
-
-## 🎬 Demo video
+## Demo
 
 https://github.com/user-attachments/assets/7ee3e0f6-abe5-433f-a240-3645c502f7d0
 
-**▶ [Watch / download the 3-minute demo (MP4)](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_team.mp4)** (marketplace watcher on the real Astronomy Shop, 3:00, subtitled, ends with the team and LinkedIn QR codes)
+## Overview
 
-| Video | What it shows | Length |
-|---|---|---|
-| [**Main demo**](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_team.mp4) | Shoppers from the emulator go through the real shop; payments start failing (hidden from Martha); she raises the alarm, rules out a demand drop, proposes turning the faulty flag off with an expected effect, and acts only after a person approves; ends with the team card (LinkedIn QR codes) | 3:00 |
-| [Main demo without the team card](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_silent.mp4) | The same cut, original ending | 3:00 |
-| [Pitch](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_pitch.mp4) | The idea and how it works | 1:40 |
-| [Demo cut](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_demo_cut.mp4) | The dashboard sequence only | 1:20 |
-| [Full screen recording](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_screen.mp4) | The whole paced run, uncut | 6:57 |
+Dashboards show *that* a number moved. Someone still has to work out *why*: a broken logging pipeline or real lost demand? A failing payment service or fewer shoppers? Martha does that investigation.
 
-How the videos are recorded and rebuilt: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
-
-**What the demo shows (≈ 5 min):**
-1. **A normal day:** the emulator produces orders, sessions, deliveries and reviews; the real shop serves the same shoppers.
-2. **A hidden incident:** a sealed scenario is injected (a logging failure *or* a real demand drop; or a payment fault in the shop).
-3. **Detection and caveats:** the core raises an alarm and says what it *can't* yet tell.
-4. **The core asks for evidence:** it requests a discriminating measurement; a policy gate (not the core) grants it; the core revises its answer.
-5. **The reveal:** the sealed answer is opened and the core's verdict is scored.
-
----
-
-## Why it's different
-| Usual monitoring | This project |
-|---|---|
-| "Orders dropped 40%" | "Orders dropped **and** payments didn't, so the identity broke: **a measurement problem**, not lost demand" |
-| Thresholds on one chart | Walks the declared funnel (visits → carts → checkouts → orders) to **locate** where a change starts |
-| Always answers | **Abstains** and asks for the cheapest evidence that would decide |
-| Trained on its own data | **Ground truth is sealed** outside the core; evidence carries honest provenance labels |
-
----
+- **Watches:** continuously, with no fixed rules to configure.
+- **Investigates:** tests competing causes using declared relations between metrics (identities, funnel steps).
+- **Asks:** requests the cheapest evidence that settles the question, then revises her answer.
+- **Knows her limits:** abstains rather than guessing; never writes to production; acts only after approval.
 
 ## How it works
-```
- 19 public datasets ──► stitch cards ──► EMULATOR ──────────────────► Astronomy Shop (real services, optional)
- (Olist + 18 others)   (learned shapes,   order chain · sessions ·        catalog sync · shopper sessions ·
-                        held-out checks)   observation layer · twin         fault flags · redacted telemetry
-                                               │ read-only contract port            │
-                                               ▼                                    ▼
-                                     CAUSAL CORE (causal_core/) ◄──────────── telemetry port
-                                     detect → diagnose → ask for evidence → revise
-                                               │
-                                     sealed answers + scoring (privileged; the core never sees them)
-```
-- **Real levels, borrowed shapes.** Order volumes, delivery times and review behaviour come from Olist; each borrowed pattern (e.g. Expedia's click-by-position curve) has a **transport card** with a held-out check and a status.
-- **One contract.** Everything the core reads is a `causal_core.contracts` object (schema 2.0): typed payloads, UTC clocks, provenance and roles.
 
----
+![Marketplace Martha architecture](docs/media/architecture/martha-architecture.png)
 
-## Quick start
-**Requirements:** Python ≥ 3.10, ~1 GB disk. Docker only for the optional shop.
+1. **Real data.** A marketplace emulator is calibrated on real Brazilian e-commerce data (Olist). 18 other public datasets lend behavioural patterns (funnels, search positions, devices, prices, stock, ads, returns, fraud) through 33 held-out-checked transport cards.
+2. **The marketplace world.** The emulator simulates orders, sessions, carts, checkout, delivery and reviews, plus what a monitor really sees (delays, gaps, late corrections). Its shoppers buy through the real [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), so faults and telemetry are real.
+3. **Martha.** A domain-agnostic causal reasoning engine reads everything through read-only contract ports. On top of it, an agent watches, investigates and proposes.
+4. **Action, with a person.** A policy gate prevents the engine from acting. A person approves each proposal, and a sandbox executor applies it to the local shop only.
 
+Ground truth (real causes, counterfactual twins, answer keys) is sealed away from Martha and used only to score her.
+
+The diagram is editable: [`docs/martha-architecture.excalidraw`](docs/martha-architecture.excalidraw) (open it in [excalidraw.com](https://excalidraw.com)). The detailed design diagrams are in [`docs/`](docs/) (`*.excalidraw`).
+
+## Getting started
+
+### Prerequisites
+- Python 3.10+
+- Docker (only for the live shop)
+
+### Installation
 ```bash
 git clone https://github.com/msverma101/marketplace-recon && cd marketplace-recon
 python3 -m venv .venv
 .venv/bin/python -m pip install duckdb polars "pydantic>=2.7" numpy scipy pyarrow fastexcel
 echo "$PWD/causal_core" > "$(.venv/bin/python -c 'import site;print(site.getsitepackages()[0])')/causal_core_local.pth"
 mkdir -p ~/data/mkt/stitch && unzip -q share/stitch_samples.zip -d ~/data/mkt/stitch/
-
-.venv/bin/python -m pytest -q          # ~190 tests, ~75 s
 ```
-`artifacts/` (processed Olist tables) ships with the repo, so the emulator runs without downloading anything.
+The processed Olist tables (`artifacts/`) ship with the repo, so nothing else needs downloading.
 
-### Run the showcase pieces
-| What | Command | Time |
-|---|---|---|
-| Real causal core on the emulator (logging drop vs demand drop vs no fault) | `.venv/bin/python -I scripts/core_on_emulator.py` | ~2 min |
-| Closed loop: core asks for evidence → policy grants it → core revises, scored vs sealed answer | `.venv/bin/python -I scripts/mvs_headless.py 7 8 9` | ~1 min |
-| Contract check against the core's contracts (+ the core's own parser over 340 samples) | `.venv/bin/python -I scripts/conform.py` | ~70 s |
-| Contract samples for all 106 variables | `.venv/bin/python -I scripts/stitch_samples.py` | ~35 s |
-| Re-stitch every dataset into cards (needs the raw datasets) | `.venv/bin/python -I scripts/stitch.py run` | ~80 s |
+### Run the tests
+```bash
+.venv/bin/python -m pytest -q
+```
 
-### Watch Martha live (agent dashboard + real shop)
+## Usage
+
+| Task | Command |
+|---|---|
+| Martha (causal core) on the emulator | `.venv/bin/python -I scripts/core_on_emulator.py` |
+| Closed loop: alarm → ask for evidence → revise, scored against a sealed answer | `.venv/bin/python -I scripts/mvs_headless.py 7 8 9` |
+| Contract check against the core's contracts | `.venv/bin/python -I scripts/conform.py` |
+| Stitch the datasets into transport cards (needs the raw datasets) | `.venv/bin/python -I scripts/stitch.py run` |
+| Generate contract samples for all 106 variables | `.venv/bin/python -I scripts/stitch_samples.py` |
+
+### Watch Martha live (real shop + agent dashboard)
 ```bash
 cd causal_core_demo_video
-scripts/uc2_shop.sh up --traces      # start the Astronomy Shop (with Jaeger traces); scripts/uc2_shop.sh status to check
-scripts/uc2_watch.sh                 # run the payment-fault scenario at watchable speed (~8 min); --fast for full speed (~6 min)
+scripts/uc2_shop.sh up --traces      # start the Astronomy Shop (with Jaeger traces)
+scripts/uc2_watch.sh                 # run the payment-fault scenario (~8 min; --fast ≈ 6 min)
 scripts/uc2_shop.sh down             # stop the shop
 ```
-Then open:
-| What | URL |
-|---|---|
-| **Martha's dashboard**: shoppers, checkouts per block, the engine's stages, the policy gate, the proposed action waiting for approval | http://127.0.0.1:8765/scenes/uc2_live.html |
-| The shop itself | http://localhost:8080 |
-| Requests flowing through the services (if started with `--traces`) | http://localhost:8080/jaeger/ui/ |
+- Martha's dashboard: http://127.0.0.1:8765/scenes/uc2_live.html
+- The causal engine runs as a local service (`scripts/uc2_engine.sh start | stop | status | logs`); status page: http://127.0.0.1:8770/
+- The shop: http://localhost:8080 · traces: http://localhost:8080/jaeger/ui/
 
-Optional, in another terminal: `docker logs -f --since 1s payment` (failed charges appear during the fault) · `docker stats` (CPU and memory per container).
+On Linux, run `PY=$PWD/../.venv/bin/python NO_OPEN=1 scripts/uc2_watch.sh` and open the URLs yourself.
 
-**On Linux** (the scripts were written on a Mac): point them at this repo's Python and open the URLs yourself:
-```bash
-PY=$PWD/../.venv/bin/python NO_OPEN=1 scripts/uc2_watch.sh
-```
-Outputs land in `causal_core_demo_video/outputs/uc2/`. Details: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
+## Results
 
-### Optional: the live shop
-```bash
-git clone --branch 3.1.0 --depth 1 https://github.com/open-telemetry/opentelemetry-demo.git ~/.cache/otel-demo-3.1.0
-mkdir -p ~/data/mkt/astronomy/flags ~/data/mkt/astronomy/live && chmod 777 ~/data/mkt/astronomy/live
-cp ~/.cache/otel-demo-3.1.0/src/flagd/demo.flagd.json ~/data/mkt/astronomy/flags/
-cd ~/.cache/otel-demo-3.1.0 && DEMO_VERSION=3.1.0 OTEL_COLLECTOR_CONFIG_EXTRAS=$HOME/marketplace-recon/deploy/m0/otelcol-redact.yml \
-  docker compose -p m0 -f compose.yaml -f $HOME/marketplace-recon/deploy/emulator/compose.emulator.yaml up -d --no-deps \
-  flagd otel-collector valkey-cart astronomy-db product-catalog cart currency payment shipping quote email ad recommendation checkout image-provider frontend frontend-proxy
-cd ~/marketplace-recon
-.venv/bin/python -I scripts/storefront_sessions.py --browse 300 --buy 100   # shoppers through the real shop
-.venv/bin/python -I scripts/storefront_s5.py                                # payment-fault scenario + leak scan
-docker compose -p m0 stop                                                   # when done
-```
-The shop UI is at **http://localhost:8080** while it runs.
-
----
-
-## Results so far
 | Check | Result |
 |---|---|
-| Realism vs held-out real data (Olist 2018) | 9/10 checks pass (the one miss, a weekday mix shift, is documented and accepted) |
-| Session layer reproduces its source datasets | 8/8 fidelity checks |
-| Session layer helps locate causes (value gate S10) | checkout fault 5/5 · demand drop 4/5 · no false alarms 5/5 (without it: 0/5) |
-| Closed loop (ask → grant → revise) | 6/6 seeds correct, bit-identical reruns |
-| Real core separates logging drop from demand drop (payments-per-order ratio) | correct on all completed seeds |
-| Live shop | 400/400 sessions OK; payment fault caught in telemetry, 0 leaked fault details |
-| Contracts | 340/340 sample observations accepted by the core's own parser |
+| Realism against held-out real data (Olist 2018) | 9/10 checks pass |
+| Hidden incidents diagnosed in the closed loop | 6/6 |
+| Locating a fault in the funnel (checkout fault / demand drop / no false alarm) | 5/5 · 4/5 · 5/5 |
+| Live sessions through the real shop | 400/400, 0 leaked fault details |
+| Contract samples accepted by the causal core's own validator | 340/340 |
 
----
+## Project structure
 
-## Repository map
-| Path | What's there |
+| Path | Contents |
 |---|---|
-| `mkt/sim/` | emulator: order chain, session layer, observation layer, counterfactual twin |
-| `mkt/emulator/`, `mkt/harness/` | emulator API (step / intervene / snapshot), closed loop, sealed answers |
-| `mkt/core_port.py`, `mkt/taxonomy.py`, `mkt/variable_catalog.py` | the contract port and the 106-variable catalogue |
-| `mkt/stitch/`, `scripts/stitch*.py` | dataset stitching (33 data types) and contract samples |
-| `mkt/adapters/astronomy/`, `deploy/` | Astronomy Shop integration (overrides only; upstream untouched) |
-| `causal_core/` | the causal reasoning core (Subsystem 2): graph, reasoning engine, its own contracts |
-| `docs/` | architecture, gates, reports, diagrams (`*.excalidraw`), `HANDOVER.md` (what's done / not done) |
+| `causal_core/` | The causal reasoning engine (contracts, graph, methods, orchestration) |
+| `mkt/` | Emulator, contract ports, stitching, Astronomy Shop adapters |
+| `causal_core_demo_video/` | Agent, engine service, live dashboard and demo scripts |
+| `scripts/` | Command-line entry points |
+| `deploy/` | Astronomy Shop overrides (upstream untouched) |
+| `docs/` | Architecture, reports, diagrams, handover |
+| `tests/` | Test suite |
 
----
+## Documentation
 
-## Technical documentation
-**Start here**
-- [`docs/HANDOVER.md`](docs/HANDOVER.md): what's done, what's not, setup, commands (two pages)
-- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): the full design (taxonomy L0–L10, stitching §7.5, transport cards §7.6, gates S1–S10 §12.5, phased plan §13)
-- Diagrams (open in [excalidraw.com](https://excalidraw.com)): [`docs/architecture-and-stitching.excalidraw`](docs/architecture-and-stitching.excalidraw) · [`docs/current-architecture.excalidraw`](docs/current-architecture.excalidraw) · [`docs/stitch-pipeline.excalidraw`](docs/stitch-pipeline.excalidraw)
-
-**Causal core**
-- [`docs/master_implementation_blueprint.md`](docs/master_implementation_blueprint.md): Subsystem 2 specification (ports, tiers T0–T4, demo portfolio §10)
-- [`causal_core/README.md`](causal_core/README.md) and [`causal_core/docs/`](causal_core/docs/): the core's phases, demos and audits
-- [`docs/CONTRACT_SUGGESTIONS.md`](docs/CONTRACT_SUGGESTIONS.md): proposed contract additions (also GitHub issue #1)
-
-**Data and stitching**
-- [`docs/datasets/AUDIT.md`](docs/datasets/AUDIT.md): what every dataset contains, verified claims, what was dropped and why
-- [`docs/stitch/README.md`](docs/stitch/README.md): where the stitched data lives and how it's built
-- [`docs/stitch/STITCH_REPORT.md`](docs/stitch/STITCH_REPORT.md): all 33 transport cards, held-out checks, status
-- [`docs/p0/VARIABLE_CATALOG.md`](docs/p0/VARIABLE_CATALOG.md) · [`docs/p0/VARIABLE_TAXONOMY.md`](docs/p0/VARIABLE_TAXONOMY.md): the 106 variables and the served taxonomy
-- [`docs/stitch/SAMPLES_REPORT.md`](docs/stitch/SAMPLES_REPORT.md): contract samples per variable
-
-**Emulator build and gates** (each phase: design and tolerances first, then results)
-- [`PHASE1_SOURCE_SEMANTICS`](docs/p0/PHASE1_SOURCE_SEMANTICS.md) · [`PHASE2_REAL_INTEGRATION`](docs/p0/PHASE2_REAL_INTEGRATION.md) · [`PHASE3_TOLERANCES`](docs/p0/PHASE3_TOLERANCES.md) · [`PHASE3_MINIMAL_CHAIN`](docs/p0/PHASE3_MINIMAL_CHAIN.md) · [`PHASE4_OBSERVATION`](docs/p0/PHASE4_OBSERVATION.md) · [`PHASE5_INTERVENTION`](docs/p0/PHASE5_INTERVENTION.md)
-- Session layer: [`P1_2_SESSION_LAYER_PREREG`](docs/p0/P1_2_SESSION_LAYER_PREREG.md) → [`P1_2_SESSION_LAYER`](docs/p0/P1_2_SESSION_LAYER.md) · [`P1_2_S10_V2_PREREG`](docs/p0/P1_2_S10_V2_PREREG.md)
-- Decisions taken along the way, with reasons and how to undo them: [`docs/p0/STRATEGY_CHANGES.md`](docs/p0/STRATEGY_CHANGES.md)
-
-**Contracts and integration**
-- [`docs/p0/CONFORMANCE_AND_M1_M5_DESIGN.md`](docs/p0/CONFORMANCE_AND_M1_M5_DESIGN.md): contract conformance and integration design
-- [`docs/CONFORMANCE_REPORT.md`](docs/CONFORMANCE_REPORT.md): latest field-by-field contract diff and checks (`scripts/conform.py`)
-- [`docs/ASTRONOMY_SHOP_INTEGRATION.md`](docs/ASTRONOMY_SHOP_INTEGRATION.md): how the shop connects (projection, transactions, telemetry, redaction)
-- [`docs/experiments/M0_REPORT.md`](docs/experiments/M0_REPORT.md): shop feasibility experiments (throughput, leaks, catalog scale, idempotency)
-- [`docs/p0/INTEGRATION_M1_M5.md`](docs/p0/INTEGRATION_M1_M5.md): emulator API, closed loop, storefront and telemetry results
-
----
+- [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md): full design
+- [`docs/master_implementation_blueprint.md`](docs/master_implementation_blueprint.md): causal core specification
+- [`docs/ASTRONOMY_SHOP_INTEGRATION.md`](docs/ASTRONOMY_SHOP_INTEGRATION.md): shop integration
+- [`docs/stitch/README.md`](docs/stitch/README.md): dataset stitching
+- [`docs/HANDOVER.md`](docs/HANDOVER.md): status, setup and next steps
 
 ## Data and licences
-- **Olist Brazilian E-Commerce** (Kaggle): CC BY-NC-SA 4.0. The processed tables in `artifacts/` derive from it; non-commercial use with attribution.
-- The other datasets (Retailrocket, Taobao, Expedia, Google Analytics sample, Statcounter, M5, ESCI, Open Bandit, Criteo, Hillstrom, Instacart, UCI Online Retail II, Coat, YelpChi, Amazon fraud graph, NAB/LogHub, Banco Central do Brasil) are **not redistributed**. `scripts/datasets.py` downloads them under each source's own terms; Kaggle and AIcrowd need your own accounts.
-- The Astronomy Shop is Apache-2.0 and used unmodified (release 3.1.0).
 
-## Status and next steps
-Working: everything in *Results so far*. Next: fix the core's default monitoring window, make its baseline robust to marketplace growth, and connect the remaining 18 stitched data types (prices, stock, search, recommendations, returns, reviews, sellers, ads, fraud) as simulator layers. Details: [`docs/HANDOVER.md`](docs/HANDOVER.md).
+- **Olist Brazilian E-Commerce** (Kaggle), CC BY-NC-SA 4.0: the processed tables in `artifacts/` derive from it (non-commercial use, with attribution).
+- The other datasets are not redistributed. `scripts/datasets.py` downloads them under each source's own terms.
+- **OpenTelemetry Astronomy Shop** (Apache-2.0), used unmodified at release 3.1.0.
 
 ## Team
-| | Sneha Verma | Stefan Dye |
-|---|:---:|:---:|
-| | <img src="causal_core_demo_video/scenes/team/photos/sneha-verma.jpg" width="140" alt="Sneha Verma"> | <img src="causal_core_demo_video/scenes/team/photos/stefan-dye.jpg" width="140" alt="Stefan Dye"> |
-| Role | _job title_ | _job title_ |
-| LinkedIn | <img src="causal_core_demo_video/scenes/team/qr-sneha-verma.png" width="140" alt="QR: Sneha Verma on LinkedIn"><br>[msverma101](https://www.linkedin.com/in/msverma101/) | <img src="causal_core_demo_video/scenes/team/qr-stefan-dye.png" width="140" alt="QR: Stefan Dye on LinkedIn"><br>[stefan-dye](https://www.linkedin.com/in/stefan-dye-782b962b/) |
 
-**Team page for the demo:** [`causal_core_demo_video/scenes/team/index.html`](causal_core_demo_video/scenes/team/index.html). While `uc2_watch.sh` runs it is served at **http://127.0.0.1:8765/scenes/team/**, next to Martha's dashboard.
+| | Sneha Verma | Stefan Dye |
+|:---:|:---:|:---:|
+| | <img src="causal_core_demo_video/scenes/team/photos/sneha-verma.jpg" width="140" alt="Sneha Verma"> | <img src="causal_core_demo_video/scenes/team/photos/stefan-dye.jpg" width="140" alt="Stefan Dye"> |
+| LinkedIn | <img src="causal_core_demo_video/scenes/team/qr-sneha-verma.png" width="140" alt="QR: Sneha Verma on LinkedIn"><br>[msverma101](https://www.linkedin.com/in/msverma101/) | <img src="causal_core_demo_video/scenes/team/qr-stefan-dye.png" width="140" alt="QR: Stefan Dye on LinkedIn"><br>[stefan-dye](https://www.linkedin.com/in/stefan-dye-782b962b/) |
