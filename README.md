@@ -1,21 +1,36 @@
-# Marketplace Emulator × Causal Core
+# Marketplace Martha
 
-**An autonomous monitoring agent that investigates a realistic, data-grounded marketplace, and knows when it can't tell.**
+**Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches, investigates, asks for the evidence she needs, and says so when she can't tell.**
 
-A marketplace emulator calibrated on real e-commerce data (Olist, Brazil) and stitched with 18 public datasets. It is wired to a domain-agnostic **causal reasoning core** that detects changes, separates look-alike causes, asks for the evidence it needs, and abstains when the data can't decide. A real microservice shop, the [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), can serve the emulator's shoppers, so faults and telemetry are real.
+### Why "Martha"?
+A marketplace is a living place: buyers, sellers, carriers, payments, reviews, and the software in between. When something goes wrong, dashboards show *that* a number moved. Someone still has to work out *why*, check whether it's real, and decide what to do. Martha is that caretaker:
+- she **watches** every part of the marketplace continuously, with no fixed rules to configure;
+- she **investigates** a change instead of only alerting on it: a broken logging pipeline vs. real lost demand, a checkout fault vs. fewer shoppers;
+- she **asks for the cheapest evidence** that would settle the question, and revises her answer when it arrives;
+- she **knows her limits**: she abstains rather than guessing, and never acts on production without permission.
+
+### What's inside
+- **A marketplace emulator** calibrated on real e-commerce data (Olist, Brazil) and stitched with 18 public datasets. This is the world Martha looks after.
+- **A domain-agnostic causal reasoning core**: Martha's brain. She detects changes, separates look-alike causes, and requests discriminating evidence.
+- **A real microservice shop**, the [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), which can serve the emulator's shoppers, so faults and telemetry are real.
 
 ---
 
 ## 🎬 Demo video
 
-<!-- Replace the placeholder below with your video. Options:
-     - YouTube/Vimeo:  [![Demo](https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
-     - File in repo:   put it under docs/media/demo.mp4 and link it: [Watch the demo](docs/media/demo.mp4)
-     - GitHub upload:  drag the .mp4 into this README in the GitHub editor; GitHub inserts the player link. -->
+[![Marketplace Martha: watching the real Astronomy Shop, raising an alarm, proposing a fix and waiting for approval](docs/media/demo_thumbnail.png)](causal_core_demo_video/videos/uc2_silent.mp4)
 
-> **📺 Demo video: coming soon**
->
-> _Add the video link here._
+**▶ [Watch the 3-minute demo](causal_core_demo_video/videos/uc2_silent.mp4)** (marketplace watcher on the real Astronomy Shop, 3:00, subtitled)
+
+| Video | What it shows | Length |
+|---|---|---|
+| [**Main demo**](causal_core_demo_video/videos/uc2_silent.mp4) | Shoppers from the emulator go through the real shop; payments start failing (hidden from Martha); she raises the alarm, rules out a demand drop, proposes turning the faulty flag off with an expected effect, and acts only after a person approves | 3:00 |
+| [Pitch](causal_core_demo_video/videos/uc2_pitch.mp4) | The idea and how it works | 1:40 |
+| [Demo cut](causal_core_demo_video/videos/uc2_demo_cut.mp4) | The dashboard sequence only | 1:20 |
+| [Experiment watcher](causal_core_demo_video/videos/uc1.mp4) | Second use case: Martha watching A/B experiments (Statsig-shaped), refusing to estimate a broken 50/50 split | 2:23 |
+| [Full screen recording](causal_core_demo_video/videos/uc2_screen.mp4) | The whole paced run, uncut | 6:57 |
+
+How the videos are recorded and rebuilt: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
 
 **What the demo shows (≈ 5 min):**
 1. **A normal day:** the emulator produces orders, sessions, deliveries and reviews; the real shop serves the same shoppers.
