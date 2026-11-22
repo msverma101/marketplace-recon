@@ -36,7 +36,8 @@
 
 | Step | Result | Time |
 |---|---|---|
-| contract conformance tests (ports, roles, taxonomy, import boundary) | PASS: 20 passed in 19.21s | 20 s |
-| emulator, closed loop and storefront tests | PASS: 9 passed, 1 skipped in 11.32s | 12 s |
-| regenerate 106 contract samples | PASS: report: docs/stitch/SAMPLES_REPORT.md · samples: /home/sneha/data/mkt/stitch/samples | 37 s |
-| re-check written samples | PASS: 106 passed in 0.73s | 1 s |
+| contract conformance tests (ports, roles, taxonomy, import boundary) | PASS: 20 passed in 18.94s | 19 s |
+| emulator, closed loop and storefront tests | PASS: 11 passed, 1 skipped in 15.01s | 15 s |
+| regenerate 106 contract samples | PASS: report: docs/stitch/SAMPLES_REPORT.md · samples: /home/sneha/data/mkt/stitch/samples | 36 s |
+| re-check written samples | PASS: 106 passed in 0.49s | 1 s |
+| the core's own parser accepts every sample (causal_core.api.parse_observation) | PASS: 340 observations from 106 variables accepted | 0 s |
