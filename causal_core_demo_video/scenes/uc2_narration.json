@@ -1,0 +1,110 @@
+{
+ "note": "Video 2 narration. Times are seconds within a segment (anchor). Segments: open 0-30, solution 30-70, demo 70-150 (cut from the screen recording; demo lines are anchored to events in the run), close 150-180. {placeholders} are filled from outputs/uc2 at assembly.",
+ "lines": [
+  {
+   "anchor": "open",
+   "at": 0.5,
+   "text": "Every marketplace has the same 3 a.m. problem: orders drop, and nobody knows why yet."
+  },
+  {
+   "anchor": "open",
+   "at": 6.5,
+   "text": "Is it a data glitch, a quieter market, or something broken in checkout?"
+  },
+  {
+   "anchor": "open",
+   "at": 12.5,
+   "text": "Today a person digs through dashboards, logs and traces to find out, while orders keep failing."
+  },
+  {
+   "anchor": "open",
+   "at": 19.5,
+   "text": "We built an engine that answers that question on its own, and an agent that acts on the answer, safely."
+  },
+  {
+   "anchor": "solution",
+   "at": 0.5,
+   "text": "The engine reads the business through read-only ports: telemetry from the services, and data from the order pipeline."
+  },
+  {
+   "anchor": "solution",
+   "at": 8.5,
+   "text": "Every question goes through the same seven stages: frame it, audit the inputs, pick only the methods that apply,"
+  },
+  {
+   "anchor": "solution",
+   "at": 15.5,
+   "text": "fetch the evidence, evaluate, challenge its own assumptions, and publish a report. Every step lands in a ledger."
+  },
+  {
+   "anchor": "solution",
+   "at": 23.5,
+   "text": "The engine itself cannot change anything. On top sits an agent: it turns findings into proposals with an honest range,"
+  },
+  {
+   "anchor": "solution",
+   "at": 32.0,
+   "text": "and it acts only after a person approves, and only inside a sandbox."
+  },
+  {
+   "anchor": "demo_start",
+   "at": 0.5,
+   "text": "This is a real, running shop, with 200 products from a Brazilian marketplace and shoppers simulated from real orders."
+  },
+  {
+   "anchor": "demo_start",
+   "at": 7.0,
+   "text": "Left: the world and what the agent sees. Right: the engine at work, every three hours."
+  },
+  {
+   "anchor": "fault_day",
+   "at": 0.5,
+   "text": "Now, without telling the agent, we break payments: one in four fails."
+  },
+  {
+   "anchor": "alarm",
+   "at": -1.0,
+   "text": "As traffic picks up, the engine raises an alarm: checkout errors far above budget."
+  },
+  {
+   "anchor": "alarm",
+   "at": 5.5,
+   "text": "Checkout attempts are normal, {attempts} against {usual}. The failures sit in the payment service."
+  },
+  {
+   "anchor": "policy",
+   "at": 1.0,
+   "text": "The engine itself may not act; its policy gate says so."
+  },
+  {
+   "anchor": "proposal",
+   "at": 1.0,
+   "text": "The agent proposes switching the faulty flag off: about {exp} more orders today, {lo} to {hi}."
+  },
+  {
+   "anchor": "approval",
+   "at": 0.5,
+   "text": "A person approves. The change runs in the shop's flag service and is read back."
+  },
+  {
+   "anchor": "execution",
+   "at": 6.0,
+   "text": "Payments recover in the next block."
+  },
+  {
+   "anchor": "close",
+   "at": 0.5,
+   "text": "So the agent found the cause, ruled out a drop in demand, and stated the expected gain before acting."
+  },
+  {
+   "anchor": "close",
+   "at": 8.0,
+   "text": "It fixed it with one approval, and with zero writes to production."
+  },
+  {
+   "anchor": "close",
+   "at": 17.0,
+   "text": "Next: connect it to our own telemetry, with the same guardrails. That step needs your go-ahead."
+  }
+ ]
+}

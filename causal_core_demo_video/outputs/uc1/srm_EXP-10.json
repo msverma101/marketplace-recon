@@ -1,0 +1,149 @@
+[
+ {
+  "day": 1,
+  "control": 10005,
+  "variant": 10203,
+  "missing_id_control": 0,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 2,
+  "control": 20090,
+  "variant": 20194,
+  "missing_id_control": 0,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 3,
+  "control": 30833,
+  "variant": 30263,
+  "missing_id_control": 800,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 4,
+  "control": 41487,
+  "variant": 40035,
+  "missing_id_control": 1585,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 5,
+  "control": 52206,
+  "variant": 49856,
+  "missing_id_control": 2375,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 6,
+  "control": 62891,
+  "variant": 59913,
+  "missing_id_control": 3172,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 7,
+  "control": 73652,
+  "variant": 69790,
+  "missing_id_control": 3965,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 8,
+  "control": 84342,
+  "variant": 79664,
+  "missing_id_control": 4755,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 9,
+  "control": 95362,
+  "variant": 89787,
+  "missing_id_control": 5568,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 10,
+  "control": 105887,
+  "variant": 99839,
+  "missing_id_control": 6359,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 11,
+  "control": 116734,
+  "variant": 109707,
+  "missing_id_control": 7155,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 12,
+  "control": 127706,
+  "variant": 119797,
+  "missing_id_control": 7965,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 13,
+  "control": 138264,
+  "variant": 129929,
+  "missing_id_control": 8760,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 14,
+  "control": 148869,
+  "variant": 140014,
+  "missing_id_control": 9555,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 15,
+  "control": 159715,
+  "variant": 150241,
+  "missing_id_control": 10365,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 16,
+  "control": 170400,
+  "variant": 160285,
+  "missing_id_control": 11162,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 17,
+  "control": 181247,
+  "variant": 170271,
+  "missing_id_control": 11963,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 18,
+  "control": 192008,
+  "variant": 180055,
+  "missing_id_control": 12753,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 19,
+  "control": 202726,
+  "variant": 189837,
+  "missing_id_control": 13541,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 20,
+  "control": 213613,
+  "variant": 199712,
+  "missing_id_control": 14339,
+  "missing_id_variant": 0
+ },
+ {
+  "day": 21,
+  "control": 224421,
+  "variant": 209849,
+  "missing_id_control": 15144,
+  "missing_id_variant": 0
+ }
+]

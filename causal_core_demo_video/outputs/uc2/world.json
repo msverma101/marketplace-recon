@@ -1,0 +1,26 @@
+{
+ "canonical": "f9e857bce15c8244",
+ "catalog_products_synced": 200,
+ "orders_before_window": 8486,
+ "setup_s": 2.3,
+ "normal_days": [
+  "2018-02-12",
+  "2018-02-13",
+  "2018-02-14",
+  "2018-02-15"
+ ],
+ "fault_day": "2018-02-16",
+ "recovery_day": "2018-02-17",
+ "block_hours": 3,
+ "error_budget": 0.01,
+ "attempts_null": {
+  "0": 10.75,
+  "1": 2.25,
+  "2": 10.75,
+  "3": 36.75,
+  "4": 41.75,
+  "5": 44.25,
+  "6": 42.0,
+  "7": 38.5
+ }
+}

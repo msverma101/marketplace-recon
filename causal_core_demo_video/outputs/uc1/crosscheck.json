@@ -1,0 +1,310 @@
+[
+ {
+  "id": "EXP-01",
+  "area": "Area A",
+  "metric": "Active learning days",
+  "status": "INVALID",
+  "effect": null,
+  "interval": null,
+  "significant": false,
+  "srm_p": null,
+  "units": {
+   "test": 120167,
+   "control": 63427
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": "SRM_FAIL: sample ratio mismatch p = 0 < 0.001; assignment integrity not established",
+  "crosscheck": null
+ },
+ {
+  "id": "EXP-02",
+  "area": "Area A",
+  "metric": "Active learning days",
+  "status": "HEALTHY",
+  "effect": 0.010237170098935877,
+  "interval": [
+   -0.015507926957063725,
+   0.03598226715493548
+  ],
+  "significant": false,
+  "srm_p": 0.4322943553214189,
+  "units": {
+   "test": 51617,
+   "control": 51365
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": null,
+  "crosscheck": {
+   "statsig_delta": 0.010237170098935877,
+   "engine_delta": 0.010237170098935877,
+   "statsig_ci": [
+    -0.025680117336686285,
+    0.04615445753455804
+   ],
+   "engine_ci": [
+    -0.02568011733668632,
+    0.046154457534558074
+   ],
+   "level": 0.99375,
+   "max_abs_diff": 3.469446951953614e-17
+  }
+ },
+ {
+  "id": "EXP-03",
+  "area": "Area B",
+  "metric": "Home screen reloads",
+  "status": "HEALTHY",
+  "effect": -0.011966723285442293,
+  "interval": [
+   -0.05338385672549777,
+   0.029450410154613187
+  ],
+  "significant": false,
+  "srm_p": 0.7199960371261731,
+  "units": {
+   "test": 6885,
+   "control": 6843
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": null,
+  "crosscheck": {
+   "statsig_delta": -0.011966723285442293,
+   "engine_delta": -0.011966723285442293,
+   "statsig_ci": [
+    -0.0593311017099282,
+    0.03539765513904361
+   ],
+   "engine_ci": [
+    -0.059331101709928225,
+    0.03539765513904364
+   ],
+   "level": 0.975,
+   "max_abs_diff": 2.7755575615628914e-17
+  }
+ },
+ {
+  "id": "EXP-04",
+  "area": "Area C",
+  "metric": "Revenue per user",
+  "status": "HEALTHY",
+  "effect": 9.215804640623432,
+  "interval": [
+   -5.750415863501832,
+   24.182025144748696
+  ],
+  "significant": false,
+  "srm_p": 0.10012438097965096,
+  "units": {
+   "test": 105,
+   "control": 106
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": null,
+  "crosscheck": {
+   "statsig_delta": 9.215804640623432,
+   "engine_delta": 9.215804640623432,
+   "statsig_ci": [
+    -11.66374545399546,
+    30.095354735242324
+   ],
+   "engine_ci": [
+    -11.663745453995485,
+    30.09535473524235
+   ],
+   "level": 0.99375,
+   "max_abs_diff": 2.4868995751603507e-14
+  }
+ },
+ {
+  "id": "EXP-05",
+  "area": "Area D",
+  "metric": "Registrations",
+  "status": "HEALTHY",
+  "effect": 0.0004902764392482606,
+  "interval": [
+   -0.02844913513290262,
+   0.02942968801139914
+  ],
+  "significant": false,
+  "srm_p": 0.4340866904238122,
+  "units": {
+   "test": 1161,
+   "control": 1199
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": null,
+  "crosscheck": {
+   "statsig_delta": 0.0004902764392482883,
+   "engine_delta": 0.0004902764392482606,
+   "statsig_ci": [
+    -0.03846432358024201,
+    0.039444876458738586
+   ],
+   "engine_ci": [
+    -0.03846432358024206,
+    0.03944487645873858
+   ],
+   "level": 0.9916666666666667,
+   "max_abs_diff": 4.85722573273506e-17
+  }
+ },
+ {
+  "id": "EXP-06",
+  "area": "Area E",
+  "metric": "Conversation completions",
+  "status": "HEALTHY",
+  "effect": -0.0912227276242289,
+  "interval": [
+   -0.09948676110624521,
+   -0.08295869414221257
+  ],
+  "significant": true,
+  "srm_p": 0.9897958380164738,
+  "units": {
+   "test": 27513,
+   "control": 27510
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": null,
+  "crosscheck": {
+   "statsig_delta": -0.0912227276242289,
+   "engine_delta": -0.0912227276242289,
+   "statsig_ci": [
+    -0.10175410566564898,
+    -0.08069134958280881
+   ],
+   "engine_ci": [
+    -0.10175410566564898,
+    -0.08069134958280881
+   ],
+   "level": 0.9875,
+   "max_abs_diff": 0.0
+  }
+ },
+ {
+  "id": "EXP-07",
+  "area": "Area F",
+  "metric": "Active learning days",
+  "status": "HEALTHY",
+  "effect": 0.00673989896856364,
+  "interval": [
+   -0.004959158365251869,
+   0.01843895630237915
+  ],
+  "significant": false,
+  "srm_p": 0.02787757783433918,
+  "units": {
+   "test": 299674,
+   "control": 297974
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": null,
+  "crosscheck": {
+   "statsig_delta": 0.00673989896856364,
+   "engine_delta": 0.00673989896856364,
+   "statsig_ci": [
+    -0.008168946182992796,
+    0.021648744120120078
+   ],
+   "engine_ci": [
+    -0.008168946182992801,
+    0.02164874412012008
+   ],
+   "level": 0.9875,
+   "max_abs_diff": 5.204170427930421e-18
+  }
+ },
+ {
+  "id": "EXP-08",
+  "area": "Area F",
+  "metric": "Lesson completers",
+  "status": "HEALTHY",
+  "effect": -0.0017551960127006883,
+  "interval": [
+   -0.01575455214006937,
+   0.012244160114667993
+  ],
+  "significant": false,
+  "srm_p": 0.8246755065713103,
+  "units": {
+   "test": 6900,
+   "control": 6874
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": null,
+  "crosscheck": {
+   "statsig_delta": -0.0017551960127006883,
+   "engine_delta": -0.0017551960127006883,
+   "statsig_ci": [
+    -0.018854579493081794,
+    0.015344187467680417
+   ],
+   "engine_ci": [
+    -0.018854579493081784,
+    0.015344187467680407
+   ],
+   "level": 0.9833333333333334,
+   "max_abs_diff": 1.0408340855860843e-17
+  }
+ },
+ {
+  "id": "EXP-09",
+  "area": "Area F",
+  "metric": "Lesson completers",
+  "status": "HEALTHY",
+  "effect": 0.01446624472573843,
+  "interval": [
+   -0.0015634561415853003,
+   0.030495945593062162
+  ],
+  "significant": false,
+  "srm_p": 0.6254491355966039,
+  "units": {
+   "test": 6375,
+   "control": 6320
+  },
+  "planned_split": [
+   50,
+   50
+  ],
+  "note": null,
+  "crosscheck": {
+   "statsig_delta": 0.01446624472573843,
+   "engine_delta": 0.01446624472573843,
+   "statsig_ci": [
+    -0.0015634561415853038,
+    0.030495945593062165
+   ],
+   "engine_ci": [
+    -0.0015634561415853003,
+    0.030495945593062162
+   ],
+   "level": 0.95,
+   "max_abs_diff": 3.469446951953614e-18
+  }
+ }
+]

@@ -1,0 +1,63 @@
+2018-02-12 00:00  world    emulator ready: 8,486 orders simulated since 1 Jan 2018; 200 Olist products synced into the shop
+2018-02-12 00:00  world    day 2018-02-12: shoppers from the emulator go through the shop
+2018-02-12 03:00  agent    block 1/8 · checkouts 9 · failed 0 · telemetry 17 ms
+2018-02-12 06:00  agent    block 2/8 · checkouts 4 · failed 0 · telemetry 13 ms
+2018-02-12 09:00  agent    block 3/8 · checkouts 9 · failed 0 · telemetry 13 ms
+2018-02-12 12:00  agent    block 4/8 · checkouts 45 · failed 0 · telemetry 44 ms
+2018-02-12 15:00  agent    block 5/8 · checkouts 37 · failed 0 · telemetry 95 ms
+2018-02-12 18:00  agent    block 6/8 · checkouts 43 · failed 0 · telemetry 36 ms
+2018-02-12 21:00  agent    block 7/8 · checkouts 44 · failed 0 · telemetry 62 ms
+2018-02-13 00:00  agent    block 8/8 · checkouts 41 · failed 0 · telemetry 43 ms
+2018-02-13 00:00  world    day 2018-02-13: shoppers from the emulator go through the shop
+2018-02-13 03:00  agent    block 1/8 · checkouts 11 · failed 0 · telemetry 34 ms
+2018-02-13 06:00  agent    block 2/8 · checkouts 3 · failed 0 · telemetry 31 ms
+2018-02-13 09:00  agent    block 3/8 · checkouts 10 · failed 0 · telemetry 36 ms
+2018-02-13 12:00  agent    block 4/8 · checkouts 32 · failed 0 · telemetry 47 ms
+2018-02-13 15:00  agent    block 5/8 · checkouts 43 · failed 0 · telemetry 109 ms
+2018-02-13 18:00  agent    block 6/8 · checkouts 47 · failed 0 · telemetry 56 ms
+2018-02-13 21:00  agent    block 7/8 · checkouts 43 · failed 0 · telemetry 85 ms
+2018-02-14 00:00  agent    block 8/8 · checkouts 41 · failed 0 · telemetry 65 ms
+2018-02-14 00:00  world    day 2018-02-14: shoppers from the emulator go through the shop
+2018-02-14 03:00  agent    block 1/8 · checkouts 11 · failed 0 · telemetry 51 ms
+2018-02-14 06:00  agent    block 2/8 · checkouts 1 · failed 0 · telemetry 52 ms
+2018-02-14 09:00  agent    block 3/8 · checkouts 13 · failed 0 · telemetry 53 ms
+2018-02-14 12:00  agent    block 4/8 · checkouts 35 · failed 0 · telemetry 115 ms
+2018-02-14 15:00  agent    block 5/8 · checkouts 41 · failed 0 · telemetry 75 ms
+2018-02-14 18:00  agent    block 6/8 · checkouts 45 · failed 0 · telemetry 74 ms
+2018-02-14 21:00  agent    block 7/8 · checkouts 41 · failed 0 · telemetry 123 ms
+2018-02-15 00:00  agent    block 8/8 · checkouts 33 · failed 0 · telemetry 80 ms
+2018-02-15 00:00  world    day 2018-02-15: shoppers from the emulator go through the shop
+2018-02-15 03:00  agent    block 1/8 · checkouts 12 · failed 0 · telemetry 70 ms
+2018-02-15 06:00  agent    block 2/8 · checkouts 1 · failed 0 · telemetry 74 ms
+2018-02-15 09:00  agent    block 3/8 · checkouts 11 · failed 0 · telemetry 83 ms
+2018-02-15 12:00  agent    block 4/8 · checkouts 35 · failed 0 · telemetry 82 ms
+2018-02-15 15:00  agent    block 5/8 · checkouts 46 · failed 0 · telemetry 145 ms
+2018-02-15 18:00  agent    block 6/8 · checkouts 42 · failed 0 · telemetry 114 ms
+2018-02-15 21:00  agent    block 7/8 · checkouts 40 · failed 0 · telemetry 148 ms
+2018-02-16 00:00  agent    block 8/8 · checkouts 39 · failed 0 · telemetry 142 ms
+2018-02-16 00:00  world    day 2018-02-16: shoppers from the emulator go through the shop
+2018-02-16 03:00  agent    block 1/8 · checkouts 8 · failed 1 · telemetry 88 ms
+2018-02-16 06:00  agent    block 2/8 · checkouts 1 · failed 0 · telemetry 81 ms
+2018-02-16 09:00  agent    block 3/8 · checkouts 12 · failed 3 · telemetry 111 ms
+2018-02-16 12:00  agent    block 4/8 · checkouts 29 · failed 7 · telemetry 97 ms
+2018-02-16 12:03  engine   ALARM checkout errors up (7/29 checkouts failed this block) · task chk-2018-02-16-3 in 7 ms
+2018-02-16 12:04  engine   diagnosis: checkout attempts 50 vs usual 60 → demand unchanged; checkouts failing 11/50 = 22% [14%, 33%]; payment service errors 11 of 50 → the failures are in the payment path
+2018-02-16 12:05  policy   DENY: requested action 'turn the payment fault flag off': P0 has no actuation or test-execution port (I15, G17); pro
+2018-02-16 12:06  agent    PROPOSAL set_flag paymentFailure=off · expected +37 orders today [23, 55] · sandbox local-astronomy-shop
+2018-02-16 12:21  human    APPROVED set_flag paymentFailure=off (on-call marketplace lead)
+2018-02-16 12:22  sandbox  EXECUTED: flag paymentFailure 25% → off (read back through flagd: True)
+2018-02-16 15:00  agent    block 5/8 · checkouts 49 · failed 4 · telemetry 156 ms
+2018-02-16 18:00  agent    block 6/8 · checkouts 54 · failed 0 · telemetry 111 ms
+2018-02-16 21:00  agent    block 7/8 · checkouts 38 · failed 0 · telemetry 126 ms
+2018-02-17 00:00  agent    block 8/8 · checkouts 48 · failed 0 · telemetry 143 ms
+2018-02-17 00:00  world    day 2018-02-17: shoppers from the emulator go through the shop
+2018-02-17 03:00  agent    block 1/8 · checkouts 7 · failed 0 · telemetry 100 ms
+2018-02-17 06:00  agent    block 2/8 · checkouts 0 · failed 0 · telemetry 102 ms
+2018-02-17 09:00  agent    block 3/8 · checkouts 9 · failed 0 · telemetry 104 ms
+2018-02-17 12:00  agent    block 4/8 · checkouts 21 · failed 0 · telemetry 126 ms
+2018-02-17 15:00  agent    block 5/8 · checkouts 44 · failed 0 · telemetry 125 ms
+2018-02-17 18:00  agent    block 6/8 · checkouts 32 · failed 0 · telemetry 120 ms
+2018-02-17 21:00  agent    block 7/8 · checkouts 32 · failed 0 · telemetry 149 ms
+2018-02-18 00:00  agent    block 8/8 · checkouts 28 · failed 0 · telemetry 121 ms
+
+wrote /Users/sdye/code/babbel-core/experimentation.cop/causal_core_demo_video/outputs/uc2: 48 blocks, 50 core tasks (median 7 ms), 1 sandbox actions; truth {"injected": {"what": "storefront.payment_failure = 25% (flagd paymentFailure)", "from": "2018-02-16T00:00:00Z", "scheduled_until": "2018-02-17T00:00:00Z", "flag": {"kind": "flag", "flag": "paymentFailure", "variant": "25%", "w0": 1518739200000000, "w1": 1518825600000000}}, "failed_before_fix": 15, "failed_after_fix": 0, "fixed_at": "2018-02-16T12:22:00Z", "orders_saved_vs_no_fix_expected": 45.8, "first_failure_sim": "2018-02-16T00:36:54.036067Z", "checkouts_after_fix": 183}

@@ -1,0 +1,7502 @@
+[
+ {
+  "task_id": "chk-2018-02-12-0",
+  "label": "checkout monitor",
+  "sim": "2018-02-12T03:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 11.06,
+  "timings_ms": {
+   "FRAME": 0.051,
+   "AUDIT_INPUTS": 0.021,
+   "T0_published": 2.836,
+   "SELECT_CAPABILITIES": 0.245,
+   "ACQUIRE": 0.886,
+   "EVALUATE": 0.192,
+   "CHALLENGE": 0.022,
+   "final_published": 10.776
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 1,
+    "ms": 0.148
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.03125,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-12-1",
+  "label": "checkout monitor",
+  "sim": "2018-02-12T06:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.67,
+  "timings_ms": {
+   "FRAME": 0.041,
+   "AUDIT_INPUTS": 0.017,
+   "T0_published": 1.551,
+   "SELECT_CAPABILITIES": 0.175,
+   "ACQUIRE": 0.685,
+   "EVALUATE": 0.295,
+   "CHALLENGE": 0.016,
+   "final_published": 5.451
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 2,
+    "ms": 0.108
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.06188425154396626,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-12-2",
+  "label": "checkout monitor",
+  "sim": "2018-02-12T09:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.77,
+  "timings_ms": {
+   "FRAME": 0.037,
+   "AUDIT_INPUTS": 0.018,
+   "T0_published": 1.452,
+   "SELECT_CAPABILITIES": 0.166,
+   "ACQUIRE": 0.452,
+   "EVALUATE": 0.151,
+   "CHALLENGE": 0.02,
+   "final_published": 5.555
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 3,
+    "ms": 0.118
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.09192077595765336,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-12-3",
+  "label": "checkout monitor",
+  "sim": "2018-02-12T12:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 14.92,
+  "timings_ms": {
+   "FRAME": 0.117,
+   "AUDIT_INPUTS": 0.037,
+   "T0_published": 4.562,
+   "SELECT_CAPABILITIES": 0.215,
+   "ACQUIRE": 1.169,
+   "EVALUATE": 0.467,
+   "CHALLENGE": 0.023,
+   "final_published": 14.539
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 4,
+    "ms": 0.263
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.12137689811808317,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-12-4",
+  "label": "checkout monitor",
+  "sim": "2018-02-12T15:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 9.32,
+  "timings_ms": {
+   "FRAME": 0.031,
+   "AUDIT_INPUTS": 0.025,
+   "T0_published": 1.947,
+   "SELECT_CAPABILITIES": 0.169,
+   "ACQUIRE": 0.633,
+   "EVALUATE": 0.401,
+   "CHALLENGE": 0.019,
+   "final_published": 8.935
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 5,
+    "ms": 0.156
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.1502692797748879,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-12-5",
+  "label": "checkout monitor",
+  "sim": "2018-02-12T18:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.4,
+  "timings_ms": {
+   "FRAME": 0.023,
+   "AUDIT_INPUTS": 0.014,
+   "T0_published": 1.664,
+   "SELECT_CAPABILITIES": 0.128,
+   "ACQUIRE": 0.487,
+   "EVALUATE": 0.154,
+   "CHALLENGE": 0.015,
+   "final_published": 6.189
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 6,
+    "ms": 0.138
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.17861395097670196,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-12-6",
+  "label": "checkout monitor",
+  "sim": "2018-02-12T21:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.97,
+  "timings_ms": {
+   "FRAME": 0.028,
+   "AUDIT_INPUTS": 0.014,
+   "T0_published": 1.413,
+   "SELECT_CAPABILITIES": 0.122,
+   "ACQUIRE": 0.495,
+   "EVALUATE": 0.19,
+   "CHALLENGE": 0.022,
+   "final_published": 5.764
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 7,
+    "ms": 0.132
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.20642633972714697,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-12-7",
+  "label": "checkout monitor",
+  "sim": "2018-02-13T00:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.56,
+  "timings_ms": {
+   "FRAME": 0.035,
+   "AUDIT_INPUTS": 0.02,
+   "T0_published": 1.526,
+   "SELECT_CAPABILITIES": 0.151,
+   "ACQUIRE": 0.682,
+   "EVALUATE": 0.295,
+   "CHALLENGE": 0.023,
+   "final_published": 6.312
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 8,
+    "ms": 0.117
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.2337212999856848,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-13-0",
+  "label": "checkout monitor",
+  "sim": "2018-02-13T03:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.68,
+  "timings_ms": {
+   "FRAME": 0.041,
+   "AUDIT_INPUTS": 0.019,
+   "T0_published": 1.718,
+   "SELECT_CAPABILITIES": 0.174,
+   "ACQUIRE": 0.48,
+   "EVALUATE": 0.203,
+   "CHALLENGE": 0.019,
+   "final_published": 7.108
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 9,
+    "ms": 0.102
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.26051313812011556,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-13-1",
+  "label": "checkout monitor",
+  "sim": "2018-02-13T06:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.63,
+  "timings_ms": {
+   "FRAME": 0.031,
+   "AUDIT_INPUTS": 0.018,
+   "T0_published": 1.693,
+   "SELECT_CAPABILITIES": 0.147,
+   "ACQUIRE": 0.439,
+   "EVALUATE": 0.143,
+   "CHALLENGE": 0.017,
+   "final_published": 5.426
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 10,
+    "ms": 0.085
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.28681563790969555,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-13-2",
+  "label": "checkout monitor",
+  "sim": "2018-02-13T09:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.73,
+  "timings_ms": {
+   "FRAME": 0.033,
+   "AUDIT_INPUTS": 0.013,
+   "T0_published": 1.188,
+   "SELECT_CAPABILITIES": 0.145,
+   "ACQUIRE": 0.426,
+   "EVALUATE": 0.147,
+   "CHALLENGE": 0.017,
+   "final_published": 5.51
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 11,
+    "ms": 0.09
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.3126420841906873,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-13-3",
+  "label": "checkout monitor",
+  "sim": "2018-02-13T12:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 8.06,
+  "timings_ms": {
+   "FRAME": 0.063,
+   "AUDIT_INPUTS": 0.024,
+   "T0_published": 1.912,
+   "SELECT_CAPABILITIES": 0.269,
+   "ACQUIRE": 1.353,
+   "EVALUATE": 0.269,
+   "CHALLENGE": 0.024,
+   "final_published": 7.732
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 12,
+    "ms": 0.146
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.338005285229564,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-13-4",
+  "label": "checkout monitor",
+  "sim": "2018-02-13T15:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.84,
+  "timings_ms": {
+   "FRAME": 0.027,
+   "AUDIT_INPUTS": 0.018,
+   "T0_published": 1.201,
+   "SELECT_CAPABILITIES": 0.131,
+   "ACQUIRE": 0.512,
+   "EVALUATE": 0.284,
+   "CHALLENGE": 0.017,
+   "final_published": 5.619
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 13,
+    "ms": 0.122
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.3629175939030334,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-13-5",
+  "label": "checkout monitor",
+  "sim": "2018-02-13T18:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.52,
+  "timings_ms": {
+   "FRAME": 0.024,
+   "AUDIT_INPUTS": 0.013,
+   "T0_published": 1.467,
+   "SELECT_CAPABILITIES": 0.132,
+   "ACQUIRE": 0.57,
+   "EVALUATE": 0.36,
+   "CHALLENGE": 0.016,
+   "final_published": 6.327
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 14,
+    "ms": 0.12
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.3873909277584645,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-13-6",
+  "label": "checkout monitor",
+  "sim": "2018-02-13T21:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.86,
+  "timings_ms": {
+   "FRAME": 0.026,
+   "AUDIT_INPUTS": 0.013,
+   "T0_published": 1.631,
+   "SELECT_CAPABILITIES": 0.197,
+   "ACQUIRE": 0.436,
+   "EVALUATE": 0.186,
+   "CHALLENGE": 0.016,
+   "final_published": 5.642
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 15,
+    "ms": 0.129
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.41143678802316136,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-13-7",
+  "label": "checkout monitor",
+  "sim": "2018-02-14T00:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.53,
+  "timings_ms": {
+   "FRAME": 0.023,
+   "AUDIT_INPUTS": 0.013,
+   "T0_published": 1.495,
+   "SELECT_CAPABILITIES": 0.121,
+   "ACQUIRE": 0.453,
+   "EVALUATE": 0.169,
+   "CHALLENGE": 0.018,
+   "final_published": 5.342
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 16,
+    "ms": 0.111
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.43506627762618594,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-14-0",
+  "label": "checkout monitor",
+  "sim": "2018-02-14T03:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.0,
+  "timings_ms": {
+   "FRAME": 0.062,
+   "AUDIT_INPUTS": 0.029,
+   "T0_published": 1.911,
+   "SELECT_CAPABILITIES": 0.293,
+   "ACQUIRE": 1.275,
+   "EVALUATE": 0.263,
+   "CHALLENGE": 0.025,
+   "final_published": 6.761
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 17,
+    "ms": 0.145
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.4582901182920599,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-14-1",
+  "label": "checkout monitor",
+  "sim": "2018-02-14T06:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 9.78,
+  "timings_ms": {
+   "FRAME": 0.067,
+   "AUDIT_INPUTS": 0.026,
+   "T0_published": 1.761,
+   "SELECT_CAPABILITIES": 0.336,
+   "ACQUIRE": 1.526,
+   "EVALUATE": 0.443,
+   "CHALLENGE": 0.038,
+   "final_published": 9.508
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 18,
+    "ms": 0.25
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.481118666761634,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-14-2",
+  "label": "checkout monitor",
+  "sim": "2018-02-14T09:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 10.74,
+  "timings_ms": {
+   "FRAME": 0.064,
+   "AUDIT_INPUTS": 0.021,
+   "T0_published": 1.937,
+   "SELECT_CAPABILITIES": 0.191,
+   "ACQUIRE": 1.372,
+   "EVALUATE": 0.362,
+   "CHALLENGE": 0.031,
+   "final_published": 10.484
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 19,
+    "ms": 0.16
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.5035619301916828,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-14-3",
+  "label": "checkout monitor",
+  "sim": "2018-02-14T12:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.56,
+  "timings_ms": {
+   "FRAME": 0.03,
+   "AUDIT_INPUTS": 0.021,
+   "T0_published": 1.903,
+   "SELECT_CAPABILITIES": 0.147,
+   "ACQUIRE": 0.612,
+   "EVALUATE": 0.175,
+   "CHALLENGE": 0.019,
+   "final_published": 6.33
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 20,
+    "ms": 0.146
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.5256295807813305,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-14-4",
+  "label": "checkout monitor",
+  "sim": "2018-02-14T15:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 8.14,
+  "timings_ms": {
+   "FRAME": 0.036,
+   "AUDIT_INPUTS": 0.019,
+   "T0_published": 1.611,
+   "SELECT_CAPABILITIES": 0.164,
+   "ACQUIRE": 0.584,
+   "EVALUATE": 0.166,
+   "CHALLENGE": 0.017,
+   "final_published": 7.875
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 21,
+    "ms": 0.226
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.5473309696702193,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-14-5",
+  "label": "checkout monitor",
+  "sim": "2018-02-14T18:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.39,
+  "timings_ms": {
+   "FRAME": 0.042,
+   "AUDIT_INPUTS": 0.022,
+   "T0_published": 1.764,
+   "SELECT_CAPABILITIES": 0.218,
+   "ACQUIRE": 0.55,
+   "EVALUATE": 0.193,
+   "CHALLENGE": 0.015,
+   "final_published": 7.139
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 22,
+    "ms": 0.16
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.5686751401503778,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-14-6",
+  "label": "checkout monitor",
+  "sim": "2018-02-14T21:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.47,
+  "timings_ms": {
+   "FRAME": 0.029,
+   "AUDIT_INPUTS": 0.046,
+   "T0_published": 2.144,
+   "SELECT_CAPABILITIES": 0.159,
+   "ACQUIRE": 0.71,
+   "EVALUATE": 0.209,
+   "CHALLENGE": 0.018,
+   "final_published": 7.224
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 23,
+    "ms": 0.17
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.5896708402310012,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-14-7",
+  "label": "checkout monitor",
+  "sim": "2018-02-15T00:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.79,
+  "timings_ms": {
+   "FRAME": 0.041,
+   "AUDIT_INPUTS": 0.016,
+   "T0_published": 1.716,
+   "SELECT_CAPABILITIES": 0.126,
+   "ACQUIRE": 0.5,
+   "EVALUATE": 0.168,
+   "CHALLENGE": 0.017,
+   "final_published": 5.611
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 24,
+    "ms": 0.136
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.6103265345928229,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-15-0",
+  "label": "checkout monitor",
+  "sim": "2018-02-15T03:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.44,
+  "timings_ms": {
+   "FRAME": 0.028,
+   "AUDIT_INPUTS": 0.014,
+   "T0_published": 1.666,
+   "SELECT_CAPABILITIES": 0.19,
+   "ACQUIRE": 0.61,
+   "EVALUATE": 0.254,
+   "CHALLENGE": 0.016,
+   "final_published": 7.209
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 25,
+    "ms": 0.232
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.6306504159663922,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-15-1",
+  "label": "checkout monitor",
+  "sim": "2018-02-15T06:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 8.63,
+  "timings_ms": {
+   "FRAME": 0.046,
+   "AUDIT_INPUTS": 0.032,
+   "T0_published": 2.135,
+   "SELECT_CAPABILITIES": 0.284,
+   "ACQUIRE": 1.345,
+   "EVALUATE": 0.319,
+   "CHALLENGE": 0.03,
+   "final_published": 8.349
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 26,
+    "ms": 0.269
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.6506504159663922,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-15-2",
+  "label": "checkout monitor",
+  "sim": "2018-02-15T09:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 12.4,
+  "timings_ms": {
+   "FRAME": 0.049,
+   "AUDIT_INPUTS": 0.042,
+   "T0_published": 2.815,
+   "SELECT_CAPABILITIES": 0.275,
+   "ACQUIRE": 1.393,
+   "EVALUATE": 0.576,
+   "CHALLENGE": 0.027,
+   "final_published": 11.967
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 27,
+    "ms": 0.257
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.6703342154120964,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-15-3",
+  "label": "checkout monitor",
+  "sim": "2018-02-15T12:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 11.55,
+  "timings_ms": {
+   "FRAME": 0.058,
+   "AUDIT_INPUTS": 0.02,
+   "T0_published": 2.847,
+   "SELECT_CAPABILITIES": 0.289,
+   "ACQUIRE": 1.161,
+   "EVALUATE": 0.245,
+   "CHALLENGE": 0.023,
+   "final_published": 11.149
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 28,
+    "ms": 0.203
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.6897092541621739,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-15-4",
+  "label": "checkout monitor",
+  "sim": "2018-02-15T15:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 10.51,
+  "timings_ms": {
+   "FRAME": 0.035,
+   "AUDIT_INPUTS": 0.022,
+   "T0_published": 2.079,
+   "SELECT_CAPABILITIES": 0.147,
+   "ACQUIRE": 0.716,
+   "EVALUATE": 0.174,
+   "CHALLENGE": 0.017,
+   "final_published": 9.92
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 29,
+    "ms": 0.202
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.7087827404902989,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-15-5",
+  "label": "checkout monitor",
+  "sim": "2018-02-15T18:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 12.21,
+  "timings_ms": {
+   "FRAME": 0.024,
+   "AUDIT_INPUTS": 0.033,
+   "T0_published": 2.852,
+   "SELECT_CAPABILITIES": 0.216,
+   "ACQUIRE": 1.131,
+   "EVALUATE": 0.435,
+   "CHALLENGE": 0.02,
+   "final_published": 11.717
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 30,
+    "ms": 0.227
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.7275616600263844,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-15-6",
+  "label": "checkout monitor",
+  "sim": "2018-02-15T21:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 18.03,
+  "timings_ms": {
+   "FRAME": 0.053,
+   "AUDIT_INPUTS": 0.026,
+   "T0_published": 2.494,
+   "SELECT_CAPABILITIES": 0.245,
+   "ACQUIRE": 3.562,
+   "EVALUATE": 0.31,
+   "CHALLENGE": 0.104,
+   "final_published": 17.56
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 31,
+    "ms": 0.279
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.7460527842867395,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-15-7",
+  "label": "checkout monitor",
+  "sim": "2018-02-16T00:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 15.62,
+  "timings_ms": {
+   "FRAME": 0.037,
+   "AUDIT_INPUTS": 0.024,
+   "T0_published": 2.837,
+   "SELECT_CAPABILITIES": 0.16,
+   "ACQUIRE": 0.579,
+   "EVALUATE": 0.272,
+   "CHALLENGE": 0.019,
+   "final_published": 14.627
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 32,
+    "ms": 0.235
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.7642626788150304,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-16-0",
+  "label": "checkout monitor",
+  "sim": "2018-02-16T03:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 10.39,
+  "timings_ms": {
+   "FRAME": 0.054,
+   "AUDIT_INPUTS": 0.035,
+   "T0_published": 2.914,
+   "SELECT_CAPABILITIES": 0.368,
+   "ACQUIRE": 1.157,
+   "EVALUATE": 0.183,
+   "CHALLENGE": 0.019,
+   "final_published": 10.172
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 33,
+    "ms": 0.192
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.5710220599773101,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-16-1",
+  "label": "checkout monitor",
+  "sim": "2018-02-16T06:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.83,
+  "timings_ms": {
+   "FRAME": 0.035,
+   "AUDIT_INPUTS": 0.038,
+   "T0_published": 1.345,
+   "SELECT_CAPABILITIES": 0.141,
+   "ACQUIRE": 0.58,
+   "EVALUATE": 0.164,
+   "CHALLENGE": 0.015,
+   "final_published": 5.653
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 34,
+    "ms": 0.184
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": -0.5919846054271926,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth -0.03 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-16-2",
+  "label": "checkout monitor",
+  "sim": "2018-02-16T09:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.15,
+  "timings_ms": {
+   "FRAME": 0.035,
+   "AUDIT_INPUTS": 0.02,
+   "T0_published": 1.315,
+   "SELECT_CAPABILITIES": 0.172,
+   "ACQUIRE": 0.601,
+   "EVALUATE": 0.421,
+   "CHALLENGE": 0.018,
+   "final_published": 5.924
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 35,
+    "ms": 0.198
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": 1.0168197601989264,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth 1.02 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-16-3",
+  "label": "checkout monitor",
+  "sim": "2018-02-16T12:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.87,
+  "timings_ms": {
+   "FRAME": 0.037,
+   "AUDIT_INPUTS": 0.019,
+   "T0_published": 1.648,
+   "SELECT_CAPABILITIES": 0.169,
+   "ACQUIRE": 0.705,
+   "EVALUATE": 0.787,
+   "CHALLENGE": 0.021,
+   "final_published": 6.647
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 36,
+    "ms": 0.188
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 4.573995073986802,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 4.57 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "att-2018-02-16-3",
+  "label": "demand check",
+  "sim": "2018-02-16T12:04:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_attempts_vs_usual"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.01,
+  "timings_ms": {
+   "FRAME": 0.034,
+   "AUDIT_INPUTS": 0.018,
+   "T0_published": 2.187,
+   "SELECT_CAPABILITIES": 0.16,
+   "ACQUIRE": 0.672,
+   "EVALUATE": 0.184,
+   "CHALLENGE": 0.021,
+   "final_published": 6.749
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_attempts_vs_usual"
+    ],
+    "status": "OK",
+    "observations": 4,
+    "ms": 0.079
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": false,
+     "direction": null,
+     "log_wealth": 0.07812599885589588,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "no alarm: peak log-wealth 0.08 < 3.69 (failure to reject, not evidence of no change)"
+  ]
+ },
+ {
+  "task_id": "act-2018-02-16-3",
+  "label": "action request",
+  "sim": "2018-02-16T12:05:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.76,
+  "timings_ms": {
+   "FRAME": 0.032,
+   "AUDIT_INPUTS": 0.016,
+   "T0_published": 2.251,
+   "SELECT_CAPABILITIES": 0.123,
+   "ACQUIRE": 0.422,
+   "EVALUATE": 0.17,
+   "CHALLENGE": 0.016,
+   "final_published": 6.36
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 36,
+    "ms": 0.192
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 4.573995073986802,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "DENY",
+    "reason": "requested action 'turn the payment fault flag off': P0 has no actuation or test-execution port (I15, G17); propose it as a test design instead"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 4.57 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-16-4",
+  "label": "checkout monitor",
+  "sim": "2018-02-16T15:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.52,
+  "timings_ms": {
+   "FRAME": 0.033,
+   "AUDIT_INPUTS": 0.026,
+   "T0_published": 1.817,
+   "SELECT_CAPABILITIES": 0.14,
+   "ACQUIRE": 0.533,
+   "EVALUATE": 0.186,
+   "CHALLENGE": 0.016,
+   "final_published": 6.238
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 37,
+    "ms": 0.218
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 6.63046055104826,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-16-5",
+  "label": "checkout monitor",
+  "sim": "2018-02-16T18:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.41,
+  "timings_ms": {
+   "FRAME": 0.023,
+   "AUDIT_INPUTS": 0.013,
+   "T0_published": 1.385,
+   "SELECT_CAPABILITIES": 0.113,
+   "ACQUIRE": 0.39,
+   "EVALUATE": 0.165,
+   "CHALLENGE": 0.015,
+   "final_published": 5.23
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 38,
+    "ms": 0.194
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 6.546726800734818,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-16-6",
+  "label": "checkout monitor",
+  "sim": "2018-02-16T21:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.3,
+  "timings_ms": {
+   "FRAME": 0.189,
+   "AUDIT_INPUTS": 0.019,
+   "T0_published": 2.253,
+   "SELECT_CAPABILITIES": 0.135,
+   "ACQUIRE": 0.548,
+   "EVALUATE": 0.207,
+   "CHALLENGE": 0.016,
+   "final_published": 7.086
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 39,
+    "ms": 0.22
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 6.464202244572199,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-16-7",
+  "label": "checkout monitor",
+  "sim": "2018-02-17T00:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.87,
+  "timings_ms": {
+   "FRAME": 0.07,
+   "AUDIT_INPUTS": 0.013,
+   "T0_published": 1.507,
+   "SELECT_CAPABILITIES": 0.128,
+   "ACQUIRE": 0.426,
+   "EVALUATE": 0.175,
+   "CHALLENGE": 0.018,
+   "final_published": 7.687
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 40,
+    "ms": 0.218
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 6.382860882360117,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-17-0",
+  "label": "checkout monitor",
+  "sim": "2018-02-17T03:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.16,
+  "timings_ms": {
+   "FRAME": 0.025,
+   "AUDIT_INPUTS": 0.019,
+   "T0_published": 1.382,
+   "SELECT_CAPABILITIES": 0.138,
+   "ACQUIRE": 0.677,
+   "EVALUATE": 0.17,
+   "CHALLENGE": 0.018,
+   "final_published": 6.984
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 41,
+    "ms": 0.314
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 6.302677454247691,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-17-1",
+  "label": "checkout monitor",
+  "sim": "2018-02-17T06:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.92,
+  "timings_ms": {
+   "FRAME": 0.023,
+   "AUDIT_INPUTS": 0.03,
+   "T0_published": 1.692,
+   "SELECT_CAPABILITIES": 0.193,
+   "ACQUIRE": 0.466,
+   "EVALUATE": 0.177,
+   "CHALLENGE": 0.019,
+   "final_published": 6.721
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 42,
+    "ms": 0.221
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 6.2236274145758905,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-17-2",
+  "label": "checkout monitor",
+  "sim": "2018-02-17T09:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.89,
+  "timings_ms": {
+   "FRAME": 0.025,
+   "AUDIT_INPUTS": 0.015,
+   "T0_published": 1.376,
+   "SELECT_CAPABILITIES": 0.12,
+   "ACQUIRE": 0.387,
+   "EVALUATE": 0.17,
+   "CHALLENGE": 0.017,
+   "final_published": 5.692
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 43,
+    "ms": 0.269
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 6.1456869068212345,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-17-3",
+  "label": "checkout monitor",
+  "sim": "2018-02-17T12:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 7.05,
+  "timings_ms": {
+   "FRAME": 0.051,
+   "AUDIT_INPUTS": 0.022,
+   "T0_published": 1.836,
+   "SELECT_CAPABILITIES": 0.165,
+   "ACQUIRE": 0.653,
+   "EVALUATE": 0.197,
+   "CHALLENGE": 0.02,
+   "final_published": 6.828
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 44,
+    "ms": 0.246
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 6.0688327395870045,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-17-4",
+  "label": "checkout monitor",
+  "sim": "2018-02-17T15:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.67,
+  "timings_ms": {
+   "FRAME": 0.033,
+   "AUDIT_INPUTS": 0.014,
+   "T0_published": 1.336,
+   "SELECT_CAPABILITIES": 0.146,
+   "ACQUIRE": 0.429,
+   "EVALUATE": 0.186,
+   "CHALLENGE": 0.015,
+   "final_published": 5.487
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 45,
+    "ms": 0.254
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 5.993042363591239,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-17-5",
+  "label": "checkout monitor",
+  "sim": "2018-02-17T18:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.51,
+  "timings_ms": {
+   "FRAME": 0.024,
+   "AUDIT_INPUTS": 0.014,
+   "T0_published": 1.221,
+   "SELECT_CAPABILITIES": 0.118,
+   "ACQUIRE": 0.403,
+   "EVALUATE": 0.174,
+   "CHALLENGE": 0.018,
+   "final_published": 5.335
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 46,
+    "ms": 0.196
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 5.9182938496035415,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-17-6",
+  "label": "checkout monitor",
+  "sim": "2018-02-17T21:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 5.78,
+  "timings_ms": {
+   "FRAME": 0.028,
+   "AUDIT_INPUTS": 0.019,
+   "T0_published": 1.373,
+   "SELECT_CAPABILITIES": 0.13,
+   "ACQUIRE": 0.41,
+   "EVALUATE": 0.171,
+   "CHALLENGE": 0.015,
+   "final_published": 5.603
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 47,
+    "ms": 0.269
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 5.844565867285387,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ },
+ {
+  "task_id": "chk-2018-02-17-7",
+  "label": "checkout monitor",
+  "sim": "2018-02-18T00:03:00Z",
+  "question": "DETECT_CHANGE",
+  "variables": [
+   "checkout_errors_vs_budget"
+  ],
+  "outcome": "COMPLETED",
+  "wall_ms": 6.41,
+  "timings_ms": {
+   "FRAME": 0.025,
+   "AUDIT_INPUTS": 0.013,
+   "T0_published": 1.425,
+   "SELECT_CAPABILITIES": 0.127,
+   "ACQUIRE": 0.444,
+   "EVALUATE": 0.164,
+   "CHALLENGE": 0.016,
+   "final_published": 6.164
+  },
+  "requests": [
+   {
+    "request": "get_series",
+    "variables": [
+     "checkout_errors_vs_budget"
+    ],
+    "status": "OK",
+    "observations": 48,
+    "ms": 0.248
+   }
+  ],
+  "methods": [
+   {
+    "method": "dq_observation_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "metric_identity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['formula']"
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['season_period']"
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "status": "SUPPORTED",
+    "reason": ""
+   },
+   {
+    "method": "kitagawa_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "rcd_lite_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']"
+   },
+   {
+    "method": "association_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']"
+   },
+   {
+    "method": "randomized_effect_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "multiplicity_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "did_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']"
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']"
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "status": "UNSUPPORTED",
+    "reason": "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']"
+   },
+   {
+    "method": "baseline_shift_v1",
+    "status": "UNSUPPORTED",
+    "reason": "MISSING_METADATA: ['learned_baseline']"
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "status": "UNSUPPORTED",
+    "reason": "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']"
+   }
+  ],
+  "results": {
+   "savi_eprocess_v1": {
+    "status": "OK",
+    "refusal": null,
+    "values": {
+     "alarm": true,
+     "direction": "up",
+     "log_wealth": 5.771837664891014,
+     "threshold": 3.6888794541139363
+    }
+   }
+  },
+  "revisions": [
+   {
+    "revision": 1,
+    "provisional": true,
+    "status": "READY"
+   },
+   {
+    "revision": 2,
+    "provisional": false,
+    "status": "COMPLETED"
+   }
+  ],
+  "policy": [
+   {
+    "verdict": "PUBLISH_PROVISIONAL",
+    "reason": "early revision; superseded by the final revision"
+   },
+   {
+    "verdict": "PUBLISH_REPORT",
+    "reason": "read-only report"
+   }
+  ],
+  "ledger_delta": {
+   "method_decisions": 14,
+   "task_revisions": 2,
+   "outbox": 2,
+   "jobs": 1,
+   "checkpoints": 8,
+   "query_ledger": 1,
+   "query_cache": 1
+  },
+  "findings": [
+   "alarm: evidence against the null (up), first at point 35; peak log-wealth 6.63 \u2265 3.69"
+  ]
+ }
+]

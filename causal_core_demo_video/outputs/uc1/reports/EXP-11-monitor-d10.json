@@ -1,0 +1,213 @@
+{
+ "schema_version": "2.0",
+ "task_id": "uc1-EXP-11-mon-d10",
+ "revision": 2,
+ "provisional": false,
+ "trigger": "monitor",
+ "question_kind": "DETECT_CHANGE",
+ "outcome": "COMPLETED",
+ "policy": {
+  "verdict": "PUBLISH_REPORT",
+  "reasons": [
+   "read-only report"
+  ]
+ },
+ "findings": [
+  {
+   "finding_id": "f:6493b685884a",
+   "claim_kind": "DESCRIPTIVE",
+   "statement": "alarm: evidence against the null (down), first at point 9; peak log-wealth 3.49 \u2265 3.00",
+   "support_refs": [],
+   "limitations": [
+    "the declared null actually holds before any change",
+    "independence of increments"
+   ]
+  }
+ ],
+ "effect_claims": [],
+ "identification": [],
+ "method_trace": [
+  {
+   "method": "dq_observation_v1",
+   "applicability": "SUPPORTED",
+   "reasons": []
+  },
+  {
+   "method": "metric_identity_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "MISSING_METADATA: ['formula']"
+   ]
+  },
+  {
+   "method": "seasonal_screen_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "MISSING_METADATA: ['season_period']"
+   ]
+  },
+  {
+   "method": "savi_eprocess_v1",
+   "applicability": "SUPPORTED",
+   "reasons": []
+  },
+  {
+   "method": "kitagawa_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "INPUT_SHAPE: needs one of ['aggregate_stats'], got ['time_series', 'state_trajectory']",
+    "MISSING_METADATA: ['strata', 'ratio_metric']"
+   ]
+  },
+  {
+   "method": "rcd_lite_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']",
+    "MISSING_METADATA: ['parents', 'regimes']"
+   ]
+  },
+  {
+   "method": "association_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: DETECT_CHANGE not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']",
+    "MISSING_METADATA: ['pairing']"
+   ]
+  },
+  {
+   "method": "randomized_effect_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']",
+    "INPUT_SHAPE: needs one of ['assignment_outcomes', 'aggregate_stats'], got ['time_series', 'state_trajectory']",
+    "MISSING_METADATA: ['study_design']",
+    "ESTIMAND_FAMILY: None not in ['ITT', 'risk_difference', 'mean_difference', 'CACE']",
+    "SOURCE_REGIME: None not in ['randomized']"
+   ]
+  },
+  {
+   "method": "multiplicity_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']",
+    "INPUT_SHAPE: needs one of ['effect_results'], got ['time_series', 'state_trajectory']",
+    "MISSING_METADATA: ['family']"
+   ]
+  },
+  {
+   "method": "did_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']",
+    "INPUT_SHAPE: needs one of ['panel'], got ['time_series', 'state_trajectory']",
+    "MISSING_METADATA: ['study_design', 'group_map']",
+    "ESTIMAND_FAMILY: None not in ['ATT']",
+    "SOURCE_REGIME: None not in ['quasi_experimental']"
+   ]
+  },
+  {
+   "method": "identifiability_audit_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: DETECT_CHANGE not in ['ESTIMATE_EFFECT', 'ASSESS_STUDY']",
+    "INPUT_SHAPE: needs one of ['method_result'], got ['time_series', 'state_trajectory']",
+    "MISSING_METADATA: ['estimand', 'study_design']"
+   ]
+  },
+  {
+   "method": "voi_heuristic_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "INPUT_SHAPE: needs one of ['query_options'], got ['time_series', 'state_trajectory']",
+    "MISSING_METADATA: ['hypotheses']"
+   ]
+  },
+  {
+   "method": "baseline_shift_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "MISSING_METADATA: ['learned_baseline']"
+   ]
+  },
+  {
+   "method": "counterfactual_rollout_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: DETECT_CHANGE not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']",
+    "MISSING_METADATA: ['validated_mechanisms']"
+   ]
+  }
+ ],
+ "stage_trace": [
+  {
+   "stage": "FRAME",
+   "verdict": "PASS",
+   "note": "DETECT_CHANGE: target pinned (data cut 2026-11-10T04:00:00+00:00, graph v0)"
+  },
+  {
+   "stage": "AUDIT_INPUTS",
+   "verdict": "PASS",
+   "note": "inputs audited"
+  },
+  {
+   "stage": "SELECT_CAPABILITIES",
+   "verdict": "PASS",
+   "note": "applicable: dq_observation_v1, savi_eprocess_v1; refused 12 other methods with reasons"
+  },
+  {
+   "stage": "ACQUIRE",
+   "verdict": "PLAN",
+   "note": "1 typed request(s): get_series"
+  },
+  {
+   "stage": "ACQUIRE",
+   "verdict": "PASS",
+   "note": "10 observation(s) received"
+  },
+  {
+   "stage": "EVALUATE",
+   "verdict": "PASS",
+   "note": "savi_eprocess_v1 on trial_start_diff_z: alarm True (down, at point 9)"
+  },
+  {
+   "stage": "CHALLENGE",
+   "verdict": "PASS",
+   "note": "5 rival explanation(s)/assumption(s) recorded"
+  },
+  {
+   "stage": "REPORT",
+   "verdict": "DONE",
+   "note": "outcome COMPLETED; 1 finding(s); 0 gap(s)"
+  }
+ ],
+ "rivals_and_assumptions": [
+  "untestable (savi_eprocess_v1): the declared null actually holds before any change",
+  "untestable (savi_eprocess_v1): independence of increments",
+  "limitation (savi_eprocess_v1): an alarm signals evidence against the declared null, not a cause",
+  "observation artifact: a definition, logging or pipeline change can move the series without a real change",
+  "an alarm is evidence against the declared null, not a cause: explaining it is a separate question"
+ ],
+ "evidence_gaps": [],
+ "failures": [],
+ "evidence_ids": [
+  "o:EXP-11:z:0",
+  "o:EXP-11:z:1",
+  "o:EXP-11:z:2",
+  "o:EXP-11:z:3",
+  "o:EXP-11:z:4",
+  "o:EXP-11:z:5",
+  "o:EXP-11:z:6",
+  "o:EXP-11:z:7",
+  "o:EXP-11:z:8",
+  "o:EXP-11:z:9"
+ ],
+ "pins": {
+  "graph_version": 0,
+  "data_cut": "2026-11-10T04:00:00+00:00",
+  "method_versions": {
+   "savi_eprocess_v1": "2"
+  }
+ },
+ "abstained": false
+}

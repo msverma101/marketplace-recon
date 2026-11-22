@@ -1,0 +1,83 @@
+1
+00:00:00,500 --> 00:00:06,500
+Every marketplace has the same 3 a.m. problem: orders drop, and nobody knows why yet.
+
+2
+00:00:06,500 --> 00:00:12,500
+Is it a data glitch, a quieter market, or something broken in checkout?
+
+3
+00:00:12,500 --> 00:00:19,500
+Today a person digs through dashboards, logs and traces to find out, while orders keep failing.
+
+4
+00:00:19,500 --> 00:00:28,500
+We built an engine that answers that question on its own, and an agent that acts on the answer, safely.
+
+5
+00:00:30,500 --> 00:00:38,500
+The engine reads the business through read-only ports: telemetry from the services, and data from the order pipeline.
+
+6
+00:00:38,500 --> 00:00:45,500
+Every question goes through the same seven stages: frame it, audit the inputs, pick only the methods that apply,
+
+7
+00:00:45,500 --> 00:00:53,500
+fetch the evidence, evaluate, challenge its own assumptions, and publish a report. Every step lands in a ledger.
+
+8
+00:00:53,500 --> 00:01:02,000
+The engine itself cannot change anything. On top sits an agent: it turns findings into proposals with an honest range,
+
+9
+00:01:02,000 --> 00:01:10,500
+and it acts only after a person approves, and only inside a sandbox.
+
+10
+00:01:10,500 --> 00:01:17,000
+This is a real, running shop, with 200 products from a Brazilian marketplace and shoppers simulated from real orders.
+
+11
+00:01:17,000 --> 00:01:23,500
+Left: the world and what the agent sees. Right: the engine at work, every three hours.
+
+12
+00:01:23,500 --> 00:01:32,500
+Now, without telling the agent, we break payments: one in four fails.
+
+13
+00:01:35,000 --> 00:01:41,500
+As traffic picks up, the engine raises an alarm: checkout errors far above budget.
+
+14
+00:01:41,500 --> 00:01:45,030
+Checkout attempts are normal, 50 against 60. The failures sit in the payment service.
+
+15
+00:01:45,030 --> 00:01:49,050
+The engine itself may not act; its policy gate says so.
+
+16
+00:01:49,050 --> 00:01:53,880
+The agent proposes switching the faulty flag off: about 37 more orders today, 23 to 55.
+
+17
+00:01:53,880 --> 00:02:02,880
+A person approves. The change runs in the shop's flag service and is read back.
+
+18
+00:02:04,430 --> 00:02:13,430
+Payments recover in the next block.
+
+19
+00:02:30,500 --> 00:02:38,000
+So the agent found the cause, ruled out a drop in demand, and stated the expected gain before acting.
+
+20
+00:02:38,000 --> 00:02:47,000
+It fixed it with one approval, and with zero writes to production.
+
+21
+00:02:47,000 --> 00:02:56,000
+Next: connect it to our own telemetry, with the same guardrails. That step needs your go-ahead.

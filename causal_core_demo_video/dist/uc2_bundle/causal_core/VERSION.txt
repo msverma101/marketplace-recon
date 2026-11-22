@@ -1,0 +1,1 @@
+causal_core bc4a1df786835709c8e76ef1bbbe7d4bc97f60f1 on HEAD -> autonomous/v32-run-20261121 (2026-11-22)

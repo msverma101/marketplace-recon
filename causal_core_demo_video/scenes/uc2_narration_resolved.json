@@ -1,0 +1,121 @@
+{
+ "lines": [
+  {
+   "t": 0.5,
+   "text": "Every marketplace has the same 3 a.m. problem: orders drop, and nobody knows why yet.",
+   "end": 6.5
+  },
+  {
+   "t": 6.5,
+   "text": "Is it a data glitch, a quieter market, or something broken in checkout?",
+   "end": 12.5
+  },
+  {
+   "t": 12.5,
+   "text": "Today a person digs through dashboards, logs and traces to find out, while orders keep failing.",
+   "end": 19.5
+  },
+  {
+   "t": 19.5,
+   "text": "We built an engine that answers that question on its own, and an agent that acts on the answer, safely.",
+   "end": 28.5
+  },
+  {
+   "t": 30.5,
+   "text": "The engine reads the business through read-only ports: telemetry from the services, and data from the order pipeline.",
+   "end": 38.5
+  },
+  {
+   "t": 38.5,
+   "text": "Every question goes through the same seven stages: frame it, audit the inputs, pick only the methods that apply,",
+   "end": 45.5
+  },
+  {
+   "t": 45.5,
+   "text": "fetch the evidence, evaluate, challenge its own assumptions, and publish a report. Every step lands in a ledger.",
+   "end": 53.5
+  },
+  {
+   "t": 53.5,
+   "text": "The engine itself cannot change anything. On top sits an agent: it turns findings into proposals with an honest range,",
+   "end": 62.0
+  },
+  {
+   "t": 62.0,
+   "text": "and it acts only after a person approves, and only inside a sandbox.",
+   "end": 70.5
+  },
+  {
+   "t": 70.5,
+   "text": "This is a real, running shop, with 200 products from a Brazilian marketplace and shoppers simulated from real orders.",
+   "end": 77.0
+  },
+  {
+   "t": 77.0,
+   "text": "Left: the world and what the agent sees. Right: the engine at work, every three hours.",
+   "end": 83.5
+  },
+  {
+   "t": 83.5,
+   "text": "Now, without telling the agent, we break payments: one in four fails.",
+   "end": 92.5
+  },
+  {
+   "t": 95.0,
+   "text": "As traffic picks up, the engine raises an alarm: checkout errors far above budget.",
+   "end": 101.5
+  },
+  {
+   "t": 101.5,
+   "text": "Checkout attempts are normal, 50 against 60. The failures sit in the payment service.",
+   "end": 105.03
+  },
+  {
+   "t": 105.03,
+   "text": "The engine itself may not act; its policy gate says so.",
+   "end": 109.05
+  },
+  {
+   "t": 109.05,
+   "text": "The agent proposes switching the faulty flag off: about 37 more orders today, 23 to 55.",
+   "end": 113.88
+  },
+  {
+   "t": 113.88,
+   "text": "A person approves. The change runs in the shop's flag service and is read back.",
+   "end": 122.88
+  },
+  {
+   "t": 124.43,
+   "text": "Payments recover in the next block.",
+   "end": 133.43
+  },
+  {
+   "t": 150.5,
+   "text": "So the agent found the cause, ruled out a drop in demand, and stated the expected gain before acting.",
+   "end": 158.0
+  },
+  {
+   "t": 158.0,
+   "text": "It fixed it with one approval, and with zero writes to production.",
+   "end": 167.0
+  },
+  {
+   "t": 167.0,
+   "text": "Next: connect it to our own telemetry, with the same guardrails. That step needs your go-ahead.",
+   "end": 176.0
+  }
+ ],
+ "anchors": {
+  "open": 0.0,
+  "solution": 30.0,
+  "close": 150.0,
+  "demo_start": 70.0,
+  "fault_day": 83.0,
+  "alarm": 96.0,
+  "policy": 104.03045797348022,
+  "proposal": 108.04896187782288,
+  "approval": 113.3835780620575,
+  "execution": 118.42891597747803
+ }
+}

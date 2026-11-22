@@ -1,0 +1,254 @@
+{
+ "experiment": "EXP-09",
+ "report": {
+  "schema_version": "2.0",
+  "task_id": "uc1-ship",
+  "revision": 2,
+  "provisional": false,
+  "trigger": "explicit_question",
+  "question_kind": "ESTIMATE_EFFECT",
+  "outcome": "COMPLETED",
+  "policy": {
+   "verdict": "DENY",
+   "reasons": [
+    "requested action 'ship the variant to 100% of users': P0 has no actuation or test-execution port (I15, G17); propose it as a test design instead"
+   ]
+  },
+  "findings": [
+   {
+    "finding_id": "f:1035788017c4",
+    "claim_kind": "CAUSAL_EFFECT_CONDITIONAL",
+    "statement": "ITT of Test vs Control on lesson_completers_hour_0_user_share_::user_warehouse: +0.0145 [-0.0016, +0.0305] (CONDITIONAL_IDENTIFICATION)",
+    "support_refs": [
+     "claim:ae2a20bbe2e29513",
+     "ia:ae2a20bbe2e29513"
+    ],
+    "limitations": [
+     "the source's arm standard errors are valid (independent units at the assignment unit)",
+     "no differential attrition or exclusion between arms (not checkable from summaries)",
+     "no interference between units (SUTVA): not declared; spillover would bias the ITT and these data cannot detect it"
+    ]
+   }
+  ],
+  "effect_claims": [
+   {
+    "claim_id": "claim:ae2a20bbe2e29513",
+    "estimand": "ITT",
+    "treatment": "Test",
+    "control": "Control",
+    "outcome": "lesson_completers_hour_0_user_share_::user_warehouse",
+    "estimate": 0.01446624472573843,
+    "interval": [
+     -0.0015634561415853003,
+     0.030495945593062162
+    ],
+    "status": "CONDITIONAL_IDENTIFICATION",
+    "scope": "statsig-babbel-production",
+    "evidence_ids": 4,
+    "method": "randomized_effect_v1 v3"
+   }
+  ],
+  "identification": [
+   {
+    "assessment_id": "ia:ae2a20bbe2e29513",
+    "status": "CONDITIONAL_IDENTIFICATION",
+    "untestable": [
+     "the source's arm standard errors are valid (independent units at the assignment unit)",
+     "no differential attrition or exclusion between arms (not checkable from summaries)",
+     "no interference between units (SUTVA): not declared; spillover would bias the ITT and these data cannot detect it"
+    ]
+   }
+  ],
+  "method_trace": [
+   {
+    "method": "dq_observation_v1",
+    "applicability": "SUPPORTED",
+    "reasons": []
+   },
+   {
+    "method": "metric_identity_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "QUESTION_KIND: ESTIMATE_EFFECT not in ['EXPLAIN_OBSERVATION', 'DETECT_CHANGE']",
+     "MISSING_METADATA: ['formula']"
+    ]
+   },
+   {
+    "method": "seasonal_screen_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "QUESTION_KIND: ESTIMATE_EFFECT not in ['DETECT_CHANGE']",
+     "INPUT_SHAPE: needs one of ['time_series'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['season_period']"
+    ]
+   },
+   {
+    "method": "savi_eprocess_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "QUESTION_KIND: ESTIMATE_EFFECT not in ['DETECT_CHANGE']",
+     "MISSING_METADATA: ['null_spec', 'dependence']"
+    ]
+   },
+   {
+    "method": "kitagawa_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "QUESTION_KIND: ESTIMATE_EFFECT not in ['EXPLAIN_OBSERVATION', 'DETECT_CHANGE']",
+     "MISSING_METADATA: ['strata', 'ratio_metric']"
+    ]
+   },
+   {
+    "method": "rcd_lite_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "QUESTION_KIND: ESTIMATE_EFFECT not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']",
+     "INPUT_SHAPE: needs one of ['panel', 'time_series'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['parents', 'regimes']"
+    ]
+   },
+   {
+    "method": "association_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "INPUT_SHAPE: needs one of ['panel', 'time_series', 'scalar'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['pairing', 'dependence']"
+    ]
+   },
+   {
+    "method": "randomized_effect_v1",
+    "applicability": "SUPPORTED",
+    "reasons": []
+   },
+   {
+    "method": "multiplicity_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "INPUT_SHAPE: needs one of ['effect_results'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['family']"
+    ]
+   },
+   {
+    "method": "did_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "INPUT_SHAPE: needs one of ['panel'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['group_map']",
+     "ESTIMAND_FAMILY: ITT not in ['ATT']",
+     "SOURCE_REGIME: randomized not in ['quasi_experimental']"
+    ]
+   },
+   {
+    "method": "identifiability_audit_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "INPUT_SHAPE: needs one of ['method_result'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['estimand']"
+    ]
+   },
+   {
+    "method": "voi_heuristic_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "INPUT_SHAPE: needs one of ['query_options'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['hypotheses']"
+    ]
+   },
+   {
+    "method": "baseline_shift_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "QUESTION_KIND: ESTIMATE_EFFECT not in ['DETECT_CHANGE']",
+     "INPUT_SHAPE: needs one of ['time_series', 'state_trajectory'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['learned_baseline']"
+    ]
+   },
+   {
+    "method": "counterfactual_rollout_v1",
+    "applicability": "UNSUPPORTED",
+    "reasons": [
+     "QUESTION_KIND: ESTIMATE_EFFECT not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']",
+     "INPUT_SHAPE: needs one of ['time_series'], got ['assignment_outcomes', 'aggregate_stats']",
+     "MISSING_METADATA: ['validated_mechanisms']"
+    ]
+   }
+  ],
+  "stage_trace": [
+   {
+    "stage": "FRAME",
+    "verdict": "PASS",
+    "note": "ESTIMATE_EFFECT: target pinned (data cut 2026-11-22T00:00:00+00:00, graph v0)"
+   },
+   {
+    "stage": "AUDIT_INPUTS",
+    "verdict": "PASS",
+    "note": "provider latency/cost UNKNOWN: penalised in acquisition, not treated as free; design randomized (simple), attested by statsig-console"
+   },
+   {
+    "stage": "SELECT_CAPABILITIES",
+    "verdict": "PASS",
+    "note": "applicable: dq_observation_v1, randomized_effect_v1; refused 12 other methods with reasons"
+   },
+   {
+    "stage": "ACQUIRE",
+    "verdict": "PLAN",
+    "note": "1 typed request(s): get_assignment_outcomes"
+   },
+   {
+    "stage": "ACQUIRE",
+    "verdict": "PASS",
+    "note": "4 observation(s) received"
+   },
+   {
+    "stage": "EVALUATE",
+    "verdict": "PASS",
+    "note": "randomized_effect_v1: ITT +0.0145 (SE 0.0082)"
+   },
+   {
+    "stage": "EVALUATE",
+    "verdict": "AUDIT",
+    "note": "identification: CONDITIONAL_IDENTIFICATION"
+   },
+   {
+    "stage": "CHALLENGE",
+    "verdict": "PASS",
+    "note": "6 rival explanation(s)/assumption(s) recorded"
+   },
+   {
+    "stage": "REPORT",
+    "verdict": "DONE",
+    "note": "outcome COMPLETED; 1 finding(s); 0 gap(s)"
+   }
+  ],
+  "rivals_and_assumptions": [
+   "untestable (randomized_effect_v1): the source's arm standard errors are valid (independent units at the assignment unit)",
+   "untestable (randomized_effect_v1): no differential attrition or exclusion between arms (not checkable from summaries)",
+   "untestable (randomized_effect_v1): no interference between units (SUTVA): not declared; spillover would bias the ITT and these data cannot detect it",
+   "limitation (randomized_effect_v1): UNIT_LEVEL_CHECKS_UNAVAILABLE: attrition, noncompliance and clustering cannot be assessed from arm summaries",
+   "limitation (randomized_effect_v1): VARIANCE_ADJUSTED_BY_SOURCE: arm means/SEs are regression-adjusted (CUPED/CURE) by the source",
+   "external validity: the effect holds for the study's population, window and scope only"
+  ],
+  "evidence_gaps": [],
+  "failures": [],
+  "evidence_ids": [
+   "statsig:cdm-tiger_aa_lesson_variant_validation:lesson_completers_hour_0_user_share_::user_warehouse:Test:2024-06-11",
+   "statsig:cdm-tiger_aa_lesson_variant_validation:lesson_completers_hour_0_user_share_::user_warehouse:Control:2024-06-11",
+   "statsig:cdm-tiger_aa_lesson_variant_validation:assignment:Test:2024-06-11",
+   "statsig:cdm-tiger_aa_lesson_variant_validation:assignment:Control:2024-06-11"
+  ],
+  "pins": {
+   "graph_version": 0,
+   "data_cut": "2026-11-22T00:00:00+00:00",
+   "method_versions": {
+    "randomized_effect_v1": "3"
+   }
+  },
+  "abstained": false
+ },
+ "decision": {
+  "verdict": "DENY",
+  "reasons": [
+   "requested action 'ship the variant to 100% of users': P0 has no actuation or test-execution port (I15, G17); propose it as a test design instead"
+  ]
+ }
+}

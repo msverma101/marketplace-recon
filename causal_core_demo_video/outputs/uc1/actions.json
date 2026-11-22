@@ -1,0 +1,123 @@
+[
+ {
+  "proposal": {
+   "action_id": "act:9c51c74fbad3",
+   "use_case": "uc1",
+   "sandbox": "mock-statsig-project",
+   "target": "EXP-10",
+   "kind": "annotate_freeze",
+   "params": {
+    "note": "Results paused: assignment broken (missing user IDs in one arm).",
+    "ticket": "App: set user ID before evaluating experiments"
+   },
+   "rationale": "assignment integrity not established; any effect estimate would be invalid",
+   "expected": null,
+   "risk": "low",
+   "evidence_refs": [
+    "uc1-EXP-10-d4"
+   ],
+   "created_at": "2026-11-04T04:00:00Z"
+  },
+  "approval": {
+   "action_id": "act:9c51c74fbad3",
+   "approver": "on-call product lead",
+   "approved_at": "2026-11-04T04:18:00+00:00",
+   "expires_at": "2026-11-04T08:18:00+00:00",
+   "token": "c95a49dffe5314734cc342a2f22860931ab53447a38cd3e6bfbf56187b55f9e2"
+  },
+  "receipt": {
+   "action_id": "act:9c51c74fbad3",
+   "sandbox": "mock-statsig-project",
+   "executed_at": "2026-11-04T04:19:00+00:00",
+   "idempotency_key": "dd5996067661663d44ced76f045ec41a98b489c972b81ec2f9b2677aabd1fc90",
+   "result": "EXECUTED",
+   "reason": "approved; executed in sandbox",
+   "state_after": {
+    "experiment": "EXP-10",
+    "status": "running",
+    "rollout": {
+     "control": 50,
+     "variant": 50
+    },
+    "annotations": [
+     {
+      "at": "2026-11-04T04:19:00+00:00",
+      "text": "Results paused: assignment broken (missing user IDs in one arm)."
+     }
+    ],
+    "decision_frozen": true
+   }
+  }
+ },
+ {
+  "proposal": {
+   "action_id": "act:4e31b589c353",
+   "use_case": "uc1",
+   "sandbox": "mock-statsig-project",
+   "target": "EXP-11",
+   "kind": "set_rollout",
+   "params": {
+    "rollout": {
+     "control": 100,
+     "variant": 0
+    },
+    "status": "stopped",
+    "note": "Variant B stopped: guardrail harm (trial starts)."
+   },
+   "rationale": "variant B lowers trial starts; stopping it ends the loss",
+   "expected": {
+    "metric": "trial starts per day recovered by stopping variant B",
+    "mean": 92.10000000000016,
+    "lower": 54.86039079750996,
+    "upper": 129.33960920249038
+   },
+   "risk": "low",
+   "evidence_refs": [
+    "uc1-EXP-11-mon-d10",
+    "uc1-EXP-11-eff-d10"
+   ],
+   "created_at": "2026-11-10T04:00:00Z"
+  },
+  "approval": {
+   "action_id": "act:4e31b589c353",
+   "approver": "on-call product lead",
+   "approved_at": "2026-11-10T04:25:00+00:00",
+   "expires_at": "2026-11-10T08:25:00+00:00",
+   "token": "66be8eb6bf5e83c305690a812d6742983fa7a2fb5efcabb30d9cf7a7c4584dda"
+  },
+  "receipt": {
+   "action_id": "act:4e31b589c353",
+   "sandbox": "mock-statsig-project",
+   "executed_at": "2026-11-10T04:26:00+00:00",
+   "idempotency_key": "bfe6131475d653df66675e63f896cfce9f2998ebc28a906403471f7cc3460521",
+   "result": "EXECUTED",
+   "reason": "approved; executed in sandbox",
+   "state_after": {
+    "experiment": "EXP-11",
+    "status": "stopped",
+    "rollout": {
+     "control": 100,
+     "variant": 0
+    },
+    "annotations": [
+     {
+      "at": "2026-11-10T04:26:00+00:00",
+      "text": "Variant B stopped: guardrail harm (trial starts)."
+     }
+    ],
+    "decision_frozen": false
+   }
+  }
+ },
+ {
+  "refused_example": {
+   "action_id": "act:816ce64595bb",
+   "sandbox": "mock-statsig-project",
+   "executed_at": "2026-11-21T15:00:00+00:00",
+   "idempotency_key": "a4ce42a1829173487bdede6ad8ee722899827340b2016930d9b53c9c55611cac",
+   "result": "REFUSED",
+   "reason": "target sandbox 'production-statsig' is not this sandbox (mock-statsig-project)",
+   "state_after": {}
+  }
+ }
+]

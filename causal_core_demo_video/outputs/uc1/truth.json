@@ -1,0 +1,38 @@
+{
+ "EXP-10": {
+  "incident": "users evaluated before their user ID is set hash to one bucket (control) from day 3",
+  "share_of_traffic": 0.04,
+  "true_effect": 0.0
+ },
+ "EXP-11": {
+  "incident": "variant B lowers trial starts by 5% relative",
+  "true_effect_per_user": -0.004,
+  "trial_starts_lost_per_day_while_live": 100.0
+ },
+ "EXP-12": {
+  "incident": "none: same-day data is partial until the 03:50 UTC daily load",
+  "daily_lesson_starts": [
+   52865.510390431664,
+   51535.9151551576,
+   52628.25370479876,
+   51591.21179225077,
+   51888.38248947732,
+   52080.57564389537,
+   49914.50360478944,
+   52172.45328954623,
+   51073.3517300638,
+   51372.34124789028,
+   50673.04863035135,
+   50635.097603668415,
+   51151.062039350705,
+   52743.037565768725,
+   53499.43721271722,
+   51977.31540683243,
+   52982.611840206984,
+   51762.417417809185,
+   50279.22445768651,
+   52134.924954419286,
+   52401.08343682832
+  ]
+ }
+}

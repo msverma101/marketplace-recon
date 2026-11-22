@@ -1,0 +1,368 @@
+[
+ {
+  "sim": "2018-02-12T00:00:00Z",
+  "wall": "2026-11-22T13:12:12.468400Z",
+  "who": "world",
+  "text": "emulator ready: 8,486 orders simulated since 1 Jan 2018; 200 Olist products synced into the shop"
+ },
+ {
+  "sim": "2018-02-12T00:00:00Z",
+  "wall": "2026-11-22T13:12:12.475300Z",
+  "who": "world",
+  "text": "day 2018-02-12: shoppers from the emulator go through the shop"
+ },
+ {
+  "sim": "2018-02-12T03:00:00Z",
+  "wall": "2026-11-22T13:12:19.590437Z",
+  "who": "agent",
+  "text": "block 1/8 \u00b7 checkouts 9 \u00b7 failed 0 \u00b7 telemetry 17 ms"
+ },
+ {
+  "sim": "2018-02-12T06:00:00Z",
+  "wall": "2026-11-22T13:12:26.319553Z",
+  "who": "agent",
+  "text": "block 2/8 \u00b7 checkouts 4 \u00b7 failed 0 \u00b7 telemetry 13 ms"
+ },
+ {
+  "sim": "2018-02-12T09:00:00Z",
+  "wall": "2026-11-22T13:12:33.298467Z",
+  "who": "agent",
+  "text": "block 3/8 \u00b7 checkouts 9 \u00b7 failed 0 \u00b7 telemetry 13 ms"
+ },
+ {
+  "sim": "2018-02-12T12:00:00Z",
+  "wall": "2026-11-22T13:12:41.457094Z",
+  "who": "agent",
+  "text": "block 4/8 \u00b7 checkouts 45 \u00b7 failed 0 \u00b7 telemetry 44 ms"
+ },
+ {
+  "sim": "2018-02-12T15:00:00Z",
+  "wall": "2026-11-22T13:12:49.538323Z",
+  "who": "agent",
+  "text": "block 5/8 \u00b7 checkouts 37 \u00b7 failed 0 \u00b7 telemetry 95 ms"
+ },
+ {
+  "sim": "2018-02-12T18:00:00Z",
+  "wall": "2026-11-22T13:12:58.022949Z",
+  "who": "agent",
+  "text": "block 6/8 \u00b7 checkouts 43 \u00b7 failed 0 \u00b7 telemetry 36 ms"
+ },
+ {
+  "sim": "2018-02-12T21:00:00Z",
+  "wall": "2026-11-22T13:13:06.038398Z",
+  "who": "agent",
+  "text": "block 7/8 \u00b7 checkouts 44 \u00b7 failed 0 \u00b7 telemetry 62 ms"
+ },
+ {
+  "sim": "2018-02-13T00:00:00Z",
+  "wall": "2026-11-22T13:13:13.986142Z",
+  "who": "agent",
+  "text": "block 8/8 \u00b7 checkouts 41 \u00b7 failed 0 \u00b7 telemetry 43 ms"
+ },
+ {
+  "sim": "2018-02-13T00:00:00Z",
+  "wall": "2026-11-22T13:13:14.001630Z",
+  "who": "world",
+  "text": "day 2018-02-13: shoppers from the emulator go through the shop"
+ },
+ {
+  "sim": "2018-02-13T03:00:00Z",
+  "wall": "2026-11-22T13:13:20.930884Z",
+  "who": "agent",
+  "text": "block 1/8 \u00b7 checkouts 11 \u00b7 failed 0 \u00b7 telemetry 34 ms"
+ },
+ {
+  "sim": "2018-02-13T06:00:00Z",
+  "wall": "2026-11-22T13:13:27.628642Z",
+  "who": "agent",
+  "text": "block 2/8 \u00b7 checkouts 3 \u00b7 failed 0 \u00b7 telemetry 31 ms"
+ },
+ {
+  "sim": "2018-02-13T09:00:00Z",
+  "wall": "2026-11-22T13:13:34.561259Z",
+  "who": "agent",
+  "text": "block 3/8 \u00b7 checkouts 10 \u00b7 failed 0 \u00b7 telemetry 36 ms"
+ },
+ {
+  "sim": "2018-02-13T12:00:00Z",
+  "wall": "2026-11-22T13:13:42.236331Z",
+  "who": "agent",
+  "text": "block 4/8 \u00b7 checkouts 32 \u00b7 failed 0 \u00b7 telemetry 47 ms"
+ },
+ {
+  "sim": "2018-02-13T15:00:00Z",
+  "wall": "2026-11-22T13:13:50.335658Z",
+  "who": "agent",
+  "text": "block 5/8 \u00b7 checkouts 43 \u00b7 failed 0 \u00b7 telemetry 109 ms"
+ },
+ {
+  "sim": "2018-02-13T18:00:00Z",
+  "wall": "2026-11-22T13:13:58.636289Z",
+  "who": "agent",
+  "text": "block 6/8 \u00b7 checkouts 47 \u00b7 failed 0 \u00b7 telemetry 56 ms"
+ },
+ {
+  "sim": "2018-02-13T21:00:00Z",
+  "wall": "2026-11-22T13:14:06.745693Z",
+  "who": "agent",
+  "text": "block 7/8 \u00b7 checkouts 43 \u00b7 failed 0 \u00b7 telemetry 85 ms"
+ },
+ {
+  "sim": "2018-02-14T00:00:00Z",
+  "wall": "2026-11-22T13:14:14.847725Z",
+  "who": "agent",
+  "text": "block 8/8 \u00b7 checkouts 41 \u00b7 failed 0 \u00b7 telemetry 65 ms"
+ },
+ {
+  "sim": "2018-02-14T00:00:00Z",
+  "wall": "2026-11-22T13:14:14.863148Z",
+  "who": "world",
+  "text": "day 2018-02-14: shoppers from the emulator go through the shop"
+ },
+ {
+  "sim": "2018-02-14T03:00:00Z",
+  "wall": "2026-11-22T13:14:21.812550Z",
+  "who": "agent",
+  "text": "block 1/8 \u00b7 checkouts 11 \u00b7 failed 0 \u00b7 telemetry 51 ms"
+ },
+ {
+  "sim": "2018-02-14T06:00:00Z",
+  "wall": "2026-11-22T13:14:28.432237Z",
+  "who": "agent",
+  "text": "block 2/8 \u00b7 checkouts 1 \u00b7 failed 0 \u00b7 telemetry 52 ms"
+ },
+ {
+  "sim": "2018-02-14T09:00:00Z",
+  "wall": "2026-11-22T13:14:35.523804Z",
+  "who": "agent",
+  "text": "block 3/8 \u00b7 checkouts 13 \u00b7 failed 0 \u00b7 telemetry 53 ms"
+ },
+ {
+  "sim": "2018-02-14T12:00:00Z",
+  "wall": "2026-11-22T13:14:43.372793Z",
+  "who": "agent",
+  "text": "block 4/8 \u00b7 checkouts 35 \u00b7 failed 0 \u00b7 telemetry 115 ms"
+ },
+ {
+  "sim": "2018-02-14T15:00:00Z",
+  "wall": "2026-11-22T13:14:51.352593Z",
+  "who": "agent",
+  "text": "block 5/8 \u00b7 checkouts 41 \u00b7 failed 0 \u00b7 telemetry 75 ms"
+ },
+ {
+  "sim": "2018-02-14T18:00:00Z",
+  "wall": "2026-11-22T13:14:59.912158Z",
+  "who": "agent",
+  "text": "block 6/8 \u00b7 checkouts 45 \u00b7 failed 0 \u00b7 telemetry 74 ms"
+ },
+ {
+  "sim": "2018-02-14T21:00:00Z",
+  "wall": "2026-11-22T13:15:08.173237Z",
+  "who": "agent",
+  "text": "block 7/8 \u00b7 checkouts 41 \u00b7 failed 0 \u00b7 telemetry 123 ms"
+ },
+ {
+  "sim": "2018-02-15T00:00:00Z",
+  "wall": "2026-11-22T13:15:16.309330Z",
+  "who": "agent",
+  "text": "block 8/8 \u00b7 checkouts 33 \u00b7 failed 0 \u00b7 telemetry 80 ms"
+ },
+ {
+  "sim": "2018-02-15T00:00:00Z",
+  "wall": "2026-11-22T13:15:16.323246Z",
+  "who": "world",
+  "text": "day 2018-02-15: shoppers from the emulator go through the shop"
+ },
+ {
+  "sim": "2018-02-15T03:00:00Z",
+  "wall": "2026-11-22T13:15:23.299768Z",
+  "who": "agent",
+  "text": "block 1/8 \u00b7 checkouts 12 \u00b7 failed 0 \u00b7 telemetry 70 ms"
+ },
+ {
+  "sim": "2018-02-15T06:00:00Z",
+  "wall": "2026-11-22T13:15:31.031904Z",
+  "who": "agent",
+  "text": "block 2/8 \u00b7 checkouts 1 \u00b7 failed 0 \u00b7 telemetry 74 ms"
+ },
+ {
+  "sim": "2018-02-15T09:00:00Z",
+  "wall": "2026-11-22T13:15:39.504285Z",
+  "who": "agent",
+  "text": "block 3/8 \u00b7 checkouts 11 \u00b7 failed 0 \u00b7 telemetry 83 ms"
+ },
+ {
+  "sim": "2018-02-15T12:00:00Z",
+  "wall": "2026-11-22T13:15:48.882491Z",
+  "who": "agent",
+  "text": "block 4/8 \u00b7 checkouts 35 \u00b7 failed 0 \u00b7 telemetry 82 ms"
+ },
+ {
+  "sim": "2018-02-15T15:00:00Z",
+  "wall": "2026-11-22T13:15:58.181375Z",
+  "who": "agent",
+  "text": "block 5/8 \u00b7 checkouts 46 \u00b7 failed 0 \u00b7 telemetry 145 ms"
+ },
+ {
+  "sim": "2018-02-15T18:00:00Z",
+  "wall": "2026-11-22T13:16:07.246813Z",
+  "who": "agent",
+  "text": "block 6/8 \u00b7 checkouts 42 \u00b7 failed 0 \u00b7 telemetry 114 ms"
+ },
+ {
+  "sim": "2018-02-15T21:00:00Z",
+  "wall": "2026-11-22T13:16:16.354296Z",
+  "who": "agent",
+  "text": "block 7/8 \u00b7 checkouts 40 \u00b7 failed 0 \u00b7 telemetry 148 ms"
+ },
+ {
+  "sim": "2018-02-16T00:00:00Z",
+  "wall": "2026-11-22T13:16:26.482974Z",
+  "who": "agent",
+  "text": "block 8/8 \u00b7 checkouts 39 \u00b7 failed 0 \u00b7 telemetry 142 ms"
+ },
+ {
+  "sim": "2018-02-16T00:00:00Z",
+  "wall": "2026-11-22T13:16:28.591175Z",
+  "who": "world",
+  "text": "day 2018-02-16: shoppers from the emulator go through the shop"
+ },
+ {
+  "sim": "2018-02-16T03:00:00Z",
+  "wall": "2026-11-22T13:16:35.602006Z",
+  "who": "agent",
+  "text": "block 1/8 \u00b7 checkouts 8 \u00b7 failed 1 \u00b7 telemetry 88 ms"
+ },
+ {
+  "sim": "2018-02-16T06:00:00Z",
+  "wall": "2026-11-22T13:16:43.275081Z",
+  "who": "agent",
+  "text": "block 2/8 \u00b7 checkouts 1 \u00b7 failed 0 \u00b7 telemetry 81 ms"
+ },
+ {
+  "sim": "2018-02-16T09:00:00Z",
+  "wall": "2026-11-22T13:16:51.438083Z",
+  "who": "agent",
+  "text": "block 3/8 \u00b7 checkouts 12 \u00b7 failed 3 \u00b7 telemetry 111 ms"
+ },
+ {
+  "sim": "2018-02-16T12:00:00Z",
+  "wall": "2026-11-22T13:17:00.104105Z",
+  "who": "agent",
+  "text": "block 4/8 \u00b7 checkouts 29 \u00b7 failed 7 \u00b7 telemetry 97 ms"
+ },
+ {
+  "sim": "2018-02-16T12:03:00Z",
+  "wall": "2026-11-22T13:17:00.113733Z",
+  "who": "engine",
+  "text": "ALARM checkout errors up (7/29 checkouts failed this block) \u00b7 task chk-2018-02-16-3 in 7 ms"
+ },
+ {
+  "sim": "2018-02-16T12:04:00Z",
+  "wall": "2026-11-22T13:17:04.131977Z",
+  "who": "engine",
+  "text": "diagnosis: checkout attempts 50 vs usual 60 \u2192 demand unchanged; checkouts failing 11/50 = 22% [14%, 33%]; payment service errors 11 of 50 \u2192 the failures are in the payment path"
+ },
+ {
+  "sim": "2018-02-16T12:05:00Z",
+  "wall": "2026-11-22T13:17:08.144191Z",
+  "who": "policy",
+  "text": "DENY: requested action 'turn the payment fault flag off': P0 has no actuation or test-execution port (I15, G17); pro"
+ },
+ {
+  "sim": "2018-02-16T12:06:00Z",
+  "wall": "2026-11-22T13:17:12.162695Z",
+  "who": "agent",
+  "text": "PROPOSAL set_flag paymentFailure=off \u00b7 expected +37 orders today [23, 55] \u00b7 sandbox local-astronomy-shop"
+ },
+ {
+  "sim": "2018-02-16T12:21:00Z",
+  "wall": "2026-11-22T13:17:17.497311Z",
+  "who": "human",
+  "text": "APPROVED set_flag paymentFailure=off (on-call marketplace lead)"
+ },
+ {
+  "sim": "2018-02-16T12:22:00Z",
+  "wall": "2026-11-22T13:17:22.542649Z",
+  "who": "sandbox",
+  "text": "EXECUTED: flag paymentFailure 25% \u2192 off (read back through flagd: True)"
+ },
+ {
+  "sim": "2018-02-16T15:00:00Z",
+  "wall": "2026-11-22T13:17:34.723144Z",
+  "who": "agent",
+  "text": "block 5/8 \u00b7 checkouts 49 \u00b7 failed 4 \u00b7 telemetry 156 ms"
+ },
+ {
+  "sim": "2018-02-16T18:00:00Z",
+  "wall": "2026-11-22T13:17:44.050706Z",
+  "who": "agent",
+  "text": "block 6/8 \u00b7 checkouts 54 \u00b7 failed 0 \u00b7 telemetry 111 ms"
+ },
+ {
+  "sim": "2018-02-16T21:00:00Z",
+  "wall": "2026-11-22T13:17:53.112973Z",
+  "who": "agent",
+  "text": "block 7/8 \u00b7 checkouts 38 \u00b7 failed 0 \u00b7 telemetry 126 ms"
+ },
+ {
+  "sim": "2018-02-17T00:00:00Z",
+  "wall": "2026-11-22T13:18:02.321765Z",
+  "who": "agent",
+  "text": "block 8/8 \u00b7 checkouts 48 \u00b7 failed 0 \u00b7 telemetry 143 ms"
+ },
+ {
+  "sim": "2018-02-17T00:00:00Z",
+  "wall": "2026-11-22T13:18:03.349510Z",
+  "who": "world",
+  "text": "day 2018-02-17: shoppers from the emulator go through the shop"
+ },
+ {
+  "sim": "2018-02-17T03:00:00Z",
+  "wall": "2026-11-22T13:18:10.177323Z",
+  "who": "agent",
+  "text": "block 1/8 \u00b7 checkouts 7 \u00b7 failed 0 \u00b7 telemetry 100 ms"
+ },
+ {
+  "sim": "2018-02-17T06:00:00Z",
+  "wall": "2026-11-22T13:18:16.795756Z",
+  "who": "agent",
+  "text": "block 2/8 \u00b7 checkouts 0 \u00b7 failed 0 \u00b7 telemetry 102 ms"
+ },
+ {
+  "sim": "2018-02-17T09:00:00Z",
+  "wall": "2026-11-22T13:18:23.721214Z",
+  "who": "agent",
+  "text": "block 3/8 \u00b7 checkouts 9 \u00b7 failed 0 \u00b7 telemetry 104 ms"
+ },
+ {
+  "sim": "2018-02-17T12:00:00Z",
+  "wall": "2026-11-22T13:18:31.095092Z",
+  "who": "agent",
+  "text": "block 4/8 \u00b7 checkouts 21 \u00b7 failed 0 \u00b7 telemetry 126 ms"
+ },
+ {
+  "sim": "2018-02-17T15:00:00Z",
+  "wall": "2026-11-22T13:18:39.316026Z",
+  "who": "agent",
+  "text": "block 5/8 \u00b7 checkouts 44 \u00b7 failed 0 \u00b7 telemetry 125 ms"
+ },
+ {
+  "sim": "2018-02-17T18:00:00Z",
+  "wall": "2026-11-22T13:18:46.870106Z",
+  "who": "agent",
+  "text": "block 6/8 \u00b7 checkouts 32 \u00b7 failed 0 \u00b7 telemetry 120 ms"
+ },
+ {
+  "sim": "2018-02-17T21:00:00Z",
+  "wall": "2026-11-22T13:18:54.496249Z",
+  "who": "agent",
+  "text": "block 7/8 \u00b7 checkouts 32 \u00b7 failed 0 \u00b7 telemetry 149 ms"
+ },
+ {
+  "sim": "2018-02-18T00:00:00Z",
+  "wall": "2026-11-22T13:19:01.940907Z",
+  "who": "agent",
+  "text": "block 8/8 \u00b7 checkouts 28 \u00b7 failed 0 \u00b7 telemetry 121 ms"
+ }
+]

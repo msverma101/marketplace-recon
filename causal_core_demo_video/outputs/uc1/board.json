@@ -1,0 +1,3236 @@
+[
+ {
+  "t": "2026-11-01T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-01T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-02T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-02T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-03T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-03T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-04T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-04T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-05T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-05T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-06T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-06T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-07T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-07T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-08T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-08T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-09T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-09T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "WAITING"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-10T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "ALARM"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-10T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-11T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-11T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-12T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-12T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-13T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-13T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-14T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-14T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-15T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-15T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-16T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-16T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-17T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-17T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-18T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-18T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-19T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-19T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-20T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-20T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-21T04:00:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ },
+ {
+  "t": "2026-11-21T14:15:00Z",
+  "experiments": [
+   {
+    "id": "EXP-01",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "INVALID"
+   },
+   {
+    "id": "EXP-02",
+    "area": "Area A",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-03",
+    "area": "Area B",
+    "metric": "Home screen reloads",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-04",
+    "area": "Area C",
+    "metric": "Revenue per user",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-05",
+    "area": "Area D",
+    "metric": "Registrations",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-06",
+    "area": "Area E",
+    "metric": "Conversation completions",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-07",
+    "area": "Area F",
+    "metric": "Active learning days",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-08",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-09",
+    "area": "Area F",
+    "metric": "Lesson completers",
+    "status": "HEALTHY"
+   },
+   {
+    "id": "EXP-10",
+    "area": "Simulated",
+    "metric": "Onboarding path (iOS)",
+    "status": "PAUSED"
+   },
+   {
+    "id": "EXP-11",
+    "area": "Simulated",
+    "metric": "Paywall copy B",
+    "status": "STOPPED"
+   },
+   {
+    "id": "EXP-12",
+    "area": "Simulated",
+    "metric": "Lesson screen layout (web)",
+    "status": "HEALTHY"
+   }
+  ]
+ }
+]

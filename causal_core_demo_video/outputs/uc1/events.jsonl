@@ -1,0 +1,71 @@
+{"t": "2026-11-01T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-01T04:00:00Z", "experiment": "EXP-10", "kind": "check", "detail": "assignment balanced; no change", "tier": "T1"}
+{"t": "2026-11-01T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-01T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-02T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-02T04:00:00Z", "experiment": "EXP-10", "kind": "check", "detail": "assignment balanced; no change", "tier": "T1"}
+{"t": "2026-11-02T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-02T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-03T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-03T04:00:00Z", "experiment": "EXP-10", "kind": "check", "detail": "assignment balanced; no change", "tier": "T1"}
+{"t": "2026-11-03T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-03T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-04T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-04T04:00:00Z", "experiment": "EXP-10", "kind": "incident", "detail": "assignment broken: sample ratio mismatch p = 3.67e-07 < 0.001; assignment integrity not established", "tier": "T1", "latency_ms": 6.8}
+{"t": "2026-11-04T04:00:00Z", "experiment": "EXP-10", "kind": "diagnosis", "detail": "100% of exposures without a user ID are in control (1,585 vs 0): consistent with users evaluated before their ID is set landing in one bucket"}
+{"t": "2026-11-04T04:00:00Z", "experiment": "EXP-10", "kind": "proposal", "detail": "freeze decision, annotate, open fix ticket"}
+{"t": "2026-11-04T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-04T04:18:00Z", "experiment": "EXP-10", "kind": "approval", "detail": "approved by on-call product lead"}
+{"t": "2026-11-04T04:19:00Z", "experiment": "EXP-10", "kind": "execution", "detail": "EXECUTED in mock-statsig-project: annotate_freeze"}
+{"t": "2026-11-04T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-05T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-05T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-05T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-06T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-06T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-06T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-07T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-07T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-07T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-08T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-08T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-08T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-09T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-09T04:00:00Z", "experiment": "EXP-11", "kind": "check", "detail": "guardrail within bounds", "tier": "T1"}
+{"t": "2026-11-09T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-09T14:15:00Z", "experiment": "EXP-12", "kind": "incident", "detail": "dashboard alert: lesson starts -44% today", "tier": "T0"}
+{"t": "2026-11-09T14:15:00Z", "experiment": "EXP-12", "kind": "diagnosis", "detail": "data quality: DQ_IMMATURE \u2014 today's exposures arrive with the next daily load (03:50 UTC); 57% of the day loaded so far", "tier": "T0"}
+{"t": "2026-11-09T14:15:00Z", "experiment": "EXP-12", "kind": "decision", "detail": "no action; re-check after the next daily load"}
+{"t": "2026-11-10T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-10T04:00:00Z", "experiment": "EXP-11", "kind": "incident", "detail": "guardrail alarm: trial starts down in variant B", "tier": "T1", "latency_ms": 5.5}
+{"t": "2026-11-10T04:00:00Z", "experiment": "EXP-11", "kind": "diagnosis", "detail": "effect of variant B on trial starts -0.0037 per user [-0.0052, -0.0022] (CONDITIONAL_IDENTIFICATION)"}
+{"t": "2026-11-10T04:00:00Z", "experiment": "EXP-11", "kind": "proposal", "detail": "stop variant B (rollout 0%); expected +92 trial starts/day [55, 129]"}
+{"t": "2026-11-10T04:00:00Z", "experiment": "EXP-12", "kind": "resolution", "detail": "complete data: 51,073 lesson starts vs 51,687 7-day mean (-1.2%); no action"}
+{"t": "2026-11-10T04:25:00Z", "experiment": "EXP-11", "kind": "approval", "detail": "approved by on-call product lead"}
+{"t": "2026-11-10T04:26:00Z", "experiment": "EXP-11", "kind": "execution", "detail": "EXECUTED in mock-statsig-project: set_rollout"}
+{"t": "2026-11-10T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-11T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-11T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-12T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-12T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-13T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-13T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-14T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-14T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-15T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-15T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-16T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-16T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-17T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-17T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-18T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-18T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-19T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-19T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-20T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-20T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-21T04:00:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the daily exposure load (03:50 UTC)"}
+{"t": "2026-11-21T14:15:00Z", "experiment": "*", "kind": "wake", "detail": "woke after the scheduled Pulse reload"}
+{"t": "2026-11-21T15:00:00Z", "experiment": "EXP-09", "kind": "request", "detail": "ship the variant to everyone?"}
+{"t": "2026-11-21T15:00:00Z", "experiment": "EXP-09", "kind": "policy", "detail": "DENY: requested action 'ship the variant to 100% of users': P0 has no actuation or test-execution port (I15, G17); propose it "}
+{"t": "2026-11-21T15:00:00Z", "experiment": "EXP-09", "kind": "proposal", "detail": "ship proposal sent to the experiment owner for review; nothing changed"}

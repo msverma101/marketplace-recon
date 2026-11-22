@@ -1,0 +1,210 @@
+{
+ "schema_version": "2.0",
+ "task_id": "uc1-EXP-10-d4",
+ "revision": 2,
+ "provisional": false,
+ "trigger": "scheduled",
+ "question_kind": "ASSESS_STUDY",
+ "outcome": "INCONCLUSIVE",
+ "policy": {
+  "verdict": "PUBLISH_REPORT",
+  "reasons": [
+   "read-only report"
+  ]
+ },
+ "findings": [
+  {
+   "finding_id": "f:0c0a5aece3d9",
+   "claim_kind": "INCONCLUSIVE",
+   "statement": "randomized_effect_v1 refused: SRM_FAIL: sample ratio mismatch p = 3.67e-07 < 0.001; assignment integrity not established",
+   "support_refs": [],
+   "limitations": []
+  }
+ ],
+ "effect_claims": [],
+ "identification": [],
+ "method_trace": [
+  {
+   "method": "dq_observation_v1",
+   "applicability": "SUPPORTED",
+   "reasons": []
+  },
+  {
+   "method": "metric_identity_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['EXPLAIN_OBSERVATION', 'DETECT_CHANGE']",
+    "MISSING_METADATA: ['formula']"
+   ]
+  },
+  {
+   "method": "seasonal_screen_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['DETECT_CHANGE']",
+    "INPUT_SHAPE: needs one of ['time_series'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['season_period']"
+   ]
+  },
+  {
+   "method": "savi_eprocess_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['DETECT_CHANGE']",
+    "MISSING_METADATA: ['null_spec', 'dependence']"
+   ]
+  },
+  {
+   "method": "kitagawa_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['EXPLAIN_OBSERVATION', 'DETECT_CHANGE']",
+    "MISSING_METADATA: ['strata', 'ratio_metric']"
+   ]
+  },
+  {
+   "method": "rcd_lite_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS']",
+    "INPUT_SHAPE: needs one of ['panel', 'time_series'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['parents', 'regimes']"
+   ]
+  },
+  {
+   "method": "association_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['EXPLAIN_OBSERVATION', 'ASSESS_HYPOTHESIS', 'ESTIMATE_EFFECT']",
+    "INPUT_SHAPE: needs one of ['panel', 'time_series', 'scalar'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['pairing', 'dependence']"
+   ]
+  },
+  {
+   "method": "randomized_effect_v1",
+   "applicability": "SUPPORTED",
+   "reasons": []
+  },
+  {
+   "method": "multiplicity_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "INPUT_SHAPE: needs one of ['effect_results'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['family']"
+   ]
+  },
+  {
+   "method": "did_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['ESTIMATE_EFFECT', 'EXPLAIN_OBSERVATION']",
+    "INPUT_SHAPE: needs one of ['panel'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['group_map']",
+    "ESTIMAND_FAMILY: ITT not in ['ATT']",
+    "SOURCE_REGIME: randomized not in ['quasi_experimental']"
+   ]
+  },
+  {
+   "method": "identifiability_audit_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "INPUT_SHAPE: needs one of ['method_result'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['estimand']"
+   ]
+  },
+  {
+   "method": "voi_heuristic_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['DESIGN_EVIDENCE', 'EXPLAIN_OBSERVATION', 'ESTIMATE_EFFECT', 'DETECT_CHANGE']",
+    "INPUT_SHAPE: needs one of ['query_options'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['hypotheses']"
+   ]
+  },
+  {
+   "method": "baseline_shift_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['DETECT_CHANGE']",
+    "INPUT_SHAPE: needs one of ['time_series', 'state_trajectory'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['learned_baseline']"
+   ]
+  },
+  {
+   "method": "counterfactual_rollout_v1",
+   "applicability": "UNSUPPORTED",
+   "reasons": [
+    "QUESTION_KIND: ASSESS_STUDY not in ['PREDICT_OUTCOME', 'COMPARE_INTERVENTIONS']",
+    "INPUT_SHAPE: needs one of ['time_series'], got ['assignment_outcomes', 'aggregate_stats']",
+    "MISSING_METADATA: ['validated_mechanisms']"
+   ]
+  }
+ ],
+ "stage_trace": [
+  {
+   "stage": "FRAME",
+   "verdict": "PASS",
+   "note": "ASSESS_STUDY: target pinned (data cut 2026-11-04T04:00:00+00:00, graph v0)"
+  },
+  {
+   "stage": "AUDIT_INPUTS",
+   "verdict": "PASS",
+   "note": "design randomized (simple), attested by demo-statsig"
+  },
+  {
+   "stage": "SELECT_CAPABILITIES",
+   "verdict": "PASS",
+   "note": "applicable: dq_observation_v1, randomized_effect_v1; refused 12 other methods with reasons"
+  },
+  {
+   "stage": "ACQUIRE",
+   "verdict": "PLAN",
+   "note": "1 typed request(s): get_assignment_outcomes"
+  },
+  {
+   "stage": "ACQUIRE",
+   "verdict": "PASS",
+   "note": "4 observation(s) received"
+  },
+  {
+   "stage": "EVALUATE",
+   "verdict": "REFUSED",
+   "note": "randomized_effect_v1: SRM_FAIL"
+  },
+  {
+   "stage": "CHALLENGE",
+   "verdict": "PASS",
+   "note": "1 rival explanation(s)/assumption(s) recorded"
+  },
+  {
+   "stage": "REPORT",
+   "verdict": "DONE",
+   "note": "outcome INCONCLUSIVE; 1 finding(s); 0 gap(s)"
+  }
+ ],
+ "rivals_and_assumptions": [
+  "external validity: the effect holds for the study's population, window and scope only"
+ ],
+ "evidence_gaps": [],
+ "failures": [
+  {
+   "class": "STATISTICAL_INVALIDITY",
+   "stage": "EVALUATE",
+   "detail": "SRM_FAIL: sample ratio mismatch p = 3.67e-07 < 0.001; assignment integrity not established"
+  }
+ ],
+ "evidence_ids": [
+  "o:EXP-10:lesson_completion:control:3",
+  "o:EXP-10:assignment_units:control:3",
+  "o:EXP-10:lesson_completion:variant:3",
+  "o:EXP-10:assignment_units:variant:3"
+ ],
+ "pins": {
+  "graph_version": 0,
+  "data_cut": "2026-11-04T04:00:00+00:00",
+  "method_versions": {
+   "randomized_effect_v1": "3"
+  }
+ },
+ "abstained": true
+}
