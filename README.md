@@ -30,7 +30,6 @@ A marketplace is a living place: buyers, sellers, carriers, payments, reviews, a
 | [Main demo without the team card](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_silent.mp4) | The same cut, original ending | 3:00 |
 | [Pitch](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_pitch.mp4) | The idea and how it works | 1:40 |
 | [Demo cut](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_demo_cut.mp4) | The dashboard sequence only | 1:20 |
-| [Experiment watcher](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc1.mp4) | Second use case: Martha watching A/B experiments (Statsig-shaped), refusing to estimate a broken 50/50 split | 2:23 |
 | [Full screen recording](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_screen.mp4) | The whole paced run, uncut | 6:57 |
 
 How the videos are recorded and rebuilt: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
