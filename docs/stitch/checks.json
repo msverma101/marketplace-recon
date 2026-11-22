@@ -13,7 +13,7 @@
    "L6-score",
    "L6-timing"
   ],
-  "seconds": 4.8,
+  "seconds": 4.9,
   "tail": [
    "       real [0.628, 0.072]",
    "       sim  [0.665, 0.063]",
@@ -45,9 +45,25 @@
    "L4-funnel",
    "L4-exposure"
   ],
-  "seconds": 42.9,
+  "seconds": 43.2,
   "tail": [
    ".................................                                        [100%]"
+  ]
+ },
+ {
+  "gate": "S10 v2 session-layer value",
+  "pass": true,
+  "rows": [
+   "L4-sessions",
+   "L4-funnel",
+   "L4-exposure",
+   "L1-devices"
+  ],
+  "seconds": 558.3,
+  "tail": [
+   "with layer {'9a': 5, '9b': 4, 'control': 5}",
+   "without layer {'9a': 0, '9b': 0, 'control': 5}",
+   "S10 v2: PASS {'9a': 5, '9b': 4, 'control': 5}"
   ]
  }
 ]
