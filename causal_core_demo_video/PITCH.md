@@ -19,12 +19,7 @@ happens, it works out what kind of problem it is and proposes what to do, with t
 Only then does it act, and only in a sandbox. The engine itself has no way to change anything in production.
 
 **Proof (1:20–2:30)**
-We showed it on two real setups.
-On our experiments: it re-checks every experiment after each nightly load. On real, anonymized experiments it
-reproduces the platform's numbers to the 13th decimal place, and it found one real experiment whose split doesn't match
-the plan. In a replay with planted problems, it paused an experiment with a broken split, stopped a variant that was
-costing 5% of trial starts, with the expected gain stated up front, and it ignored a scary dashboard drop that was
-only incomplete data.
+We showed it on a real setups.
 On a marketplace: a real online shop running locally, with shoppers simulated from real marketplace orders. We broke
 payments without telling it. It raised the alarm from service telemetry, ruled out a drop in demand, located the fault
 in the payment service, and proposed the fix with an expected gain of about 43 orders, between 29 and 62. A person
