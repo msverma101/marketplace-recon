@@ -2,7 +2,7 @@
 
 **MARTHA: MARketplace Tracing through causal Hindsight & Adaptation**
 
-Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches continuously, traces every alarm back to its cause, proposes a fix with its expected effect, and adapts as the evidence comes in. She acts only with a person's approval.
+Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches continuously, traces every alarm back to its cause, proposes a fix with its expected effect, and adapts as the evidence comes in. She acts with a person's approval.
 
 ## Demo
 
@@ -15,16 +15,16 @@ Dashboards show *that* a number moved. Someone still has to work out *why*: a br
 - **Watches:** continuously, with no fixed rules to configure.
 - **Investigates:** tests competing causes using declared relations between metrics (identities, funnel steps).
 - **Asks:** requests the cheapest evidence that settles the question, then revises her answer.
-- **Knows her limits:** abstains rather than guessing; never writes to production; acts only after approval.
+- **Knows her limits:** abstains rather than guessing; never writes to production; acts with approval.
 
 ## How it works
 
 ![Marketplace Martha architecture](docs/media/architecture/martha-architecture.png)
 
-1. **Real data.** A marketplace emulator is calibrated on real Brazilian e-commerce data (Olist). 18 other public datasets lend behavioural patterns (funnels, search positions, devices, prices, stock, ads, returns, fraud) through 33 held-out-checked transport cards.
-2. **The marketplace world.** The emulator simulates orders, sessions, carts, checkout, delivery and reviews, plus what a monitor really sees (delays, gaps, late corrections). Its shoppers buy through the real [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), so faults and telemetry are real.
-3. **Martha.** A domain-agnostic causal reasoning engine reads everything through read-only contract ports. On top of it, an agent watches, investigates and proposes.
-4. **Action, with a person.** A policy gate prevents the engine from acting. A person approves each proposal, and a sandbox executor applies it to the local shop only.
+1. **Real data.** A marketplace emulator is calibrated on real Brazilian e-commerce data (Olist). 18 other public datasets lend behavioural patterns (funnels, search positions, devices, prices, stock, ads, returns, fraud).
+2. **The marketplace world.** The emulator simulates orders, sessions, carts, checkout, delivery and reviews, plus displays the monitor's view (delays, gaps, late corrections). Its shoppers buy through the real [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), for real faults and telemetry.
+3. **Martha.** A domain-agnostic causal reasoning engine reads everything through read-only contract ports. On top of it, an agent watches, investigates and proposes solutions.
+4. **Action, with a person.** A policy gate prevents the engine from acting. A person approves each proposal, and an executor applies it to the marketplace.
 
 Ground truth (real causes, counterfactual twins, answer keys) is sealed away from Martha and used only to score her.
 
@@ -107,7 +107,7 @@ On Linux, run `PY=$PWD/../.venv/bin/python NO_OPEN=1 scripts/uc2_watch.sh` and o
 ## Data and licences
 
 - **Olist Brazilian E-Commerce** (Kaggle), CC BY-NC-SA 4.0: the processed tables in `artifacts/` derive from it (non-commercial use, with attribution).
-- The other datasets are not redistributed. `scripts/datasets.py` downloads them under each source's own terms.
+- The other datasets are not redistributed. `scripts/datasets.py`.
 - **OpenTelemetry Astronomy Shop** (Apache-2.0), used unmodified at release 3.1.0.
 
 ## Team
