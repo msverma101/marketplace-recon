@@ -12,6 +12,7 @@ import json
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 
+import polars as pl
 from pydantic import TypeAdapter
 
 from Contracts.capabilities import CapabilityRequest, CapabilityResponse, ProviderManifest
@@ -187,10 +188,8 @@ class ContractPort:
             TimePoint(t=to_utc(datetime.fromisoformat(t)), value=None if v is None else float(v)) for t, v in sorted(pts)))
 
     def _events(self, req, vid):
-        import polars as pl
         e = TX.EVENT_BY_ID[vid]
-        vis = self._e._visible(to_local(req.data_cut))
-        df = vis.filter(pl.col("event_type") == e.event_type)
+        df = self._e.visible_of(to_local(req.data_cut), e.event_type)
         if req.window:
             df = df.filter((pl.col("event_time") >= to_local(req.window.start)) & (pl.col("event_time") < to_local(req.window.end)))
         cap = min(req.max_rows, req.max_events)

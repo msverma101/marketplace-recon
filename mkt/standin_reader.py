@@ -1,4 +1,5 @@
-"""Stand-in reader: a deliberately small consumer of the EvidenceAccessPort.
+"""LEGACY reader on the internal engine types (kept for the P0/P1-1 reports and their tests). Anything that faces the core
+now uses mkt/standin_core.py on Contracts/. Stand-in reader: a deliberately small consumer of the EvidenceAccessPort.
 
 It is NOT the causal core v3 (that lives elsewhere). It exists to prove the input layer can serve
 a question-first investigation with no simulator, no anomaly feed, no experiment fields and no

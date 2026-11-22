@@ -125,12 +125,20 @@ class EventFramePort:
         return EvidenceRecord(id=eid, origin=origin, environment_id=self.env.id,
                               lineage=ProvenanceLineage(roots=[self.root], transformations=transforms, trained_through=self.trained_through))
 
-    def _visible(self, as_of: datetime) -> pl.DataFrame:
-        """Everything knowable at as_of: arrived by then, and only the latest revision of each record."""
-        v = self.events.filter(pl.col("available_at") <= as_of)
-        if "revision" in v.columns:
-            v = v.sort("revision").unique(subset=["record_key"], keep="last", maintain_order=True).sort("event_time")
-        return v
+    def _visible(self, as_of: datetime) -> dict[str, pl.DataFrame]:
+        """Everything knowable at as_of (arrived by then; latest revision of each record), split by event type.
+        Cached per as_of: the event frame is immutable, and a core asks many questions at the same data cut."""
+        cache = self.__dict__.setdefault("_vis_cache", {})
+        if as_of not in cache:
+            v = self.events.filter(pl.col("available_at") <= as_of)
+            if "revision" in v.columns:
+                v = v.sort("revision").unique(subset=["record_key"], keep="last", maintain_order=True)
+            cache.clear()                                       # keep one data cut: memory stays bounded
+            cache[as_of] = {k[0]: g.sort("event_time") for k, g in v.partition_by("event_type", as_dict=True).items()}
+        return cache[as_of]
+
+    def visible_of(self, as_of: datetime, event_type: str) -> pl.DataFrame:
+        return self._visible(as_of).get(event_type, self.events.clear())
 
     def query(self, req: EvidenceRequest) -> Union[EvidenceResult, Refusal]:
         cap = self.capabilities()
@@ -160,7 +168,7 @@ class EventFramePort:
 
     def _events(self, req, vis, flags):
         etype, _, schema, missing = EVENT_VARS[req.variable_id]
-        df = self._window(vis.filter(pl.col("event_type") == etype), req)
+        df = self._window(vis.get(etype, self.events.clear()), req)
         if df.height > self.event_rows_max:
             return Refusal(code=FailureCode.BUDGET_EXCEEDED, reason=f"{df.height:,} rows; narrow the window or use a metric")
         cols = ["event_id", "event_time", "order_id", "seller_id", "product_id", "region", "amount", "value", "metric"]
@@ -177,43 +185,8 @@ class EventFramePort:
         grain = req.grain or "week"
         if req.shape == "series" and grain not in m.grain:
             return Refusal(code=FailureCode.UNSUPPORTED_SHAPE, reason=f"{m.id} grains are {m.grain}")
-        placed = self._window(vis.filter(pl.col("event_type") == "order_created"), req)
-        if m.id in SESSION_EVENT:
-            base, val = self._window(vis.filter(pl.col("event_type") == SESSION_EVENT[m.id]), req), pl.len()
-        elif m.id == "orders_count":
-            base, val = placed, pl.len()
-        elif m.id == "payments_count":
-            base, val = self._window(vis.filter(pl.col("event_type") == "payment_approved"), req), pl.len()
-        elif m.id == "gmv":
-            base, val = placed, pl.col("amount").sum()
-        elif m.id == "mean_promised_days":
-            base, val = placed, pl.col("value").mean()
-        elif m.id == "late_share":
-            base, val = self._window(vis.filter(pl.col("event_type") == "delivered"), req), (pl.col("value") > 0).mean()
-            flags = flags + ["denominator = deliveries completed by as_of; undelivered orders are censored, not on time"]
-        elif m.id in ("deliveries_count", "late_deliveries_count"):
-            base = self._window(vis.filter(pl.col("event_type") == "delivered"), req)
-            if m.id == "late_deliveries_count":
-                base = base.filter(pl.col("value") > 0)
-            val = pl.len()
-        elif m.id in ("cohort_delivered_count", "cohort_late_count"):
-            d = vis.filter(pl.col("event_type") == "delivered").select("order_id", pl.col("value").alias("days_late"))
-            base = placed.join(d, on="order_id", how="inner")
-            if m.id == "cohort_late_count":
-                base = base.filter(pl.col("days_late") > 0)
-            val = pl.len()
-        elif m.id == "late_share_cohort":
-            d = vis.filter(pl.col("event_type") == "delivered").select("order_id", pl.col("value").alias("days_late"))
-            base = placed.join(d, on="order_id", how="inner")
-            val = (pl.col("days_late") > 0).mean()
-            flags = flags + ["purchase cohort: only orders delivered by as_of; recent cohorts are biased toward fast (on-time) deliveries"]
-        elif m.id == "mean_review_score":
-            base, val = self._window(vis.filter(pl.col("event_type") == "review_submitted"), req), pl.col("value").mean()
-        else:  # mean_delivery_days: by purchase week, only orders delivered by as_of
-            d = vis.filter(pl.col("event_type") == "delivered").select("order_id", pl.col("event_time").alias("t_del"))
-            base = placed.join(d, on="order_id", how="inner")
-            val = ((pl.col("t_del") - pl.col("event_time")).dt.total_hours() / 24).mean()
-            flags = flags + ["only orders delivered by as_of: recent weeks are biased toward fast deliveries"]
+        base, val = METRIC_RECIPES[m.id](_Frames(self, vis, req))
+        flags = flags + [f for f in [METRIC_FLAGS.get(m.id)] if f]
         ev = self._evidence(self.metric_origin, [f"{self.source_id} {self.env.mechanism_versions}", f"metric {m.id}: {m.formula}"])
         if req.shape == "aggregate":
             payload = {"value": base.select(val).item() if base.height else None, "n": base.height}
@@ -227,6 +200,46 @@ class EventFramePort:
                           observation_mechanism=f"derived from {self.source_id} events by {m.formula}", missingness="see source variables",
                           quality_flags=flags, evidence_id=ev.id)
         return EvidenceResult(observations=[obs], evidence=[ev])
+
+
+class _Frames:
+    """What a metric recipe may read: windowed events of one type, and the purchase cohort joined to deliveries."""
+
+    def __init__(self, port: EventFramePort, vis: dict, req: EvidenceRequest):
+        self.port, self.vis, self.req = port, vis, req
+
+    def of(self, event_type: str) -> pl.DataFrame:
+        return self.port._window(self.vis.get(event_type, self.port.events.clear()), self.req)
+
+    def cohort(self) -> pl.DataFrame:
+        """Orders placed in the window that were delivered by as_of, with days_late and delivery time."""
+        d = self.vis.get("delivered", self.port.events.clear()).select("order_id", pl.col("value").alias("days_late"),
+                                                                       pl.col("event_time").alias("t_del"))
+        return self.of("order_created").join(d, on="order_id", how="inner")
+
+
+COUNT = pl.len()
+LATE = pl.col("value") > 0
+METRIC_RECIPES = {   # metric id -> frames -> (rows, value expression); one line per metric
+    "orders_count": lambda f: (f.of("order_created"), COUNT),
+    "payments_count": lambda f: (f.of("payment_approved"), COUNT),
+    "gmv": lambda f: (f.of("order_created"), pl.col("amount").sum()),
+    "mean_promised_days": lambda f: (f.of("order_created"), pl.col("value").mean()),
+    "late_share": lambda f: (f.of("delivered"), LATE.mean()),
+    "deliveries_count": lambda f: (f.of("delivered"), COUNT),
+    "late_deliveries_count": lambda f: (f.of("delivered").filter(LATE), COUNT),
+    "cohort_delivered_count": lambda f: (f.cohort(), COUNT),
+    "cohort_late_count": lambda f: (f.cohort().filter(pl.col("days_late") > 0), COUNT),
+    "late_share_cohort": lambda f: (f.cohort(), (pl.col("days_late") > 0).mean()),
+    "mean_delivery_days": lambda f: (f.cohort(), ((pl.col("t_del") - pl.col("event_time")).dt.total_hours() / 24).mean()),
+    "mean_review_score": lambda f: (f.of("review_submitted"), pl.col("value").mean()),
+    **{mid: (lambda f, e=etype: (f.of(e), COUNT)) for mid, etype in SESSION_EVENT.items()},
+}
+METRIC_FLAGS = {
+    "late_share": "denominator = deliveries completed by as_of; undelivered orders are censored, not on time",
+    "late_share_cohort": "purchase cohort: only orders delivered by as_of; recent cohorts are biased toward fast (on-time) deliveries",
+    "mean_delivery_days": "only orders delivered by as_of: recent weeks are biased toward fast deliveries",
+}
 
 
 class OlistReplayPort(EventFramePort):
