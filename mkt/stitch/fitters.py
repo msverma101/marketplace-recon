@@ -221,15 +221,15 @@ def handling(c):
 
 def entry(c):
     deals = f"read_csv('{RAW}/olist_funnel/olist_closed_deals_dataset.csv')"
-    c.execute(f"""create or replace temp table lag as select d.seller_id, d.won_date, d.business_segment,
-                  date_diff('day', d.won_date, min(o.order_purchase_timestamp)) days from {deals} d
+    c.execute(f"""create or replace temp table seller_lag as select d.seller_id, d.won_date, d.business_segment,
+                  date_diff('day', d.won_date, min(o.order_purchase_timestamp)) lag_days from {deals} d
                   join {ITEMS} i on i.seller_id = d.seller_id join {ORD} o using(order_id)
                   where o.order_purchase_timestamp >= d.won_date group by 1, 2, 3""")
-    mid = q(c, "select median(won_date) from lag")[0][0]
-    a = q(c, f"select median(days) from lag where won_date < '{mid}'")[0][0]
-    b = q(c, f"select median(days) from lag where won_date >= '{mid}'")[0][0]
-    return out({"deals_joined": q(c, "select count(*) from lag")[0][0], "median_days_to_first_sale": [a, b],
-                "by_segment_top": q(c, "select business_segment, count(*), median(days) from lag group by 1 order by 2 desc limit 5")},
+    mid = q(c, "select median(won_date) from seller_lag")[0][0]
+    a = q(c, f"select median(lag_days) from seller_lag where won_date < '{mid}'")[0][0]
+    b = q(c, f"select median(lag_days) from seller_lag where won_date >= '{mid}'")[0][0]
+    return out({"deals_joined": q(c, "select count(*) from seller_lag")[0][0], "median_days_to_first_sale": [a, b],
+                "by_segment_top": q(c, "select business_segment, count(*), median(lag_days) from seller_lag group by 1 order by 2 desc limit 5")},
                [halves("deal-to-first-sale median days, first vs second half of deals", a, b, 0.5)], "2018-08-31", True,
                ["only 380 of 842 deals join to sales; later deals are right-censored"])
 
@@ -282,8 +282,7 @@ def recs(c):
     a = q(c, f"select avg(click) from {r} where timestamp < '{mid}'")[0][0]
     b = q(c, f"select avg(click) from {r} where timestamp >= '{mid}'")[0][0]
     bts = q(c, f"""select min(propensity_score), median(propensity_score), max(propensity_score), count(*)
-                   from read_csv('{RAW}/open_bandit/bts/all.csv', columns={{'column00':'BIGINT','timestamp':'VARCHAR','item_id':'INT','position':'INT',
-                   'click':'INT','propensity_score':'DOUBLE'}}, header=true, ignore_errors=true, null_padding=true)""")[0]
+                   from read_csv('{RAW}/open_bandit/bts/all.csv', header=true)""")[0]
     return out({"random_ctr_halves": [a, b], "random_propensity": 1 / 80, "bts_propensity_min_median_max_n": bts},
                [halves("random-policy CTR, first vs second half of days", a, b, 0.2)], "2019-12-01", False,
                ["propensities show how a logging policy behaves; the CTR level is ZOZOTOWN fashion, not Olist"])
@@ -317,7 +316,7 @@ def ads(c):
 # ------------------------------------------------------------------ L5
 def orders(c):
     pay = f"read_csv('{O}/olist_order_payments_dataset.csv')"
-    ipo = {y: q(c, f"select avg(n) from (select order_id, count(*) n from {ITEMS} join {ORD} using(order_id) where {YEAR}={y} group by 1)")[0][0]
+    ipo = {y: q(c, f"select avg(n) from (select i.order_id, count(*) n from {ITEMS} i join {ORD} o using(order_id) where {YEAR}={y} group by 1)")[0][0]
            for y in (2017, 2018)}
     mix = dict(q(c, f"select payment_type, count(*)*1.0/sum(count(*)) over () from {pay} group by 1"))
     return out({"items_per_order": ipo, "payment_type_share": mix}, [halves("items per order 2017 vs 2018", ipo[2017], ipo[2018], 0.1)],

@@ -1,6 +1,6 @@
 {
  "id": "TC-RR1",
- "fitted_at": "2026-11-21T23:22:10+00:00",
+ "fitted_at": "2026-11-22T10:19:56+00:00",
  "source": "Retailrocket events (30-min idle sessions)",
  "source_population": "visitors of one e-commerce site, May-Sep 2015",
  "target_population": "synthetic Olist-calibrated shoppers, Brazil 2018",
@@ -13,16 +13,16 @@
  },
  "ci95": {
   "views_mean_buying": [
-   6.010072043085962,
-   6.499438693432189
+   6.0273186682520805,
+   6.521098831922781
   ],
   "views_mean_nonbuying": [
-   1.4706361044948488,
-   1.4761561322163836
+   1.4709349236398765,
+   1.4761693520234316
   ],
   "cart_share_nonbuying": [
-   0.01810708673223538,
-   0.018521493346030454
+   0.01809963270683275,
+   0.018487914463842396
   ]
  },
  "pmf_views_buying": [

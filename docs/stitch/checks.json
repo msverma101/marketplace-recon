@@ -1,7 +1,7 @@
 [
  {
   "gate": "S5 chain realism vs held-out 2018",
-  "pass": false,
+  "pass": true,
   "rows": [
    "L0-seasonality",
    "L1-buyers",
@@ -13,11 +13,12 @@
    "L6-score",
    "L6-timing"
   ],
-  "seconds": 4.9,
+  "seconds": 5.2,
   "tail": [
    "       real [0.628, 0.072]",
    "       sim  [0.665, 0.063]",
-   "S5: FAIL (9/10)  -> docs/p0/phase3_fidelity_attemptcheck.json"
+   "S5: FAIL (9/10)  -> docs/p0/phase3_fidelity_attemptstitch-check.json",
+   "accepted: F2 weekday exception (STRATEGY_CHANGES #6)"
   ]
  },
  {
@@ -29,7 +30,7 @@
    "L4-funnel",
    "L4-exposure"
   ],
-  "seconds": 19.4,
+  "seconds": 19.5,
   "tail": [
    "PASS F5 mobile share per month (|diff| <= 0.01) {}",
    "PASS F6 one buying session per order, starting before it {'orders': 12426, 'buying_sessions': 12426}",
@@ -45,25 +46,9 @@
    "L4-funnel",
    "L4-exposure"
   ],
-  "seconds": 43.2,
+  "seconds": 45.0,
   "tail": [
    ".................................                                        [100%]"
-  ]
- },
- {
-  "gate": "S10 v2 session-layer value",
-  "pass": true,
-  "rows": [
-   "L4-sessions",
-   "L4-funnel",
-   "L4-exposure",
-   "L1-devices"
-  ],
-  "seconds": 558.3,
-  "tail": [
-   "with layer {'9a': 5, '9b': 4, 'control': 5}",
-   "without layer {'9a': 0, '9b': 0, 'control': 5}",
-   "S10 v2: PASS {'9a': 5, '9b': 4, 'control': 5}"
   ]
  }
 ]

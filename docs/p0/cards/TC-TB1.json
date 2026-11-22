@@ -1,6 +1,6 @@
 {
  "id": "TC-TB1",
- "fitted_at": "2026-11-21T23:18:14+00:00",
+ "fitted_at": "2026-11-22T10:19:40+00:00",
  "source": "Taobao user behaviour (pv/cart/buy)",
  "source_population": "Taobao users, 25 Nov - 3 Dec 2017 (9 days)",
  "target_population": "synthetic Olist-calibrated shoppers, Brazil 2018",
@@ -14,8 +14,8 @@
  },
  "ci95": {
   "lag_view_median_s": [
-   2649.975,
-   2699.05
+   2653.975,
+   2699.025
   ]
  },
  "q_lag_view_s": [
