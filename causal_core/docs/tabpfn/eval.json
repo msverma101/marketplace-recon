@@ -1,0 +1,28 @@
+{
+  "tabpfn": "licence not accepted yet: accept at https://ux.priorlabs.ai and export TABPFN_TOKEN",
+  "A_covariate_baseline": {
+    "linear_calendar": {
+      "residual_variance": 10.014682916470235,
+      "explained_vs_calendar": 0.0
+    },
+    "linear_calendar_plus_driver": {
+      "residual_variance": 4.824802647633478,
+      "explained_vs_calendar": 0.5182271183345639
+    },
+    "tabpfn_calendar_plus_driver": {
+      "residual_variance": null,
+      "explained_vs_calendar": null
+    },
+    "noise_variance": 2.25
+  },
+  "B_equation_shape": {
+    "linear": {
+      "holdout_coverage_at_90": 0.9158333333333334,
+      "effect_mean_abs_error": 12.009506873677662,
+      "effect_interval_covers_truth": 0.13333333333333333
+    },
+    "tabpfn": null,
+    "truth_effect_100_to_130": 181.9187953570679
+  },
+  "seconds": 0.0
+}
