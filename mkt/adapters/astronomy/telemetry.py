@@ -19,7 +19,7 @@ from Contracts.capabilities import CapabilityRequest, CapabilityResponse, Provid
 from Contracts.common import SCHEMA_VERSION, Clock, EnvironmentScope, ProvenanceLineage, SourceAttestation
 from Contracts.evidence import EvidenceRecord
 from Contracts.observations import AggregateStats, DataQuality, Observation, ObservationClocks, TimePoint, TimeSeries
-from Contracts.variables import MetricDefinition, MetricTimeSemantics, NumericValueSchema
+from Contracts.variables import MetricDefinition, MetricTimeSemantics, NumericValueSchema, PopulationCoverage
 
 U = timezone.utc
 _REQ = TypeAdapter(CapabilityRequest)
@@ -78,6 +78,8 @@ class TelemetryPort:
         for svc in self.services:
             for st in STATS:
                 out.append(MetricDefinition(schema_version=SCHEMA_VERSION, variable_id=f"{svc}.{st}", scope=self.scope, provenance=att,
+                                            entity_ref="service",
+                                            population_coverage=PopulationCoverage(population_id=f"{svc}_server_spans", coverage="full"),
                                             kind="metric", aggregation_kind={"requests": "count", "errors": "count",
                                                                              "error_rate": "mean", "latency_p95_ms": "quantile"}[st],
                                             value_schema=NumericValueSchema(type="numeric", dtype={"requests": "count", "errors": "count",

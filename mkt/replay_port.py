@@ -52,6 +52,17 @@ METRICS = [
     MetricDefinition(id="mean_review_score", value_schema={"value": "float"}, unit="1-5", scope="answered surveys",
                      formula="mean(review_score)", grain=["week", "month"], population="surveys answered within the window"),
 ]
+# component counts so that derived shares are declared ratios (taxonomy.py)
+METRICS += [
+    MetricDefinition(id="deliveries_count", value_schema={"value": "int"}, unit="orders", scope="delivered orders",
+                     formula="count(delivered)", grain=["day", "week", "month"], population="deliveries in the window"),
+    MetricDefinition(id="late_deliveries_count", value_schema={"value": "int"}, unit="orders", scope="delivered orders",
+                     formula="count(delivered[days_late>0])", grain=["day", "week", "month"], population="deliveries in the window"),
+    MetricDefinition(id="cohort_delivered_count", value_schema={"value": "int"}, unit="orders", scope="orders",
+                     formula="count(order_placed delivered by as_of)", grain=["week", "month"], population="order cohort"),
+    MetricDefinition(id="cohort_late_count", value_schema={"value": "int"}, unit="orders", scope="orders",
+                     formula="count(order_placed delivered late by as_of)", grain=["week", "month"], population="order cohort"),
+]
 METRIC_BY_ID = {m.id: m for m in METRICS}
 # Session-layer metrics (served only by ports whose frame has session events). Funnel order is declared
 # through identities "funnel_after: <previous stage>" (provisional notation, see P1_2_SESSION_LAYER_PREREG.md).
@@ -63,7 +74,10 @@ SESSION_METRICS = [
     MetricDefinition(id="checkouts_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(checkout_started)",
                      grain=["day", "week", "month"], population="sessions that started checkout", empirical_identities=["funnel_after: cart_adds_count"]),
 ]
-SESSION_EVENT = {"sessions_count": "session_started", "cart_adds_count": "cart_added", "checkouts_count": "checkout_started"}
+SESSION_METRICS.append(MetricDefinition(id="views_count", value_schema={"value": "int"}, unit="views", scope="sessions",
+                                        formula="count(item_viewed)", grain=["day", "week", "month"], population="items viewed"))
+SESSION_EVENT = {"sessions_count": "session_started", "cart_adds_count": "cart_added", "checkouts_count": "checkout_started",
+                 "views_count": "item_viewed"}
 TRUNC = {"day": "1d", "week": "1w", "month": "1mo"}
 
 
@@ -177,6 +191,17 @@ class EventFramePort:
         elif m.id == "late_share":
             base, val = self._window(vis.filter(pl.col("event_type") == "delivered"), req), (pl.col("value") > 0).mean()
             flags = flags + ["denominator = deliveries completed by as_of; undelivered orders are censored, not on time"]
+        elif m.id in ("deliveries_count", "late_deliveries_count"):
+            base = self._window(vis.filter(pl.col("event_type") == "delivered"), req)
+            if m.id == "late_deliveries_count":
+                base = base.filter(pl.col("value") > 0)
+            val = pl.len()
+        elif m.id in ("cohort_delivered_count", "cohort_late_count"):
+            d = vis.filter(pl.col("event_type") == "delivered").select("order_id", pl.col("value").alias("days_late"))
+            base = placed.join(d, on="order_id", how="inner")
+            if m.id == "cohort_late_count":
+                base = base.filter(pl.col("days_late") > 0)
+            val = pl.len()
         elif m.id == "late_share_cohort":
             d = vis.filter(pl.col("event_type") == "delivered").select("order_id", pl.col("value").alias("days_late"))
             base = placed.join(d, on="order_id", how="inner")

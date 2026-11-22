@@ -22,7 +22,10 @@ from Contracts.observations import (AggregateStats, DataQuality, EventBatch, Eve
 from Contracts.variables import (EventPayloadSchema, EventVariableDefinition, FormulaBinOp, FormulaRef,
                                  MetricDefinition, MetricTimeSemantics, NumericValueSchema, PopulationCoverage)
 
-from .replay_port import EVENT_VARS, SESSION_EVENT
+
+from . import taxonomy as TX
+
+RATIOS = TX.RATIOS
 from .v3 import EvidenceRequest as _InternalRequest  # internal engine type only, never exposed
 from .v3 import Refusal as _InternalRefusal
 
@@ -30,19 +33,6 @@ LOCAL = ZoneInfo("America/Sao_Paulo")      # Olist and the simulated clock are l
 GRAINS = {"1d": "day", "1w": "week"}
 SERVED = ("get_series", "get_aggregate", "get_event_batch", "get_source_metadata")
 _REQ = TypeAdapter(CapabilityRequest)
-
-# metric id -> (aggregation_kind, dtype, unit)
-_KIND = {"orders_count": ("count", "count", "orders"), "payments_count": ("count", "count", "orders"),
-         "gmv": ("sum", "real", "BRL"), "late_share": ("mean", "proportion", None), "late_share_cohort": ("mean", "proportion", None),
-         "mean_promised_days": ("mean", "real", "days"), "mean_delivery_days": ("mean", "real", "days"),
-         "mean_review_score": ("mean", "real", "1-5"), "sessions_count": ("count", "count", "sessions"),
-         "cart_adds_count": ("count", "count", "sessions"), "checkouts_count": ("count", "count", "sessions")}
-# ratio metrics: id -> (numerator, denominator, identity_tolerance or None)
-RATIOS = {"order_payment_ratio": ("payments_count", "orders_count", 0.02),     # identity: each order is paid once
-          "cart_rate": ("cart_adds_count", "sessions_count", None),             # funnel stages
-          "checkout_rate": ("checkouts_count", "cart_adds_count", None),
-          "completion_rate": ("orders_count", "checkouts_count", None)}
-
 
 def to_utc(t: datetime) -> datetime:
     return t.replace(tzinfo=LOCAL).astimezone(timezone.utc) if t.tzinfo is None else t.astimezone(timezone.utc)
@@ -75,46 +65,37 @@ class ContractPort:
         self.hidden.discard(variable_id)
 
     def _served_metrics(self) -> list[str]:
-        ms = [m for m in self._metric_ids if m not in self.hidden]
-        ms += [r for r, (a, b, _) in RATIOS.items() if a in ms and b in ms and r not in self.hidden]
-        return ms
+        engine = {m.id for m in self._e.metrics}
+        base = [v for v in TX.BASE_METRICS if v in engine and v not in self.hidden]
+        ratios = [r for r, m in TX.RATIOS.items() if set(m.formula) <= set(base) and r not in self.hidden]
+        return base + ratios
 
     def _served_events(self) -> list[str]:
         types = set(self._e.events["event_type"].unique().to_list())
-        out = [k for k, v in EVENT_VARS.items() if v[0] in types]
-        out += [v for v in SESSION_EVENT.values() if v in types]
-        return [x for x in out if x not in self.hidden]
+        return [e.variable_id for e in TX.EVENTS if e.event_type in types and e.variable_id not in self.hidden]
 
     def definitions(self) -> tuple:
-        """Read-only variable catalogue (gap G1: ProviderManifest has no catalogue field)."""
+        """Read-only variable catalogue built from mkt/taxonomy.py (gap G1: the manifest has no catalogue field)."""
         att = SourceAttestation(source_id=self.provider_id, method="adapter_declared")
         base = dict(schema_version=SCHEMA_VERSION, scope=self.scope, provenance=att)
         out = []
-        internal = {m.id: m for m in self._e.metrics}
         for vid in self._served_metrics():
-            if vid in RATIOS:
-                a, b, tol = RATIOS[vid]
-                out.append(MetricDefinition(**base, kind="metric", variable_id=vid,
-                                            value_schema=NumericValueSchema(type="numeric", dtype="real", minimum=0.0),
-                                            aggregation_kind="ratio", time_semantics=MetricTimeSemantics(grain="1w", window="tumbling"),
-                                            formula_ast=FormulaBinOp(node="binop", op="div", left=FormulaRef(node="ref", variable_id=a),
-                                                                     right=FormulaRef(node="ref", variable_id=b)),
-                                            identity_tolerance=tol, description=f"{a} / {b}", extensions=self._ext.get(vid, {})))
-                continue
-            agg, dtype, unit = _KIND[vid]
-            m = internal[vid]
-            ext = self._ext.get(vid, {})
-            out.append(MetricDefinition(**base, kind="metric", variable_id=vid,
-                                        value_schema=NumericValueSchema(type="numeric", dtype=dtype, minimum=0.0,
-                                                                        maximum=1.0 if dtype == "proportion" else None),
-                                        unit=unit, aggregation_kind=agg, description=m.formula,
-                                        population_coverage=PopulationCoverage(population_id=m.scope.replace(" ", "_"), coverage="full"),
-                                        time_semantics=MetricTimeSemantics(grain="1w", window="tumbling"), extensions=ext))
+            m = TX.METRIC_BY_ID[vid]
+            vs = NumericValueSchema(type="numeric", dtype=m.dtype, minimum=0.0, maximum=1.0 if m.dtype == "proportion" else None)
+            f = (FormulaBinOp(node="binop", op="div", left=FormulaRef(node="ref", variable_id=m.formula[0]),
+                              right=FormulaRef(node="ref", variable_id=m.formula[1])) if m.formula else None)
+            out.append(MetricDefinition(**base, kind="metric", variable_id=vid, entity_ref=m.entity, description=m.description,
+                                        value_schema=vs, unit=m.unit, aggregation_kind=m.aggregation,
+                                        population_coverage=PopulationCoverage(population_id=m.population, coverage=m.coverage),
+                                        time_semantics=MetricTimeSemantics(grain="1w", window="tumbling", timezone="America/Sao_Paulo"),
+                                        formula_ast=f, identity_tolerance=m.identity_tolerance, extensions=self._ext.get(vid, {})))
         for vid in self._served_events():
-            fields = {"entity_id": "text", "region": "category", "value": "real"}
-            out.append(EventVariableDefinition(**base, kind="event", variable_id=vid,
-                                               value_schema=EventPayloadSchema(type="event", fields=fields, identity_fields=("entity_id",)),
-                                               occurrence_time="event_time"))
+            e = TX.EVENT_BY_ID[vid]
+            fields = {k: t for k, (t, _) in e.fields.items()}
+            ident = next(k for k in e.fields if k.endswith("_id"))
+            out.append(EventVariableDefinition(**base, kind="event", variable_id=vid, entity_ref=e.entity, description=e.description,
+                                               value_schema=EventPayloadSchema(type="event", fields=fields, identity_fields=(ident,)),
+                                               occurrence_time="event_time", extensions=self._ext.get(vid, {})))
         return tuple(out)
 
     def manifest(self) -> ProviderManifest:
@@ -166,14 +147,14 @@ class ContractPort:
             return f"grain {req.grain} not served (served: {sorted(GRAINS)})"
         shape = "series" if req.request == "get_series" else "aggregate"
         if vid in RATIOS:
-            a, b, _ = RATIOS[vid]
+            a, b = RATIOS[vid].formula
             ra, rb = (self._e.query(self._internal(req, x, shape)) for x in (a, b))
             if isinstance(ra, _InternalRefusal) or isinstance(rb, _InternalRefusal):
                 return "component metric refused"
             pa, pb = ra.observations[0].payload, rb.observations[0].payload
             if shape == "series":
-                db = {p["t"]: p["value"] for p in pb}
-                pts = [(p["t"], p["value"] / db[p["t"]] if db.get(p["t"]) else None) for p in pa if p["t"] in db]
+                na = {p["t"]: p["value"] or 0 for p in pa}                       # no numerator rows in a bucket = 0
+                pts = [(p["t"], na.get(p["t"], 0) / p["value"] if p["value"] else None) for p in pb]
                 payload = self._series(pts, req)
             else:
                 payload = AggregateStats(shape="aggregate_stats", n=int(pb["n"] or 0), numerator=float(pa["value"] or 0),
@@ -186,7 +167,7 @@ class ContractPort:
             if shape == "series":
                 payload = self._series([(x["t"], x["value"]) for x in p], req)
             else:
-                agg = _KIND[vid][0]
+                agg = TX.METRIC_BY_ID[vid].aggregation
                 n = int(p["n"] or 0)
                 v = p["value"]
                 payload = (AggregateStats(shape="aggregate_stats", n=n, total=float(v or 0), window=req.window) if agg in ("count", "sum")
@@ -206,10 +187,10 @@ class ContractPort:
             TimePoint(t=to_utc(datetime.fromisoformat(t)), value=None if v is None else float(v)) for t, v in sorted(pts)))
 
     def _events(self, req, vid):
-        etype = EVENT_VARS[vid][0] if vid in EVENT_VARS else vid
-        vis = self._e._visible(to_local(req.data_cut))
         import polars as pl
-        df = vis.filter(pl.col("event_type") == etype)
+        e = TX.EVENT_BY_ID[vid]
+        vis = self._e._visible(to_local(req.data_cut))
+        df = vis.filter(pl.col("event_type") == e.event_type)
         if req.window:
             df = df.filter((pl.col("event_time") >= to_local(req.window.start)) & (pl.col("event_time") < to_local(req.window.end)))
         cap = min(req.max_rows, req.max_events)
@@ -217,11 +198,14 @@ class ContractPort:
             return f"budget: {df.height:,} events > limit {cap:,}; narrow the window or ask a metric"
         if df.height == 0:
             return "no events in the window"
-        q = "KNOWN"
-        evs = tuple(EventRecord(event_id=r["event_id"].replace(" ", "_"), occurred_at=Clock(quality=q, value=to_utc(r["event_time"])),
-                                attributes={"entity_id": r["order_id"], "region": r.get("region"),
-                                            "value": None if r.get("value") is None else float(r["value"])})
-                    for r in df.select("event_id", "event_time", "order_id", "region", "value").to_dicts())
+        cols = {c for _, c in e.fields.values()}
+        df = df.with_columns([pl.lit(None).alias(c) for c in cols if c not in df.columns])
+        cast = {"real": float, "integer": lambda v: int(round(v)), "boolean": lambda v: bool(v), "text": str, "category": str}
+
+        def attrs(r):
+            return {k: (None if r[c] is None else cast[t](r[c])) for k, (t, c) in e.fields.items()}
+        evs = tuple(EventRecord(event_id=_safe(r["event_id"]), occurred_at=Clock(quality="KNOWN", value=to_utc(r["event_time"])), attributes=attrs(r))
+                    for r in df.select("event_id", "event_time", *sorted(cols)).to_dicts())
         return self._observation(req, vid, EventBatch(shape="event_batch", events=evs), f"{vid}:events:{req.window.start.isoformat() if req.window else ''}")
 
     def _observation(self, req, vid, payload, record_key):
@@ -254,13 +238,15 @@ def _safe(s: str) -> str:
 
 # ------------------------------------------------------------------ constructors
 def olist_port(cfg=None) -> ContractPort:
-    """Real Olist data. available_at is ESTIMATED: Olist has no arrival times (assumption: available at event time)."""
+    """Real Olist data replayed offline. available_at is ESTIMATED: Olist has no arrival times (assumed = event time)."""
     from .replay_port import OlistReplayPort
     e = OlistReplayPort(cfg)
     files = e.root.files
-    scope = EnvironmentScope(environment_id="olist-production-2018", environment_kind="production", data_cut=to_utc(e.cut),
+    # G2 (decided 22 Nov by the contracts' owner): replayed real history is NOT production -> offline_replay.
+    # The contract then allows role SANDBOX_OBSERVED (REAL_OBSERVED is reserved for production scopes).
+    scope = EnvironmentScope(environment_id="olist-offline-replay-2018", environment_kind="offline_replay", data_cut=to_utc(e.cut),
                              dataset_version=f"olist-kaggle-{e.root.source_version}")
-    return ContractPort(e, provider_id="olist", origin_kind="original", role="REAL_OBSERVED", scope=scope,
+    return ContractPort(e, provider_id="olist", origin_kind="original", role="SANDBOX_OBSERVED", scope=scope,
                         available_clock="ESTIMATED", lineage_root=f"olist:{_sha(files)[:16]}")
 
 
@@ -272,7 +258,8 @@ def emulator_port(engine, session_params=None, hidden_variables=frozenset()) -> 
                              generator_version=gen)
     ext = {}
     if session_params is not None:
-        card_for = {"sessions_count": "TC-RR1", "cart_adds_count": "TC-RR1", "checkouts_count": "TC-TB1"}
+        card_for = {"sessions_count": "TC-RR1", "cart_adds_count": "TC-RR1", "views_count": "TC-RR1", "checkouts_count": "TC-TB1",
+                    "item_viewed": "TC-EX1", "session_started": "TC-DV1"}
         for vid, card in card_for.items():
             ext[vid] = {"mkt:transport_card": card, "mkt:transport_status": session_params.cards[card][:60]}
     return ContractPort(engine, provider_id="emulator-chain", origin_kind="synthetic_generated", role="SYNTHETIC_GENERATED",

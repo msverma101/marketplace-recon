@@ -82,7 +82,11 @@ def test_s8_unsupported_and_budget_are_explained(which, request):
 def test_s6_roles_scopes_and_origins(olist, emu):
     o = olist.query(_req(GetSeries, olist, variables=("orders_count",), window=WIN, request="get_series", grain="1w")).observations[0]
     e = emu.query(_req(GetSeries, emu, variables=("orders_count",), window=WIN, request="get_series", grain="1w")).observations[0]
-    assert o.lineage.origin_kind == "original" and olist.evidence_record(o).provenance_role == "REAL_OBSERVED"
+    # G2 (owner decision 22 Nov): replayed real history is offline_replay, hence SANDBOX_OBSERVED, never REAL_OBSERVED
+    assert o.lineage.origin_kind == "original" and o.scope.environment_kind == "offline_replay"
+    assert olist.evidence_record(o).provenance_role == "SANDBOX_OBSERVED"
+    with pytest.raises(ValueError):
+        EvidenceRecord(evidence_id="x", lineage=o.lineage, scope=o.scope, provenance_role="REAL_OBSERVED", content_hash=o.lineage.content_hash)
     assert e.lineage.origin_kind == "synthetic_generated" and e.lineage.generator_version and e.scope.environment_kind == "emulator"
     assert emu.evidence_record(e).provenance_role == "SYNTHETIC_GENERATED"
     with pytest.raises(ValueError):                       # the contract itself forbids relabelling emulator output as real
@@ -125,3 +129,75 @@ def test_import_boundary_core_side():
                [a.name for n in ast.walk(tree) if isinstance(n, ast.Import) for a in n.names]
         bad = [m for m in mods if m.startswith(banned) or (m.startswith("mkt") and f.name != "standin_core.py")]
         assert not bad, f"{f.name} imports {bad}"
+
+
+# ---------------------------------------------------------------- variable taxonomy (G1)
+from Contracts.observations import ALLOWED_SHAPES  # noqa: E402
+from Contracts.variables import METRIC_ONLY_FIELDS  # noqa: E402
+
+
+@pytest.fixture(scope="module")
+def emu_sessions(cfg):
+    from mkt.sim.sessions import SessionParams
+    try:
+        registry.load("olist", cfg.artifacts)
+        sp = SessionParams.from_cards()
+    except (registry.MissingSource, FileNotFoundError):
+        pytest.skip("Olist or transport cards missing")
+    p = chain.fit(pipeline.canonical_olist(cfg))
+    _, _, _, eng, _ = twin.run(p, date(2018, 1, 1), date(2018, 1, 22), 82, None, session_params=sp)
+    return core_port.emulator_port(eng, sp)
+
+
+@pytest.mark.parametrize("which", ["olist", "emu_sessions"])
+def test_taxonomy_definitions_are_complete_and_related(which, request):
+    port = request.getfixturevalue(which)
+    defs = {d.variable_id: d for d in port.definitions()}
+    for d in defs.values():
+        assert d.entity_ref and d.description, d.variable_id
+        if d.kind != "metric":
+            assert not any(f in type(d).model_fields for f in METRIC_ONLY_FIELDS)
+            continue
+        assert d.aggregation_kind and d.population_coverage and d.time_semantics
+        if d.formula_ast is not None:                                    # relations are declared, and resolve
+            refs = {d.formula_ast.left.variable_id, d.formula_ast.right.variable_id}
+            assert refs <= set(defs), (d.variable_id, refs - set(defs))
+            assert d.aggregation_kind == "ratio"
+            assert all(defs[r].entity_ref == d.entity_ref or d.variable_id == "completion_rate" for r in refs)
+        if d.identity_tolerance is not None:
+            assert d.formula_ast is not None
+    if which == "emu_sessions":
+        assert {"cart_rate", "checkout_rate", "completion_rate", "views_per_session", "late_share"} <= set(defs)
+
+
+@pytest.mark.parametrize("which", ["olist", "emu_sessions"])
+def test_taxonomy_served_shapes_and_event_fields(which, request):
+    port = request.getfixturevalue(which)
+    win = TimeWindow(start=datetime(2018, 1, 8, 3, tzinfo=U), end=datetime(2018, 1, 9, 3, tzinfo=U))
+    for d in port.definitions():
+        if d.kind == "event":
+            r = port.query(_req(GetEventBatch, port, variables=(d.variable_id,), request="get_event_batch", window=win, max_rows=200_000,
+                                max_events=200_000, data_cut=datetime(2018, 1, 22, tzinfo=U)))
+            if r.status != "OK":
+                assert "no events" in r.reason, (d.variable_id, r.reason)
+                continue
+            o = r.observations[0]
+            assert o.payload.shape in ALLOWED_SHAPES["event"]
+            ev = o.payload.events[0]
+            assert set(ev.attributes) == set(d.value_schema.fields), d.variable_id
+            ident = d.value_schema.identity_fields[0]
+            assert all(e.attributes[ident] is not None for e in o.payload.events)
+        else:
+            r = port.query(_req(GetSeries, port, variables=(d.variable_id,), request="get_series", grain="1w", window=WIN))
+            assert r.status == "OK", (d.variable_id, r.reason)
+            assert r.observations[0].payload.shape in ALLOWED_SHAPES["metric"]
+            vals = [p.value for p in r.observations[0].payload.points if p.value is not None]
+            if d.value_schema.dtype == "proportion":
+                assert all(0 <= v <= 1 for v in vals), d.variable_id
+
+
+def test_ratio_matches_its_components(olist):
+    r = olist.query(_req(GetAggregate, olist, variables=("late_share", "late_deliveries_count", "deliveries_count"),
+                         window=WIN, request="get_aggregate"))
+    share, late, total = (o.payload for o in r.observations)
+    assert share.numerator == late.total and share.denominator == total.total
