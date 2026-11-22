@@ -13,7 +13,7 @@ import numpy as np
 import polars as pl
 
 from ..interventions import parse_selector
-from ..v3 import FailureCode, InterventionEvent, InterventionSpec
+from ..engine_types import FailureCode, InterventionEvent, InterventionSpec
 from .chain import ChainParams, simulate
 from .chain import uniform
 from .observe_chain import EmulatorPort, ObservationModel, SessionEmulatorPort, observe

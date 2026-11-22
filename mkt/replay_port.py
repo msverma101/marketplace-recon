@@ -3,7 +3,7 @@
 Serves v3 Observations from the canonical Olist events (phase-1 semantics). Read-only and as-of:
 nothing whose available_at is later than the request's as_of is ever returned.
 
-Assumption (recorded in the EnvironmentScope): Olist has no ingestion/arrival times, so in this
+Assumption (recorded in the EngineScope): Olist has no ingestion/arrival times, so in this
 real-replay environment available_at = event_time. Phase 4 replaces this with an observation model.
 """
 from __future__ import annotations
@@ -16,9 +16,9 @@ import polars as pl
 
 from . import pipeline, registry
 from .config import Config
-from .v3 import (CapabilitySpec, EnvironmentKind, EnvironmentScope, EvidenceRecord, EvidenceRequest, EvidenceResult,
-                 FailureCode, InterventionEvent, InterventionSpec, LineageRoot, MetricDefinition, Observation, OriginClass,
-                 ProvenanceLineage, Refusal, VariableDefinition, VariableKind)
+from .engine_types import (CapabilitySpec, EnvironmentKind, EngineScope, EngineEvidence, EvidenceRequest, EvidenceResult,
+                 FailureCode, InterventionEvent, InterventionSpec, LineageRoot, EngineMetric, EngineObservation, OriginClass,
+                 EngineLineage, Refusal, EngineVariable, VariableKind)
 
 EVENT_VARS = {   # variable id -> (canonical event_type, kind, value schema, missingness note)
     "order_placed": ("order_created", VariableKind.EVENT, {"amount": "float[BRL]", "promised_days": "float[days]"}, "none known"),
@@ -30,51 +30,51 @@ EVENT_VARS = {   # variable id -> (canonical event_type, kind, value schema, mis
     "review_score": ("review_submitted", VariableKind.CATEGORICAL, {"score": "int[1-5]"}, "~1% of orders have no answered survey"),
 }
 METRICS = [
-    MetricDefinition(id="orders_count", value_schema={"value": "int"}, unit="orders", scope="orders", formula="count(order_placed)",
+    EngineMetric(id="orders_count", value_schema={"value": "int"}, unit="orders", scope="orders", formula="count(order_placed)",
                      grain=["day", "week", "month"], population="all orders",
                      empirical_identities=["orders_count ~ payments_count (each order is paid once; Olist: 1 of 99,441 without payment)"]),
-    MetricDefinition(id="payments_count", value_schema={"value": "int"}, unit="orders", scope="orders", formula="count(payment_approved)",
+    EngineMetric(id="payments_count", value_schema={"value": "int"}, unit="orders", scope="orders", formula="count(payment_approved)",
                      grain=["day", "week", "month"], population="orders with an approved payment (by approval time)",
                      empirical_identities=["payments_count ~ orders_count"]),
-    MetricDefinition(id="gmv", value_schema={"value": "float"}, unit="BRL", scope="orders", formula="sum(order_placed.amount)",
+    EngineMetric(id="gmv", value_schema={"value": "float"}, unit="BRL", scope="orders", formula="sum(order_placed.amount)",
                      grain=["day", "week", "month"], population="all orders", empirical_identities=["gmv = sum(item_sold.price + item_sold.freight)"]),
-    MetricDefinition(id="late_share", value_schema={"value": "float"}, unit="share", scope="delivered orders",
+    EngineMetric(id="late_share", value_schema={"value": "float"}, unit="share", scope="delivered orders",
                      formula="count(delivered[days_late>0]) / count(delivered)", grain=["week", "month"],
                      population="orders delivered within the window (by delivery time)"),
-    MetricDefinition(id="late_share_cohort", value_schema={"value": "float"}, unit="share", scope="orders",
+    EngineMetric(id="late_share_cohort", value_schema={"value": "float"}, unit="share", scope="orders",
                      formula="count(order_placed with delivered.days_late>0) / count(order_placed delivered by as_of)",
                      grain=["week", "month"], population="orders PLACED within the window and delivered by as_of (purchase cohort)"),
-    MetricDefinition(id="mean_promised_days", value_schema={"value": "float"}, unit="days", scope="orders",
+    EngineMetric(id="mean_promised_days", value_schema={"value": "float"}, unit="days", scope="orders",
                      formula="mean(order_placed.promised_days)", grain=["week", "month"], population="orders placed within the window"),
-    MetricDefinition(id="mean_delivery_days", value_schema={"value": "float"}, unit="days", scope="delivered orders",
+    EngineMetric(id="mean_delivery_days", value_schema={"value": "float"}, unit="days", scope="delivered orders",
                      formula="mean(delivered.t - order_placed.t)", grain=["week", "month"],
                      population="orders placed within the window that were delivered by as_of"),
-    MetricDefinition(id="mean_review_score", value_schema={"value": "float"}, unit="1-5", scope="answered surveys",
+    EngineMetric(id="mean_review_score", value_schema={"value": "float"}, unit="1-5", scope="answered surveys",
                      formula="mean(review_score)", grain=["week", "month"], population="surveys answered within the window"),
 ]
 # component counts so that derived shares are declared ratios (taxonomy.py)
 METRICS += [
-    MetricDefinition(id="deliveries_count", value_schema={"value": "int"}, unit="orders", scope="delivered orders",
+    EngineMetric(id="deliveries_count", value_schema={"value": "int"}, unit="orders", scope="delivered orders",
                      formula="count(delivered)", grain=["day", "week", "month"], population="deliveries in the window"),
-    MetricDefinition(id="late_deliveries_count", value_schema={"value": "int"}, unit="orders", scope="delivered orders",
+    EngineMetric(id="late_deliveries_count", value_schema={"value": "int"}, unit="orders", scope="delivered orders",
                      formula="count(delivered[days_late>0])", grain=["day", "week", "month"], population="deliveries in the window"),
-    MetricDefinition(id="cohort_delivered_count", value_schema={"value": "int"}, unit="orders", scope="orders",
+    EngineMetric(id="cohort_delivered_count", value_schema={"value": "int"}, unit="orders", scope="orders",
                      formula="count(order_placed delivered by as_of)", grain=["week", "month"], population="order cohort"),
-    MetricDefinition(id="cohort_late_count", value_schema={"value": "int"}, unit="orders", scope="orders",
+    EngineMetric(id="cohort_late_count", value_schema={"value": "int"}, unit="orders", scope="orders",
                      formula="count(order_placed delivered late by as_of)", grain=["week", "month"], population="order cohort"),
 ]
 METRIC_BY_ID = {m.id: m for m in METRICS}
 # Session-layer metrics (served only by ports whose frame has session events). Funnel order is declared
 # through identities "funnel_after: <previous stage>" (provisional notation, see P1_2_SESSION_LAYER_PREREG.md).
 SESSION_METRICS = [
-    MetricDefinition(id="sessions_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(session_started)",
+    EngineMetric(id="sessions_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(session_started)",
                      grain=["day", "week", "month"], population="all sessions (buying, research, non-buying)"),
-    MetricDefinition(id="cart_adds_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(cart_added)",
+    EngineMetric(id="cart_adds_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(cart_added)",
                      grain=["day", "week", "month"], population="sessions with a cart add", empirical_identities=["funnel_after: sessions_count"]),
-    MetricDefinition(id="checkouts_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(checkout_started)",
+    EngineMetric(id="checkouts_count", value_schema={"value": "int"}, unit="sessions", scope="sessions", formula="count(checkout_started)",
                      grain=["day", "week", "month"], population="sessions that started checkout", empirical_identities=["funnel_after: cart_adds_count"]),
 ]
-SESSION_METRICS.append(MetricDefinition(id="views_count", value_schema={"value": "int"}, unit="views", scope="sessions",
+SESSION_METRICS.append(EngineMetric(id="views_count", value_schema={"value": "int"}, unit="views", scope="sessions",
                                         formula="count(item_viewed)", grain=["day", "week", "month"], population="items viewed"))
 SESSION_EVENT = {"sessions_count": "session_started", "cart_adds_count": "cart_added", "checkouts_count": "checkout_started",
                  "views_count": "item_viewed"}
@@ -92,7 +92,7 @@ class EventFramePort:
     source_id = "olist"
     observation_mechanism = "Olist order-system export (Kaggle 2018 release)"
 
-    def __init__(self, events: pl.DataFrame, env: EnvironmentScope, root: LineageRoot, event_rows_max: int = 200_000,
+    def __init__(self, events: pl.DataFrame, env: EngineScope, root: LineageRoot, event_rows_max: int = 200_000,
                  trained_through: datetime | None = None):
         self.events = events
         self.env = env
@@ -104,8 +104,8 @@ class EventFramePort:
     # -------------------------------------------------------------------------------------------
     metrics: list = METRICS
 
-    def variables(self) -> list[VariableDefinition]:
-        out = [VariableDefinition(id=k, kind=v[1], value_schema=v[2], scope="orders", description=f"Olist {v[0]} event")
+    def variables(self) -> list[EngineVariable]:
+        out = [EngineVariable(id=k, kind=v[1], value_schema=v[2], scope="orders", description=f"Olist {v[0]} event")
                for k, v in EVENT_VARS.items()]
         return out + list(self.metrics)
 
@@ -120,10 +120,10 @@ class EventFramePort:
                            FailureCode.BUDGET_EXCEEDED])
 
     # -------------------------------------------------------------------------------------------
-    def _evidence(self, origin: OriginClass, transforms: list[str]) -> EvidenceRecord:
+    def _evidence(self, origin: OriginClass, transforms: list[str]) -> EngineEvidence:
         eid = "ev:" + hashlib.sha1("|".join([origin.value, self.env.id, *transforms]).encode()).hexdigest()[:16]
-        return EvidenceRecord(id=eid, origin=origin, environment_id=self.env.id,
-                              lineage=ProvenanceLineage(roots=[self.root], transformations=transforms, trained_through=self.trained_through))
+        return EngineEvidence(id=eid, origin=origin, environment_id=self.env.id,
+                              lineage=EngineLineage(roots=[self.root], transformations=transforms, trained_through=self.trained_through))
 
     def _visible(self, as_of: datetime) -> dict[str, pl.DataFrame]:
         """Everything knowable at as_of (arrived by then; latest revision of each record), split by event type.
@@ -173,7 +173,7 @@ class EventFramePort:
             return Refusal(code=FailureCode.BUDGET_EXCEEDED, reason=f"{df.height:,} rows; narrow the window or use a metric")
         cols = ["event_id", "event_time", "order_id", "seller_id", "product_id", "region", "amount", "value", "metric"]
         ev = self._evidence(self.event_origin, [f"{self.source_id} {self.env.mechanism_versions}", f"select {etype}"])
-        obs = Observation(id=f"obs:{req.variable_id}:{ev.id}:{req.as_of.isoformat()}", variable_id=req.variable_id, shape="event_sequence",
+        obs = EngineObservation(id=f"obs:{req.variable_id}:{ev.id}:{req.as_of.isoformat()}", variable_id=req.variable_id, shape="event_sequence",
                           payload=df.select(cols).to_dicts(), window_start=req.window_start, window_end=req.window_end,
                           available_at=df["available_at"].max() if df.height else req.as_of, population="orders",
                           observation_mechanism=self.observation_mechanism, missingness=missing,
@@ -194,7 +194,7 @@ class EventFramePort:
             s = (base.with_columns(pl.col("event_time").dt.truncate(TRUNC[grain]).alias("t"))
                  .group_by("t").agg(val.alias("value"), pl.len().alias("n")).sort("t"))
             payload = [{"t": r["t"].isoformat(), "value": r["value"], "n": r["n"]} for r in s.to_dicts()]
-        obs = Observation(id=f"obs:{m.id}:{grain}:{ev.id}:{req.as_of.isoformat()}", variable_id=m.id, shape=req.shape, payload=payload,
+        obs = EngineObservation(id=f"obs:{m.id}:{grain}:{ev.id}:{req.as_of.isoformat()}", variable_id=m.id, shape=req.shape, payload=payload,
                           window_start=req.window_start, window_end=req.window_end,
                           available_at=base["available_at"].max() if base.height else req.as_of, population=m.population,
                           observation_mechanism=f"derived from {self.source_id} events by {m.formula}", missingness="see source variables",
@@ -251,7 +251,7 @@ class OlistReplayPort(EventFramePort):
         self.manifest = registry.load("olist", cfg.artifacts)
         ev = pl.read_parquet(canon / "events.parquet").filter(pl.col("event_time").is_not_null())
         events = ev.with_columns(pl.col("event_time").alias("available_at"))
-        env = EnvironmentScope(
+        env = EngineScope(
             id="olist-real-replay", kind=EnvironmentKind.REAL_REPLAY, data_cut=events["event_time"].max(),
             mechanism_versions={"adapter": canon.name},
             assumptions=["available_at = event_time (Olist exports have no arrival times; phase 4 adds an observation model)",

@@ -8,7 +8,7 @@ import pytest
 
 from mkt import pipeline, registry
 from mkt.sim import chain, twin
-from mkt.v3 import EvidenceRequest, FailureCode, InterventionSpec
+from mkt.engine_types import EvidenceRequest, FailureCode, InterventionSpec
 
 W0, W1 = datetime(2018, 2, 5), datetime(2018, 2, 12)
 

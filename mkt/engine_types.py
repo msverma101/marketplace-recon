@@ -1,4 +1,7 @@
-"""Input-layer contracts in the causal core v3's own vocabulary (ARCHITECTURE.md §9.0).
+"""Internal engine types (formerly mkt/v3.py). NOT the core-facing contracts: those are Contracts/ (schema 2.0),
+served through mkt/core_port.py. Classes whose names clashed with Contracts carry an "Engine" prefix.
+
+Original note: input-layer contracts in the causal core v3's own vocabulary (ARCHITECTURE.md §9.0).
 
 Names and responsibilities follow `causal_core_v3_domain_agnostic_architecture.excalidraw`
 (Subsystem 2, v3.0). Where that diagram names a contract but not its fields, fields here are
@@ -37,8 +40,8 @@ class VariableKind(str, Enum):
     METRIC = "metric"
 
 
-class VariableDefinition(_Frozen):
-    """v3: VariableDefinition(id, kind, value_schema). Extra fields (unit, scope, description) provisional."""
+class EngineVariable(_Frozen):
+    """v3: EngineVariable(id, kind, value_schema). Extra fields (unit, scope, description) provisional."""
     id: str
     kind: VariableKind
     value_schema: dict[str, str]                 # field -> type, e.g. {"amount": "float[BRL]"}
@@ -47,8 +50,8 @@ class VariableDefinition(_Frozen):
     description: str = ""
 
 
-class MetricDefinition(VariableDefinition):
-    """v3: MetricDefinition(formula, grain, units): a specialised variable."""
+class EngineMetric(EngineVariable):
+    """v3: EngineMetric(formula, grain, units): a specialised variable."""
     kind: Literal[VariableKind.METRIC] = VariableKind.METRIC
     formula: str                                  # e.g. "count(order_placed)", "count(delivered[days_late>0]) / count(delivered)"
     grain: list[str]                              # e.g. ["week"], ["day", "region"]
@@ -73,7 +76,7 @@ class EnvironmentKind(str, Enum):
     EMULATOR = "emulator"
 
 
-class EnvironmentScope(_Frozen):
+class EngineScope(_Frozen):
     """v3 names 'environment' on evidence; fields provisional."""
     id: str
     kind: EnvironmentKind
@@ -89,19 +92,19 @@ class LineageRoot(_Frozen):
     table: str | None = None
 
 
-class ProvenanceLineage(_Frozen):
+class EngineLineage(_Frozen):
     roots: list[LineageRoot]
     transformations: list[str] = []               # e.g. ["adapter olist v<hash>", "metric orders_count"]
     trained_through: datetime | None = None       # for anything fitted (ARCHITECTURE §7.6)
     transport_card: str | None = None             # required when origin is TRANSPORTED
 
 
-class EvidenceRecord(_Frozen):
+class EngineEvidence(_Frozen):
     """v3: immutable evidence with lineage in the EvidenceLedger; fields provisional."""
     id: str
     origin: OriginClass
     environment_id: str
-    lineage: ProvenanceLineage
+    lineage: EngineLineage
 
     @model_validator(mode="after")
     def _transport_needs_card(self):
@@ -114,7 +117,7 @@ class EvidenceRecord(_Frozen):
 PayloadShape = Literal["sample", "aggregate", "series", "event_sequence", "panel", "assignment"]
 
 
-class Observation(_Frozen):
+class EngineObservation(_Frozen):
     """v3: typed payload + lineage, environment, revisions, observation mechanism and missingness."""
     id: str
     variable_id: str
@@ -133,7 +136,7 @@ class Observation(_Frozen):
 
 
 # ------------------------------------------------------------------ studies & interventions
-class StudyDesign(_Frozen):
+class EngineStudyDesign(_Frozen):
     """v3: randomized or observational; experimentation is one evidence design, not a default."""
     id: str
     design: Literal["randomized", "observational"]
@@ -143,15 +146,6 @@ class StudyDesign(_Frozen):
     target_estimand: str
     propensity_known: bool
     compliance_observed: bool
-
-
-class ExperimentRecord(_Frozen):
-    study_id: str
-    unit_id: str
-    arm: str
-    assigned_at: datetime
-    exposed_at: datetime | None = None
-    propensity: float | None = None
 
 
 class InterventionSpec(_Frozen):
@@ -175,17 +169,6 @@ class InterventionEvent(_Frozen):
     reason: str = ""
 
 
-class CausalQuestion(_Frozen):
-    """v3: target, contrast, estimand, population, time horizon, constraints."""
-    target: str
-    contrast: str
-    estimand: str
-    population: str
-    horizon: str
-    constraints: list[str] = []
-
-
-# ------------------------------------------------------------------ capability & port
 class FailureCode(str, Enum):
     UNSUPPORTED_SHAPE = "UNSUPPORTED_SHAPE"
     UNSUPPORTED_REQUEST = "UNSUPPORTED_REQUEST"
@@ -209,7 +192,7 @@ class CapabilitySpec(_Frozen):
 
 
 class EvidenceRequest(_Frozen):
-    """Typed request to the EvidenceAccessPort (fields provisional)."""
+    """Typed request to the EngineAccessPort (fields provisional)."""
     variable_id: str
     shape: PayloadShape
     as_of: datetime                                    # nothing with available_at > as_of is returned
@@ -225,12 +208,12 @@ class Refusal(_Frozen):
 
 
 class EvidenceResult(_Frozen):
-    observations: list[Observation]
-    evidence: list[EvidenceRecord]
+    observations: list[EngineObservation]
+    evidence: list[EngineEvidence]
 
 
-class EvidenceAccessPort(Protocol):
+class EngineAccessPort(Protocol):
     """v3 outbound port: read-only, budgeted, typed."""
     def capabilities(self) -> CapabilitySpec: ...
-    def variables(self) -> list[VariableDefinition]: ...              # incl. MetricDefinitions with empirical identities
+    def variables(self) -> list[EngineVariable]: ...              # incl. MetricDefinitions with empirical identities
     def query(self, request: EvidenceRequest) -> Union[EvidenceResult, Refusal]: ...

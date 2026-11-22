@@ -17,9 +17,3 @@ def params(cfg):
     except registry.MissingSource:
         pytest.skip("Olist not registered: run `mkt source add olist` first")
     return pipeline.params(cfg)[0]
-
-
-@pytest.fixture(scope="session")
-def world(params):
-    from mkt.sim.world import build_world
-    return build_world(params, seed=5, scale=0.15)

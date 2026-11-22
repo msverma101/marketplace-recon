@@ -18,7 +18,7 @@ from Contracts.tasks import DataCut, ExecutionBudget, ExplainObservation, Reason
 from ..emulator.api import Emulator, EmulatorConfig
 from ..sim.chain import uniform
 from ..standin_core import StandinCore
-from ..v3 import InterventionSpec
+from ..engine_types import InterventionSpec
 from .loop import FileSink, MeasurementPolicy, open_seal, seal
 
 U = timezone.utc

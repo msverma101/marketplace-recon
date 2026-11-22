@@ -16,7 +16,7 @@ import numpy as np
 import polars as pl
 
 from ..replay_port import EventFramePort
-from ..v3 import EnvironmentKind, EnvironmentScope, LineageRoot, OriginClass
+from ..engine_types import EnvironmentKind, EngineScope, LineageRoot, OriginClass
 from .chain import ChainParams, uniform
 
 S = 1_000_000  # microseconds per second
@@ -132,7 +132,7 @@ class EmulatorPort(EventFramePort):
     def __init__(self, observed: pl.DataFrame, params: ChainParams, om: ObservationModel, sim_start: datetime, seed: int,
                  event_rows_max: int = 200_000):
         pv = hashlib.sha1(json.dumps(asdict(params), sort_keys=True, default=str).encode()).hexdigest()[:12]
-        env = EnvironmentScope(
+        env = EngineScope(
             id=f"emulator-chain-s{seed}", kind=EnvironmentKind.EMULATOR, data_cut=observed["available_at"].max(),
             mechanism_versions={"chain_params": pv, "observation_model": om.version(), "seed": str(seed),
                                 "sim_start": sim_start.isoformat()},

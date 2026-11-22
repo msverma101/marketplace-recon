@@ -9,7 +9,7 @@ from Contracts.common import TimeWindow
 from mkt import pipeline, registry
 from mkt.emulator.api import Emulator, EmulatorConfig
 from mkt.sim import chain
-from mkt.v3 import InterventionSpec
+from mkt.engine_types import InterventionSpec
 
 U = timezone.utc
 

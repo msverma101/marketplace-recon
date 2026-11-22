@@ -12,7 +12,7 @@ from mkt.config import Config  # noqa: E402
 from mkt.sim import chain, twin  # noqa: E402
 from mkt.sim.sessions import SessionParams  # noqa: E402
 from mkt.standin_core import StandinCore  # noqa: E402
-from mkt.v3 import InterventionSpec  # noqa: E402
+from mkt.engine_types import InterventionSpec  # noqa: E402
 
 U = timezone.utc
 p = chain.fit(pipeline.canonical_olist(Config.load()))

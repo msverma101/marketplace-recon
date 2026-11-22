@@ -2,18 +2,9 @@
 import numpy as np
 import pytest
 
-from mkt import rng
 from mkt.contracts import Intervention
 from mkt.interventions import Schedule, parse_selector, selector_mask
 from mkt.store import ArtifactStore
-
-
-def test_rng_reproducible_and_independent():
-    a = rng.stream(1, "x", 3).random(5)
-    assert np.array_equal(a, rng.stream(1, "x", 3).random(5))
-    assert not np.array_equal(a, rng.stream(1, "x", 4).random(5))
-    assert not np.array_equal(a, rng.stream(1, "y", 3).random(5))
-    assert not np.array_equal(a, rng.stream(2, "x", 3).random(5))
 
 
 def test_selector_grammar():
@@ -50,12 +41,3 @@ def test_artifact_write_is_atomic(tmp_path):
             raise RuntimeError("crash mid-write")
     assert (st.get("stage", "k1") / "x.txt").read_text() == "ok"      # previous artifact intact
     assert [p.name for p in (tmp_path / "stage").iterdir()] == ["k1"]   # no temp debris
-
-
-def test_replay_and_monitor_never_touch_truth():
-    import pathlib
-    import mkt
-    root = pathlib.Path(mkt.__file__).parent
-    for mod in ("replay.py", "monitor.py", "observe.py"):
-        src = (root / mod).read_text()
-        assert '"truth"' not in src and "truth/" not in src and "evaluate" not in src, f"{mod} reaches into truth"

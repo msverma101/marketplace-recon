@@ -8,7 +8,7 @@ import pytest
 from mkt import pipeline, registry
 from mkt.sim import chain
 from mkt.sim.observe_chain import EmulatorPort, ObservationModel, observe
-from mkt.v3 import EvidenceRequest, OriginClass
+from mkt.engine_types import EvidenceRequest, OriginClass
 
 START = datetime(2018, 1, 1)
 

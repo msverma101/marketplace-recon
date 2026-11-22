@@ -27,8 +27,8 @@ from Contracts.variables import (EventPayloadSchema, EventVariableDefinition, Fo
 from . import taxonomy as TX
 
 RATIOS = TX.RATIOS
-from .v3 import EvidenceRequest as _InternalRequest  # internal engine type only, never exposed
-from .v3 import Refusal as _InternalRefusal
+from .engine_types import EvidenceRequest as _InternalRequest  # internal engine type only, never exposed
+from .engine_types import Refusal as _InternalRefusal
 
 LOCAL = ZoneInfo("America/Sao_Paulo")      # Olist and the simulated clock are local Brazil time
 GRAINS = {"1d": "day", "1w": "week"}

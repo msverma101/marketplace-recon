@@ -21,7 +21,7 @@ from mkt.adapters.astronomy.telemetry import TelemetryPort, WindowMap, load_span
 from mkt.config import Config  # noqa: E402
 from mkt.emulator.api import Emulator, EmulatorConfig  # noqa: E402
 from mkt.sim import chain  # noqa: E402
-from mkt.v3 import InterventionSpec  # noqa: E402
+from mkt.engine_types import InterventionSpec  # noqa: E402
 
 U = timezone.utc
 HOME = pathlib.Path.home()

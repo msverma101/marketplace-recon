@@ -6,7 +6,7 @@ import pytest
 
 from mkt import pipeline, registry
 from mkt.sim import chain, twin
-from mkt.v3 import InterventionSpec
+from mkt.engine_types import InterventionSpec
 
 W0, W1 = datetime(2018, 2, 12), datetime(2018, 2, 19)
 

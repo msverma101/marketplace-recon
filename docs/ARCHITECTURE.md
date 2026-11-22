@@ -857,7 +857,7 @@ Deferred past 4 hours: Criteo ads, M5 prices, UCI returns, fraud rings, S2/S5/S9
 
 ### 13.2 Prototype status (written before the "architecture only" clarification)
 
-> **Status (22 Nov 2026): two simulators exist.** `mkt/sim/engine.py` (with `world.py`, `scenario.py`, scenarios S0–S13) is the **legacy prototype**: kept for reference and its tests, not the build path. `mkt/sim/chain.py` + `observe_chain.py` + `twin.py` is the **gated P0 simulator** (v3 contracts, keyed randomness, gates S1–S8). New layers (sessions, exposure, checkout) are added to the chain only. See `docs/p0/MORNING_REPORT.md`.
+> **Status (22 Nov 2026): the legacy prototype was removed** (`mkt/sim/engine.py`, `world.py`, `scenario.py`, scenarios S0–S13, the old reader and monitor). It is recoverable from git tag `legacy-prototype`. Internal engine types moved from `mkt/v3.py` to `mkt/engine_types.py`, with clashing names `Engine`-prefixed. `mkt/sim/chain.py` + `observe_chain.py` + `twin.py` is the **gated P0 simulator** (v3 contracts, keyed randomness, gates S1–S8). New layers (sessions, exposure, checkout) are added to the chain only. See `docs/p0/MORNING_REPORT.md`.
 
 Some code was written after "take these decisions" was read as approval to build. It is **uncommitted** in `~/marketplace-recon` and kept only pending D8:
 - Built: hours 0–2 of §13.1 plus scenarios S0/S1/S3/S4/S13, baseline monitor, evaluator and CLI. There is no stitch stage yet.

@@ -6,9 +6,9 @@ from datetime import datetime
 import pytest
 from pydantic import ValidationError
 
-from mkt import registry, standin_reader
-from mkt.v3 import (EnvironmentKind, EvidenceRecord, EvidenceRequest, EvidenceResult, FailureCode, InterventionSpec, LineageRoot,
-                    OriginClass, ProvenanceLineage, Refusal)
+from mkt import registry
+from mkt.engine_types import (EnvironmentKind, EngineEvidence, EvidenceRequest, EvidenceResult, FailureCode, InterventionSpec, LineageRoot,
+                    OriginClass, EngineLineage, Refusal)
 
 AS_OF = datetime(2018, 8, 31)
 
@@ -24,14 +24,14 @@ def port(cfg):
 
 
 def test_contracts_are_frozen_and_strict():
-    lin = ProvenanceLineage(roots=[LineageRoot(source="x", source_version="1", files={})])
-    rec = EvidenceRecord(id="e", origin=OriginClass.REAL, environment_id="env", lineage=lin)
+    lin = EngineLineage(roots=[LineageRoot(source="x", source_version="1", files={})])
+    rec = EngineEvidence(id="e", origin=OriginClass.REAL, environment_id="env", lineage=lin)
     with pytest.raises(ValidationError):
         rec.origin = OriginClass.SYNTHETIC                       # frozen
     with pytest.raises(ValidationError):
-        EvidenceRecord(id="e", origin=OriginClass.REAL, environment_id="env", lineage=lin, oracle="leak")   # extra=forbid
+        EngineEvidence(id="e", origin=OriginClass.REAL, environment_id="env", lineage=lin, oracle="leak")   # extra=forbid
     with pytest.raises(ValidationError):
-        EvidenceRecord(id="e", origin=OriginClass.TRANSPORTED, environment_id="env", lineage=lin)          # needs transport card
+        EngineEvidence(id="e", origin=OriginClass.TRANSPORTED, environment_id="env", lineage=lin)          # needs transport card
 
 
 def test_port_never_serves_the_future(port):
@@ -86,20 +86,3 @@ def test_empirical_identity_gmv_equals_items(port):
     gmv = port.query(EvidenceRequest(variable_id="gmv", shape="aggregate", **w)).observations[0].payload["value"]
     items = port.query(EvidenceRequest(variable_id="item_sold", shape="event_sequence", **w)).observations[0].payload
     assert abs(gmv - sum(i["amount"] + i["value"] for i in items)) < 0.01
-
-
-def test_reader_is_domain_agnostic():
-    src = inspect.getsource(standin_reader)
-    for word in ("olist", "late_share", "promised", "delivery_days", "orders_count", "seller", "marketplace"):
-        assert word not in src.lower(), f"stand-in reader contains domain term {word!r}"
-
-
-def test_question_first_investigation_without_experiments_or_simulator(port):
-    rep = standin_reader.investigate_change(
-        port, ["orders_count", "late_share_cohort", "mean_promised_days", "mean_delivery_days"],
-        at=datetime(2018, 5, 21), start=datetime(2018, 4, 1), end=datetime(2018, 7, 15), as_of=AS_OF,
-        yardstick_checks=[("late_share_cohort", "mean_promised_days", "mean_delivery_days")])
-    text = " ".join(f.statement for f in rep.findings)
-    assert "orders_count" in text and "changed yardstick" in text
-    assert all(f.certainty == "observational association" for f in rep.findings)    # never claims identification
-    assert rep.gaps and "not identified" in rep.gaps[0].statement

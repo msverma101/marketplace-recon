@@ -28,7 +28,7 @@ from ..sim import chain as chain_mod
 from ..sim.chain import ChainParams, uniform
 from ..sim.observe_chain import EmulatorPort, ObservationModel, SessionEmulatorPort, observe
 from ..sim.twin import gateway
-from ..v3 import InterventionEvent, InterventionSpec
+from ..engine_types import InterventionEvent, InterventionSpec
 
 OUTCOME_OK = "order"
 
