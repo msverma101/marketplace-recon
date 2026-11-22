@@ -1,0 +1,57 @@
+{
+ "cards": {
+  "L3-fees": {
+   "id": "L3-fees",
+   "layer": "L3",
+   "data_type": "Fees, payouts",
+   "sources": [],
+   "status": "assumed",
+   "heldout": [],
+   "consumed_by": null,
+   "seconds": 0.0,
+   "cache_key": "1d59f83e96cf347a"
+  },
+  "L0-macro": {
+   "id": "L0-macro",
+   "layer": "L0",
+   "data_type": "Macro: inflation, FX, interest",
+   "sources": [
+    "bcb"
+   ],
+   "status": "joined",
+   "heldout": [],
+   "consumed_by": null,
+   "seconds": 0.1,
+   "cache_key": "c0db6d54b1c262e3"
+  },
+  "L0-shock": {
+   "id": "L0-shock",
+   "layer": "L0",
+   "data_type": "External shocks (2018 strike)",
+   "sources": [
+    "olist",
+    "public_record"
+   ],
+   "status": "evidence only",
+   "heldout": [
+    {
+     "name": "daily orders during vs 4 weeks before (expected drop > 20%)",
+     "halves": [
+      259.64285714285717,
+      141.91666666666666
+     ],
+     "diff": 0.45341586428243935,
+     "tol": 10.0,
+     "rel": true,
+     "pass": true
+    }
+   ],
+   "consumed_by": null,
+   "seconds": 0.3,
+   "cache_key": "488d9a6c3e1b34fe"
+  }
+ },
+ "run_at": "2026-11-22T10:03:26+00:00",
+ "wall_seconds": 0.3,
+ "workers": 2
+}
