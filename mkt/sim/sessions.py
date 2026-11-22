@@ -99,7 +99,9 @@ def build(chain: pl.DataFrame, sp: SessionParams, p: ChainParams, start: date, e
     oidx = chain["order_idx"].to_numpy().astype(np.int64)
     buy_us = chain["purchased_at"].cast(pl.Int64).to_numpy()
     nb_ = len(oidx)
-    failed = np.zeros(nb_, bool) if failed is None else failed
+    failed = np.zeros(nb_, bool) if failed is None else np.asarray(failed)
+    # failed: bool mask (checkout failure lever) or per-order outcome strings ("order" = committed)
+    outcome_b = np.where(failed, "checkout_failed", "order") if failed.dtype == bool else failed.astype(str)
     qv, qc = np.array(sp.q_lag_view_s), np.array(sp.q_lag_cart_s)
 
     # ---- buying sessions (one per checkout), keyed by order_idx
@@ -152,7 +154,7 @@ def build(chain: pl.DataFrame, sp: SessionParams, p: ChainParams, start: date, e
     sessions = pl.concat([
         pl.DataFrame({"session_id": [f"b{x}" for x in oidx], "kind": "buying", "key": oidx, "order_idx": oidx, "start_us": b_start,
                       "end_us": buy_us, "n_views": n_b, "cart_us": np.where(has_cart, cart_us, None).astype(float), "checkout_us": co_us.astype(float),
-                      "outcome": np.where(failed, "checkout_failed", "order"), "device": dev_b.astype(str), "region": reg,
+                      "outcome": outcome_b, "device": dev_b.astype(str), "region": reg,
                       "first_view_bought_us": (buy_us - (lag * S).astype(np.int64))}),
         pl.DataFrame({"session_id": [f"r{x}" for x in oidx[r]], "kind": "research", "key": oidx[r], "order_idx": oidx[r], "start_us": r_start,
                       "end_us": r_start + (n_r * 60 * S), "n_views": n_r, "cart_us": np.where(r_cart, r_start + 30 * S, None).astype(float),
