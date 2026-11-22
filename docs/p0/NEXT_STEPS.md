@@ -6,9 +6,9 @@ Approved by you on 22 Nov 2026: sync the docs, continue the stitch plan (D7 is a
 |---|---|---|
 | 1 | Docs synced to the plan (§7.5 table generated from the diagram rows, status banners, overview diagram, legacy note on `engine.py`) | **done** (cfbbeff, 0803c01) |
 | 2 | Preregister the P1-2 session layer | **done** (df48c68, `P1_2_SESSION_LAYER_PREREG.md`) |
-| 3 | Build that layer one source at a time: Retailrocket funnel → Taobao timing → Expedia position curve → Google Analytics/Statcounter devices; gate S4 per source, S3/S7 invariants kept | after 2 |
-| 4 | Astronomy Shop feasibility experiments (A2): images pulled (3.1.0, root disk at 61%); run the minimal Compose set without the load generator; measure E1 throughput/memory, E2 interface hashes, E3 telemetry leak with faults on, E4 catalog scale | images ready |
-| 5 | Astronomy Shop integration (A1) against the chain + session layer | after 3 and 4 |
+| 3 | Session layer built one source at a time: 5 transport cards (H1, H2, H4 pass; H3, H5 fail as preregistered → "unsupported transfer" with sensitivity ranges), fidelity F1–F6 8/8, invariance V1–V4 pass; **S10 scoring running** | **built** (db3b9cf); S10 pending |
+| 4 | Astronomy Shop M0 experiments: E1 47.6 checkouts/s; E2 stable; E3 leaks fixed by redaction (0 hits); E4 catalog ≤ ~1k offers; E5 no checkout idempotency | **done** (035525e, `docs/experiments/M0_REPORT.md`) |
+| 5 | Astronomy Shop integration (M1+) | **stopped for your review**: the integration plan says "stop for review after M0". Needs your go-ahead |
 
 Rules unchanged: no deleting data, no paid sources, no push (you push). Commit after each step.
 

@@ -171,7 +171,8 @@ def build(chain: pl.DataFrame, sp: SessionParams, p: ChainParams, start: date, e
         sdf = sessions.filter(pl.col("kind") == kind)
         key = sdf["key"].to_numpy()
         t_lo, t_hi = sdf["start_us"].to_numpy(), sdf["end_us"].to_numpy()
-        first = np.full(len(key), kind == "research") | ((kind == "buying") & np.isin(sdf["session_id"].to_numpy(), [f"b{x}" for x in oidx[~research]]))
+        # buying rows are in oidx order (filter keeps order): the bought item is viewed first unless it had a research visit
+        first = ~research if kind == "buying" else np.full(len(key), kind == "research")
         rep_, vkey, t, pos = _views(sp, key, sdf["n_views"].to_numpy(), t_lo, np.maximum(t_hi - S, t_lo), mech, seed, first)
         parts.append(pl.DataFrame({"session_id": sdf["session_id"].to_numpy()[rep_], "vkey": vkey, "t_us": t, "position": pos,
                                    "bought_item": first[rep_] & (np.concatenate([np.arange(c) for c in sdf["n_views"].to_numpy()]) == 0)
