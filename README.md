@@ -1,7 +1,3 @@
-
-
-https://github.com/user-attachments/assets/7ee3e0f6-abe5-433f-a240-3645c502f7d0
-
 # Marketplace Martha
 
 **Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches, investigates, asks for the evidence she needs, and says so when she can't tell.**
@@ -22,9 +18,7 @@ A marketplace is a living place: buyers, sellers, carriers, payments, reviews, a
 
 ## 🎬 Demo video
 
-[![Marketplace Martha: watching the real Astronomy Shop, raising an alarm, proposing a fix and waiting for approval](docs/media/demo_preview.gif)](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_team.mp4)
-
-<sub>Animated preview (22 s of the dashboard). Click it, or the link below, to open the full video.</sub>
+https://github.com/user-attachments/assets/7ee3e0f6-abe5-433f-a240-3645c502f7d0
 
 **▶ [Watch / download the 3-minute demo (MP4)](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_team.mp4)** (marketplace watcher on the real Astronomy Shop, 3:00, subtitled, ends with the team and LinkedIn QR codes)
 
