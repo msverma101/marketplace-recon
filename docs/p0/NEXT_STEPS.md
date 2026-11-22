@@ -6,7 +6,7 @@ Approved by you on 22 Nov 2026: sync the docs, continue the stitch plan (D7 is a
 |---|---|---|
 | 1 | Docs synced to the plan (§7.5 table generated from the diagram rows, status banners, overview diagram, legacy note on `engine.py`) | **done** (cfbbeff, 0803c01) |
 | 2 | Preregister the P1-2 session layer | **done** (df48c68, `P1_2_SESSION_LAYER_PREREG.md`) |
-| 3 | Session layer built one source at a time: 5 transport cards (H1, H2, H4 pass; H3, H5 fail as preregistered → "unsupported transfer" with sensitivity ranges), fidelity F1–F6 8/8, invariance V1–V4 pass; **S10 scoring running** | **built** (db3b9cf); S10 pending |
+| 3 | Session layer: 5 transport cards (2 labelled unsupported), fidelity 8/8, invariance pass. **S10 FAIL as preregistered** (9b 2/5); post-hoc fix on new seeds 4/5 + 4/5, 0 wrong; control 3/5 | **built**; S10 needs your choice (`P1_2_SESSION_LAYER.md` §5) |
 | 4 | Astronomy Shop M0 experiments: E1 47.6 checkouts/s; E2 stable; E3 leaks fixed by redaction (0 hits); E4 catalog ≤ ~1k offers; E5 no checkout idempotency | **done** (035525e, `docs/experiments/M0_REPORT.md`) |
 | 5 | Astronomy Shop integration (M1+) | **stopped for your review**: the integration plan says "stop for review after M0". Needs your go-ahead |
 
@@ -43,3 +43,8 @@ Rules unchanged: no deleting data, no paid sources, no push (you push). Commit a
 | R9 | ~~Create a remote and push~~ **done 22 Nov**: github.com/msverma101/marketplace-recon (private) | — | — |
 
 Auto-resume is scheduled for 00:13 on 22 Nov (backup at 01:13) and works through steps 2–5 of the table above. It only runs while this Claude Code session stays open.
+
+## Waiting for you (22 Nov, after the overnight run)
+1. **S10 for the session layer:** option 1, 2 (recommended: preregister v2 and rerun on fresh seeds) or 3. See `P1_2_SESSION_LAYER.md` §5.
+2. **Astronomy Shop M1+** (integration code): the plan says to stop for review after M0. See `docs/experiments/M0_REPORT.md`.
+3. Push the new commits when you want: `cd ~/marketplace-recon && git push`.

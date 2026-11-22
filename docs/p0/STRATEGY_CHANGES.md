@@ -14,3 +14,5 @@ Each entry: what, why (evidence), alternatives, how to undo.
 | 8 | after P1-1 | **`scripts/stitch.py` marked superseded; it refuses to run** (override: `MKT_ALLOW_OLD_STITCH=1`) | it predates the audit (uses dropped Amazon-M2, Open Bandit for position effects, old cache path, no transport cards); a half-rewrite overnight would be riskier than a guard | rewrite now (rejected: belongs to phase 7, one source at a time) | remove the guard in `main()` |
 
 **Reviewed by you (22 Nov 2026):** decision #6 (F2 weekday exception) **accepted**; branch merged into `main` locally (you push).
+| 9 | P1-2 S10 | **S10 recorded as FAIL** (9b 2/5 < 4/5); the session layer is labelled "no measurable gain yet" | preregistered rule; the cause (the reader's scale collapsing on a near-constant ratio) was found only after scoring, so no re-scoring of the same seeds | retune the reader and re-score (rejected: tuning on the scored data) | — |
+| 10 | P1-2 S10 | Post-hoc count-uncertainty floor (off by default), run on new seeds 71–75: 9a 4/5, 9b 4/5, 0 wrong; control 3/5 (New Year dip) | checks the diagnosis without changing the gate result | none | `count_floor=False` |
