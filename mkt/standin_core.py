@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 from statistics import median
 
 from Contracts.capabilities import GetSeries
@@ -48,11 +49,20 @@ class StandinCore:
         return o.observation_id, {p.t: p.value for p in o.payload.points if p.value is not None}
 
     @staticmethod
-    def _z(series: dict, floor=None) -> dict:
-        vals = list(series.values())
-        mu = median(vals)
-        mad = 1.4826 * median([abs(v - mu) for v in vals])
-        return {t: (v - mu) / max(mad, floor(t, v) if floor else 0.0, 1e-9) for t, v in series.items()}
+    def _z(series: dict, floor=None, count: bool = False, k: int = 3) -> dict:
+        """Robust z of each period against a LOCAL baseline (median of up to k periods either side, excluding
+        the period itself), so trends and slow seasonality are not mistaken for changes (S10 v2, preregistered).
+        Scale = 1.4826 x median |residual|, floored by counting noise: sqrt(baseline) for counts, `floor` for ratios."""
+        ts = sorted(series)
+        vals = [series[t] for t in ts]
+        base = {}
+        for i, t in enumerate(ts):
+            near = vals[max(0, i - k):i] + vals[i + 1:i + 1 + k]
+            base[t] = median(near) if len(near) >= 3 else median(vals)
+        resid = {t: series[t] - base[t] for t in ts}
+        mad = 1.4826 * median([abs(r) for r in resid.values()])
+        return {t: resid[t] / max(mad, floor(t, series[t]) if floor else 0.0, math.sqrt(max(base[t], 0.0)) if count else 0.0, 1e-9)
+                for t in ts}
 
     def _ratios_over(self, vid: str, defs) -> list[MetricDefinition]:
         """Declared ratio metrics that use `vid` as numerator or denominator."""
@@ -79,7 +89,8 @@ class StandinCore:
                 continue
             oid, series = s
             cited.append(oid)
-            z = self._z(series)
+            is_count = {d.variable_id: getattr(d, "aggregation_kind", None) == "count" for d in defs}
+            z = self._z(series, count=is_count.get(vid, False))
             flagged = sorted(t for t, v in z.items() if abs(v) >= Z_FLAG)
             if not flagged:
                 findings.append(Finding(finding_id=f"{task.task_id}:{vid}:nochange", claim_kind="DESCRIPTIVE",
@@ -113,7 +124,7 @@ class StandinCore:
                     continue
                 rid, rser = rs
                 cited.append(rid)
-                pz = self._z(rser)
+                pz = self._z(rser, count=is_count.get(partner, False))
                 for t in flagged:                                   # one verdict per flagged period
                     day = t.date().isoformat()
                     zt = pz.get(t)
@@ -137,6 +148,10 @@ class StandinCore:
                            pins=Pins(graph_version=0, data_cut=task.data_cut.as_of, method_versions={"standin": self.method_version}),
                            idempotency_key=_sha([task.model_dump(mode="json"), revision, [f.statement for f in findings]]))
         return rev, tuple(gaps)
+
+    @staticmethod
+    def _is_count(vid, defs) -> bool:
+        return any(d.variable_id == vid and getattr(d, "aggregation_kind", None) == "count" for d in defs)
 
     def _localise(self, task, vid, flagged, stages, defs, cited) -> Finding:
         """Walk the chain of stage ratios back from vid; report the one stage whose ratio broke (others quiet)."""
@@ -166,7 +181,7 @@ class StandinCore:
                 floor = lambda w, v, a=a, b=b: v * (1 / max(levels[a][w], 1) + 1 / max(levels[b][w], 1)) ** 0.5   # counting noise
                 zz = self._z(r, floor).get(t, 0.0)
                 (broken if abs(zz) >= Z_FLAG else quiet if abs(zz) < Z_QUIET else []).append(d.variable_id)
-            root_z = self._z(levels[root]).get(t, 0.0)
+            root_z = self._z(levels[root], count=self._is_count(root, defs)).get(t, 0.0)
             if len(broken) == 1 and len(quiet) == len(chain) - 1:
                 verdicts.append(f"stage ratio {broken[0]}")
             elif not broken and len(quiet) == len(chain) and abs(root_z) >= Z_FLAG:
