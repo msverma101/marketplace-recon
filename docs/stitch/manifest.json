@@ -229,7 +229,7 @@
     }
    ],
    "consumed_by": null,
-   "seconds": 6.0,
+   "seconds": 3.4,
    "cache_key": "8e3977feb707d1d1"
   },
   "L7-experiments": {
@@ -861,7 +861,7 @@
    "cache_key": "a62cc3e22b26753f"
   }
  },
- "run_at": "2026-11-22T10:21:05+00:00",
- "wall_seconds": 21.6,
- "workers": 3
+ "run_at": "2026-11-22T10:35:18+00:00",
+ "wall_seconds": 3.4,
+ "workers": 4
 }
