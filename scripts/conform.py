@@ -55,6 +55,11 @@ STEPS = [
                                                      "tests/test_m3_mvs.py", "tests/test_m4_m5_storefront.py"]),
     ("regenerate 106 contract samples", [sys.executable, "-I", "scripts/stitch_samples.py", "--no-repeat"]),
     ("re-check written samples", [sys.executable, "-m", "pytest", "-q", "-o", "addopts=", "tests/test_stitch_samples.py"]),
+    ("the core's own parser accepts every sample (causal_core.api.parse_observation)", [sys.executable, "-I", "-c",
+     "import sys,json,pathlib; sys.path.insert(0,'.'); from causal_core.api import parse_observation, parse_definition; "
+     "fs=sorted((pathlib.Path.home()/'data/mkt/stitch/samples').glob('*.json')); n=0\n"
+     "for f in fs:\n d=json.loads(f.read_text()); de=parse_definition(d['definition'])\n for s in d['samples']: parse_observation(s['observation'], de); n+=1\n"
+     "print(f'{n} observations from {len(fs)} variables accepted')"]),
 ]
 
 

@@ -1,0 +1,335 @@
+[
+ {
+  "scenario": "8a_logging_drop",
+  "seed": 31,
+  "outcome": "COMPLETED",
+  "findings": [
+   [
+    "DESCRIPTIVE",
+    "alarm: evidence against the null (up), first at point 6; peak log-wealth 70.57 \u2265 3.00 (against a baseline learned on 63 older points, frozen)"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "PASS"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ },
+ {
+  "scenario": "8a_logging_drop",
+  "seed": 32,
+  "outcome": "INCONCLUSIVE",
+  "findings": [
+   [
+    "INCONCLUSIVE",
+    "baseline_shift_v1 refused: BASELINE_AUTOCORRELATED: training residuals have lag-1 autocorrelation +0.49 (> 2/\u221an): increments would not be independent"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "REFUSED"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ },
+ {
+  "scenario": "8a_logging_drop",
+  "seed": 33,
+  "outcome": "INCONCLUSIVE",
+  "findings": [
+   [
+    "INCONCLUSIVE",
+    "baseline_shift_v1 refused: BASELINE_AUTOCORRELATED: training residuals have lag-1 autocorrelation +0.56 (> 2/\u221an): increments would not be independent"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "REFUSED"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ },
+ {
+  "scenario": "8b_demand_drop",
+  "seed": 31,
+  "outcome": "COMPLETED",
+  "findings": [
+   [
+    "DESCRIPTIVE",
+    "alarm: evidence against the null (up), first at point 6; peak log-wealth 71.90 \u2265 3.00 (against a baseline learned on 63 older points, frozen)"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "PASS"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ },
+ {
+  "scenario": "8b_demand_drop",
+  "seed": 32,
+  "outcome": "INCONCLUSIVE",
+  "findings": [
+   [
+    "INCONCLUSIVE",
+    "baseline_shift_v1 refused: BASELINE_AUTOCORRELATED: training residuals have lag-1 autocorrelation +0.49 (> 2/\u221an): increments would not be independent"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "REFUSED"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ },
+ {
+  "scenario": "8b_demand_drop",
+  "seed": 33,
+  "outcome": "INCONCLUSIVE",
+  "findings": [
+   [
+    "INCONCLUSIVE",
+    "baseline_shift_v1 refused: BASELINE_AUTOCORRELATED: training residuals have lag-1 autocorrelation +0.56 (> 2/\u221an): increments would not be independent"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "REFUSED"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ },
+ {
+  "scenario": "control",
+  "seed": 31,
+  "outcome": "COMPLETED",
+  "findings": [
+   [
+    "DESCRIPTIVE",
+    "alarm: evidence against the null (up), first at point 6; peak log-wealth 122.34 \u2265 3.00 (against a baseline learned on 63 older points, frozen)"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "PASS"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ },
+ {
+  "scenario": "control",
+  "seed": 32,
+  "outcome": "INCONCLUSIVE",
+  "findings": [
+   [
+    "INCONCLUSIVE",
+    "baseline_shift_v1 refused: BASELINE_AUTOCORRELATED: training residuals have lag-1 autocorrelation +0.49 (> 2/\u221an): increments would not be independent"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "REFUSED"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ },
+ {
+  "scenario": "control",
+  "seed": 33,
+  "outcome": "INCONCLUSIVE",
+  "findings": [
+   [
+    "INCONCLUSIVE",
+    "baseline_shift_v1 refused: BASELINE_AUTOCORRELATED: training residuals have lag-1 autocorrelation +0.56 (> 2/\u221an): increments would not be independent"
+   ]
+  ],
+  "trace": [
+   [
+    "ACQUIRE",
+    "PLAN"
+   ],
+   [
+    "ACQUIRE",
+    "PASS"
+   ],
+   [
+    "EVALUATE",
+    "PLAN"
+   ],
+   [
+    "EVALUATE",
+    "REFUSED"
+   ],
+   [
+    "CHALLENGE",
+    "PASS"
+   ],
+   [
+    "REPORT",
+    "DONE"
+   ]
+  ]
+ }
+]
