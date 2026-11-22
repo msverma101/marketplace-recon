@@ -52,6 +52,18 @@ A **marketplace emulator** that the **causal core** (`causal_core/`, Subsystem 2
 - **The core never sees ground truth**, and evidence is labelled honestly (`SYNTHETIC_GENERATED`, `SANDBOX_OBSERVED`, `EXTERNAL_STUDY`).
 - **No paid sources, no deleting data, no pushing without the owner's go-ahead.** Decisions are logged in `docs/p0/STRATEGY_CHANGES.md`.
 
+## Setup for a new machine
+```bash
+git clone https://github.com/msverma101/marketplace-recon && cd marketplace-recon     # artifacts/ and share/ come with it
+python3 -m venv .venv && .venv/bin/python -m pip install duckdb polars "pydantic>=2.7" numpy scipy pyarrow fastexcel
+echo "$PWD/causal_core" > $(.venv/bin/python -c "import site;print(site.getsitepackages()[0])")/causal_core_local.pth
+mkdir -p ~/data/mkt/stitch && unzip share/stitch_samples.zip -d ~/data/mkt/stitch/      # samples where the scripts expect them
+# only for the Astronomy Shop part:
+git clone --branch 3.1.0 --depth 1 https://github.com/open-telemetry/opentelemetry-demo.git ~/.cache/otel-demo-3.1.0
+mkdir -p ~/data/mkt/astronomy/flags ~/data/mkt/astronomy/live && chmod 777 ~/data/mkt/astronomy/live
+cp ~/.cache/otel-demo-3.1.0/src/flagd/demo.flagd.json ~/data/mkt/astronomy/flags/
+```
+
 ## Commands
 ```bash
 .venv/bin/python -m pytest -q                         # all tests (~75 s)
