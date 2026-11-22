@@ -1,8 +1,18 @@
 # Marketplace Martha
 
-**An autonomous monitoring agent that investigates a realistic, data-grounded marketplace, and knows when it can't tell.**
+**Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches, investigates, asks for the evidence she needs, and says so when she can't tell.**
 
-A marketplace emulator calibrated on real e-commerce data (Olist, Brazil) and stitched with 18 public datasets. It is wired to a domain-agnostic **causal reasoning core** that detects changes, separates look-alike causes, asks for the evidence it needs, and abstains when the data can't decide. A real microservice shop, the [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), can serve the emulator's shoppers, so faults and telemetry are real.
+### Why "Martha"?
+A marketplace is a living place: buyers, sellers, carriers, payments, reviews, and the software in between. When something goes wrong, dashboards show *that* a number moved. Someone still has to work out *why*, check whether it's real, and decide what to do. Martha is that caretaker:
+- she **watches** every part of the marketplace continuously, with no fixed rules to configure;
+- she **investigates** a change instead of only alerting on it: a broken logging pipeline vs. real lost demand, a checkout fault vs. fewer shoppers;
+- she **asks for the cheapest evidence** that would settle the question, and revises her answer when it arrives;
+- she **knows her limits**: she abstains rather than guessing, and never acts on production without permission.
+
+### What's inside
+- **A marketplace emulator** calibrated on real e-commerce data (Olist, Brazil) and stitched with 18 public datasets. This is the world Martha looks after.
+- **A domain-agnostic causal reasoning core**: Martha's brain. She detects changes, separates look-alike causes, and requests discriminating evidence.
+- **A real microservice shop**, the [OpenTelemetry Astronomy Shop](https://github.com/open-telemetry/opentelemetry-demo), which can serve the emulator's shoppers, so faults and telemetry are real.
 
 ---
 
