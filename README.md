@@ -199,5 +199,9 @@ The shop UI is at **http://localhost:8080** while it runs.
 Working: everything in *Results so far*. Next: fix the core's default monitoring window, make its baseline robust to marketplace growth, and connect the remaining 18 stitched data types (prices, stock, search, recommendations, returns, reviews, sellers, ads, fraud) as simulator layers. Details: [`docs/HANDOVER.md`](docs/HANDOVER.md).
 
 ## Team
-<!-- Add names, roles and links here. -->
-_Add team members here._
+| | Sneha Verma | Stefan Dye |
+|---|:---:|:---:|
+| Role | _job title_ | _job title_ |
+| LinkedIn | <img src="causal_core_demo_video/scenes/team/qr-sneha-verma.png" width="140" alt="QR: Sneha Verma on LinkedIn"><br>[msverma101](https://www.linkedin.com/in/msverma101/) | <img src="causal_core_demo_video/scenes/team/qr-stefan-dye.png" width="140" alt="QR: Stefan Dye on LinkedIn"><br>[stefan-dye](https://www.linkedin.com/in/stefan-dye-782b962b/) |
+
+**Team page for the demo:** [`causal_core_demo_video/scenes/team/index.html`](causal_core_demo_video/scenes/team/index.html). While `uc2_watch.sh` runs it is served at **http://127.0.0.1:8765/scenes/team/**, next to Martha's dashboard.
