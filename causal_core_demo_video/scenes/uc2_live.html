@@ -93,9 +93,9 @@ svg text{font-family:-apple-system,"Helvetica Neue",Arial,sans-serif;font-varian
   </div>
   <div class="col" style="width:752px;flex:none">
     <div class="card">
-      <div class="ttl">Inside the engine · last task <span class="side mono" id="tid"></span></div>
+      <div class="ttl">Inside the engine service · last task <span class="side mono" id="tid"></span></div>
       <div id="pipe"></div>
-      <div class="foot" style="margin-top:8px">Durations are measured; the highlight is slowed so it can be followed.</div>
+      <div class="foot mono" id="proof" style="margin-top:8px"></div>
     </div>
     <div class="card" id="act" style="display:none"></div>
   </div>
@@ -110,6 +110,19 @@ const hm = s => { const d = new Date(s); return `${String(d.getUTCHours()).padSt
 const STAGES = ["FRAME", "AUDIT_INPUTS", "SELECT_CAPABILITIES", "ACQUIRE", "EVALUATE", "CHALLENGE", "REPORT"];
 const STAGE_TXT = { FRAME: "question → plan state", AUDIT_INPUTS: "contracts, scope, clocks checked", SELECT_CAPABILITIES: "which methods can apply",
   ACQUIRE: "evidence requested through the port", EVALUATE: "methods run", CHALLENGE: "assumptions and refusals checked", REPORT: "report revision published" };
+function stageText(T, s, used, refused, mon) {     // what the engine itself logged at this stage, in this task
+  const log = (T.stage_log || []).filter(x => x[0] === s).map(x => x[2]).filter(Boolean).join("; ");
+  const v = mon?.values || {};
+  if (s === "FRAME") return `${T.question} on ${(T.variables || []).join(", ")}${log ? " · " + log : ""}`;
+  if (s === "AUDIT_INPUTS") return `data up to ${String(T.data_cut || "").slice(11, 16)} sim · ${log || STAGE_TXT[s]}`;
+  if (s === "SELECT_CAPABILITIES") return `${used.length} of ${used.length + refused.length} methods fit; ${refused.length} set aside with reasons`;
+  if (s === "ACQUIRE") { const r = (T.requests || [])[0]; return r ? `${r.request} → ${r.observations} observations (${r.status})` : (log || STAGE_TXT[s]); }
+  if (s === "EVALUATE") return mon ? (mon.status === "REFUSED" ? `refused: ${mon.refusal}` :
+    `evidence ${(+v.log_wealth || 0).toFixed(2)} vs alarm line ${(+v.threshold || 0).toFixed(2)} → ${v.alarm ? "ALARM " + (v.direction || "") : "no alarm"}`) : (log || STAGE_TXT[s]);
+  if (s === "CHALLENGE") return T.challenges?.length ? `${T.challenges.length} rival explanations recorded: ${T.challenges[0]}` : (log || STAGE_TXT[s]);
+  if (s === "REPORT") return (T.revisions || []).map(r => `r${r.revision} ${r.provisional ? "draft" : "final"}`).join(" → ") + ` · ${T.outcome}`;
+  return log || STAGE_TXT[s];
+}
 let lastTask = null, animStart = 0, shopAt = 0, shopPid = null;
 const SHOP = q.get("shop") || "http://localhost:8080";
 function liveShop(L) {                     // live mode: the real shop, on the product a shopper just bought (max every 8 s)
@@ -165,9 +178,7 @@ function render(L, animate) {
     const rows = [
       ["Telemetry port", `redacted OTel spans → checkout and payment error rates`, lastBlk ? `${Math.round(lastBlk.telemetry_ms)} ms` : ""],
       ["Evidence port", req ? `${req.request} · ${req.variables.join(", ")} · ${req.observations} obs` : "no request", req ? `${req.ms.toFixed(1)} ms` : ""],
-      ...STAGES.map(s => [s.replaceAll("_", " ").toLowerCase().replace(/^./, c => c.toUpperCase()), STAGE_TXT[s], T.timings_ms[s] != null ? `${T.timings_ms[s].toFixed(1)} ms` : ""]),
-      ["Methods", `${used.length} used (${used.map(short).join(", ")}) · ${refused.length} refused with a reason`, ""],
-      ["Result", mon ? (mon.status === "REFUSED" ? `refused: ${mon.refusal}` : `monitor ${mon.values?.alarm ? "ALARM " + (mon.values.direction || "") : "no alarm"}`) : (res[0] ? `${res[0][0]} ${res[0][1].status}` : T.outcome), ""],
+      ...STAGES.map(s => [s.replaceAll("_", " ").toLowerCase().replace(/^./, c => c.toUpperCase()), stageText(T, s, used, refused, mon), T.timings_ms[s] != null ? `${T.timings_ms[s].toFixed(1)} ms` : ""]),
       ["Policy gate", pol ? `${pol.verdict}${pol.verdict === "DENY" ? ": no actuation port; proposal only" : ""}` : "—", ""],
       ["Ledger", `+${Object.values(T.ledger_delta || {}).reduce((a, b) => a + b, 0)} rows: ${Object.entries(T.ledger_delta || {}).map(([k, v]) => `${k.replaceAll("_", " ")} +${v}`).join(" · ")}`, ""],
     ];
@@ -175,6 +186,14 @@ function render(L, animate) {
     $("#pipe").innerHTML = rows.map((r, i) => `${i ? '<div class="arrow"></div>' : ""}<div class="stage ${el >= i * step ? "on" : ""} ${el >= i * step && el < (i + 1) * step + .25 ? "hot" : ""}">
       <span class="n">${i + 1}</span><span class="nm">${esc(r[0])}</span><span class="d">${esc(r[1])}</span><span class="ms">${esc(r[2])}</span></div>`).join("");
   }
+  // proof line: where the engine runs and how fresh this is
+  const E = L.engine || {}, age = L.wall ? (Date.now() - Date.parse(L.wall)) / 1000 : null;
+  const rt = L.trace?.round_trip_ms, link = E.url && E.session && L.trace ? `${E.url}/sessions/${E.session}/tasks/${L.trace.task_id}` : null;
+  $("#proof").innerHTML = (E.url ? `engine service pid ${E.pid} at ${esc(E.url.replace("http://", ""))} (version ${esc(E.version || "")}) · agent pid ${E.agent_pid} · ` +
+      `${rt != null ? `round trip ${rt.toFixed(0)} ms · ` : ""}` : `engine ${esc(E.version || "")} (pid ${E.pid ?? "?"}) · `) +
+    `ledger ${Object.values(L.ledger || {}).reduce((a, b) => a + b, 0)} rows · ` +
+    `${q.get("snap") ? "saved snapshot" : (age != null && age < 15 ? `<span style="color:#5fd35f">live</span>, updated ${age.toFixed(1)} s ago` : `last update ${age != null ? Math.round(age) + " s ago" : "—"}`)}` +
+    (link && !q.get("snap") ? ` · <a href="${link}" target="_blank" style="color:#7fb2f0">full trace ↗</a>` : "");
   // action card
   const P = L.proposal;
   if (P) {

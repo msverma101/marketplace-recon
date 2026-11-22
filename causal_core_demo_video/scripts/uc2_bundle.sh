@@ -29,9 +29,9 @@ cp "$MKT/deploy/m0/otelcol-redact.yml" "$B/marketplace-recon/deploy/m0/"
 (cd "$MKT" && git log -1 --format='marketplace-recon %H (%ad)' --date=short) > "$B/marketplace-recon/VERSION.txt" 2>/dev/null || true
 # 3. the demo
 mkdir -p "$B/demo/agent" "$B/demo/scenes" "$B/demo/scripts" "$B/demo/deploy" "$B/demo/data"
-cp "$HERE"/agent/{__init__,sandbox,uc2}.py "$B/demo/agent/"
-cp "$HERE"/scenes/{uc2_live.html,uc2_pitch.html,uc2_prompter.html,uc2_narration.json,capture_live.mjs,record.mjs,shots.mjs,build_data.py,cut_uc2.py,voice_server.py} "$B/demo/scenes/"
-cp "$HERE"/scripts/{uc2_shop.sh,uc2_watch.sh,uc2_record.sh,uc2_voice.sh,uc2_assemble.sh,uc2_images.sh} "$B/demo/scripts/"
+cp "$HERE"/agent/{__init__,sandbox,uc2,engine_service}.py "$B/demo/agent/"
+cp "$HERE"/scenes/{uc2_live.html,uc2_watch.html,uc2_pitch.html,uc2_prompter.html,uc2_narration.json,capture_live.mjs,record.mjs,shots.mjs,build_data.py,cut_uc2.py,voice_server.py} "$B/demo/scenes/"
+cp "$HERE"/scripts/{uc2_shop.sh,uc2_engine.sh,uc2_watch.sh,uc2_record.sh,uc2_voice.sh,uc2_assemble.sh,uc2_images.sh} "$B/demo/scripts/"
 cp "$HERE"/deploy/{compose.uc2.yaml,compose.uc2.traces.yaml,otelcol-uc2.yml,otelcol-uc2-traces.yml} "$B/demo/deploy/"
 cp "$HERE"/{PITCH.md,SOLUTION.md} "$B/"
 [ -f "$HERE/NARRATION_UC2.md" ] && cp "$HERE/NARRATION_UC2.md" "$B/demo/"
@@ -75,8 +75,9 @@ Needs: macOS with Docker Desktop (4 GB+ memory for the shop), Python 3.11+, Node
 ./setup.sh                                   # once: Python venv, OpenTelemetry demo @7a88536, data folders
 cd demo
 scripts/uc2_shop.sh up --traces              # start the shop + Jaeger (first time pulls ~3-5 GB of images)
-scripts/uc2_watch.sh                         # WATCH IT LIVE (no recording): opens the agent dashboard and Jaeger
-                                             #   shop: http://localhost:8080 · traces: http://localhost:8080/jaeger/ui/
+scripts/uc2_engine.sh start                  # the causal engine as its own local service (watch/record also start it)
+scripts/uc2_watch.sh                         # WATCH IT LIVE (no recording): one page, side by side: the agent
+                                             #   dashboard | Jaeger traces, failed requests, Monitor rates, the shop
 scripts/uc2_record.sh --open                 # optional: run at watchable speed and record the dashboard → videos/uc2_screen.mp4
 scripts/uc2_assemble.sh                      # silent cut with subtitles → videos/uc2_silent.mp4 (≤ 3 min)
 scripts/uc2_voice.sh                         # plays the silent cut and records your voice → videos/uc2_voice.m4a

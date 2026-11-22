@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Start / stop / check the local Astronomy Shop used by video 2 (storefront mode, demo sandbox only).
 #   scripts/uc2_shop.sh up | down | status
-#   scripts/uc2_shop.sh up --traces      # also Jaeger, to watch requests flow through the services: http://localhost:8080/jaeger/ui/
+#   scripts/uc2_shop.sh up --traces      # also Jaeger + Prometheus, to watch requests flow through the services:
+#                                        #   http://localhost:8080/jaeger/ui/ (Search, and Monitor for per-service rates)
 # Needs: Docker Desktop running, ~/.cache/otel-demo-3.1.0 (opentelemetry-demo @7a88536), ../../marketplace-recon.
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
@@ -13,7 +14,7 @@ export DEMO_VERSION=3.1.0 OTEL_COLLECTOR_CONFIG_EXTRAS="$MKT/deploy/m0/otelcol-r
 DC=(docker compose -p m0 -f "$DEMO/compose.yaml" -f "$HERE/deploy/compose.uc2.yaml")
 SERVICES=(flagd otel-collector valkey-cart astronomy-db product-catalog cart currency payment shipping quote email ad recommendation checkout image-provider frontend frontend-proxy)
 if [ "${2:-}" = "--traces" ]; then
-  DC+=(-f "$DEMO/compose.observability.yaml" -f "$HERE/deploy/compose.uc2.traces.yaml"); SERVICES=(jaeger "${SERVICES[@]}")
+  DC+=(-f "$DEMO/compose.observability.yaml" -f "$HERE/deploy/compose.uc2.traces.yaml"); SERVICES=(jaeger prometheus "${SERVICES[@]}")
 fi
 case "${1:-status}" in
   up)

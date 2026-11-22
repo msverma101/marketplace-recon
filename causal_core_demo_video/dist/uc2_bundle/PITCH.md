@@ -12,7 +12,7 @@ or a broken checkout. Today, people find out by digging, usually after the damag
 We built two things.
 First, a causal reasoning engine. It reads our data through read-only connections, and it answers every question the
 same careful way: it checks its inputs, picks only the methods that fit, gathers the evidence, challenges its own
-assumptions, and writes a report with an honest range. When it can't answer, it says so and says why. Every step is
+assumptions, and writes a report that says how sure it is. When it can't answer, it says so and says why. Every step is
 recorded, so any number can be traced back.
 Second, an agent on top of it. It watches all the time, on the same schedule our data actually arrives. When something
 happens, it works out what kind of problem it is and proposes what to do, with the expected effect. A person approves.

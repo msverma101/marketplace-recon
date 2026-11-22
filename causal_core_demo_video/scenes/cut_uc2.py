@@ -1,4 +1,4 @@
-"""Cut the video-2 screen recording to an 80 s demo segment and place the narration on the final timeline.
+"""Cut the video-2 screen recording to a 70 s demo segment and place the narration on the final timeline.
 
 Reads outputs/uc2/timeline.json (wall times of the run's key moments), videos/uc2_screen.mp4 (+ .start.txt), and
 scenes/uc2_narration.json; writes videos/uc2_demo_cut.mp4, scenes/uc2_narration_resolved.json, videos/uc2_narration.srt
@@ -16,9 +16,9 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parents[1]
 V = HERE / "videos"
-SEG = {"open": 0.0, "solution": 30.0, "demo": 70.0, "close": 150.0}
-DEMO_LEN = 80.0
-BUDGET = {"normal": 13.0, "before_alarm": 10.0, "incident_max": 45.0}
+SEG = {"open": 0.0, "solution": 32.0, "demo": 96.0, "close": 166.0}
+DEMO_LEN = 70.0
+BUDGET = {"normal": 14.0, "before_alarm": 8.0, "incident_max": 40.0}
 
 
 def T(s: str) -> float:
@@ -78,7 +78,7 @@ def main() -> int:
     ts = lambda s: f"{int(s // 3600):02d}:{int(s % 3600 // 60):02d}:{int(s % 60):02d},{int(round(s % 1 * 1000)) % 1000:03d}"
     (V / "uc2_narration.srt").write_text("\n".join(f"{i + 1}\n{ts(l['t'])} --> {ts(l['end'])}\n{l['text']}\n" for i, l in enumerate(lines)))
     mm = lambda s: f"{int(s // 60)}:{int(s % 60):02d}"
-    seg_name = lambda s: "1 · Pitch" if s < 30 else "2 · How it works" if s < 70 else "3 · Demo (live run)" if s < 150 else "4 · Close"
+    seg_name = lambda s: "1 · Pitch" if s < 32 else "2 · How it works" if s < 96 else "3 · Demo (live run)" if s < 166 else "4 · Close"
     md, cur = ["# Video 2 narration (3:00)", "", "Read at a calm pace; each line starts at the time shown. The prompter "
                "(`scripts/uc2_voice.sh`) shows the same lines in sync with the video.", ""], None
     for l in lines:

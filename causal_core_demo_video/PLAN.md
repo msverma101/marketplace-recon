@@ -5,7 +5,7 @@ Ad-hoc folder, outside the core. Updated 22 Nov 2026. Nothing here changes `caus
 - **Audience:** leadership. **Format:** one video per use case, **3 minutes max** each, captions on screen
   (optional draft voice-over), names anonymized, neutral branding. Approved actions run only in a demo-only sandbox.
 - **One message:** the agent watches continuously, separates data problems from real changes, re-derives every
-  number it relies on, proposes an action with an honest range, and acts only after a person approves, only where
+  number it relies on, suggests a fix with a best guess and a low and high estimate, and acts only after a person approves, only where
   it is allowed to.
 
 ## Ground rules (shown on screen)

@@ -36,14 +36,8 @@ sys.path[:0] = [str(CORE), str(MKT)]
 import numpy as np  # noqa: E402
 import polars as pl  # noqa: E402
 
-from adapters.outputs.sqlite_sinks import IdempotentSink  # noqa: E402
-from adapters.sources.canonical_port import CanonicalEvidencePort  # noqa: E402
-from causal_core import api  # noqa: E402
-from causal_core.contracts.capabilities import GetAggregate  # noqa: E402
+from causal_core.contracts.capabilities import GetAggregate  # noqa: E402  (contract types only: talking to the telemetry port)
 from causal_core.contracts.common import TimeWindow  # noqa: E402
-from causal_core.orchestration.coordinator import TaskCoordinator  # noqa: E402
-from causal_core.orchestration.planner import MonitorSpec, TaskContext  # noqa: E402
-from causal_core.storage.ledger import Ledger  # noqa: E402
 from mkt import pipeline  # noqa: E402
 from mkt.adapters.astronomy import storefront as sf  # noqa: E402
 from mkt.adapters.astronomy.telemetry import TelemetryPort, WindowMap, load_spans  # noqa: E402
@@ -142,19 +136,43 @@ class SpanTail:
         return pl.DataFrame(self.rows, schema=["service", "t_ns", "dur_ms", "error"], orient="row")
 
 
-class TracingPort(CanonicalEvidencePort):
-    """The core's evidence port for this run, with every capability request logged for the engine panel."""
+ENGINE_URL = os.environ.get("UC2_ENGINE_URL", "http://127.0.0.1:8770")
 
-    def __init__(self, observations, provider_id):
-        super().__init__(observations, provider_id)
-        self.log = []
 
-    def query(self, request):
-        t0 = time.perf_counter()
-        r = super().query(request)
-        self.log.append({"request": request.request, "variables": list(getattr(request, "variables", ()) or ()),
-                         "status": r.status, "observations": len(r.observations), "ms": round((time.perf_counter() - t0) * 1000, 3)})
-        return r
+class EngineClient:
+    """The agent's only way to reach the causal engine: its local HTTP API (agent/engine_service.py). The agent sends
+    contract objects (observations it has read, questions) and gets the engine's answers back."""
+
+    def __init__(self, url: str = ENGINE_URL):
+        self.url, self.sid = url.rstrip("/"), None
+
+    def _call(self, method: str, path: str, body=None):
+        import urllib.error
+        import urllib.request
+        req = urllib.request.Request(self.url + path, method=method, headers={"Content-Type": "application/json"},
+                                     data=json.dumps(body, default=str).encode() if body is not None else None)
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"engine service {path}: {e.code} {e.read()[:400].decode(errors='replace')}") from None
+
+    def health(self) -> dict:
+        try:
+            return self._call("GET", "/health")
+        except OSError:
+            raise SystemExit(f"The engine service is not running at {self.url}: scripts/uc2_engine.sh start") from None
+
+    def new_session(self) -> str:
+        self.sid = self._call("POST", "/sessions")["session_id"]
+        return self.sid
+
+    def observe(self, observations: list[dict]) -> dict:
+        return self._call("POST", f"/sessions/{self.sid}/observations", observations)
+
+    def ask(self, task: dict, monitors: dict, label: str, requested_action: str | None = None) -> dict:
+        return self._call("POST", f"/sessions/{self.sid}/tasks", {"task": task, "monitors": monitors, "label": label,
+                                                                   "requested_action": requested_action})
 
 
 def obs_point(var: str, key: str, value: float, t_end: datetime, extra: dict) -> dict:
@@ -173,7 +191,7 @@ def task(tid: str, question: dict, cut: datetime, trigger: str = "monitor"):
            "data_cut": {"as_of": iso(cut)}, "budget": {"max_wall_ms": 20_000}, "created_at": iso(cut), "question": question}
     if trigger == "monitor":
         raw["incident_id"] = f"inc-{tid}"
-    return api.parse_reasoning_task(raw)
+    return raw
 
 
 def fix_pictures(container: str = "astronomy-db") -> int:
@@ -217,7 +235,7 @@ def run(pace_block: float = 0.0, event_pause: float = 0.0, paced_days: tuple[dat
     L = live.state
     L.update({"console": [], "sessions": [], "blocks": blocks, "trace": None, "tasks": 0, "ledger": {}, "actions": actions,
               "proposal": None, "alarm": False, "fixed": False, "phase": "setup", "paced": False, "sim": None,
-              "flag": "off", "world": {}})
+              "flag": "off", "world": {}, "engine": {}})
     KEY = {"engine": "engine", "policy": "policy", "human": "approval", "sandbox": "execution"}
 
     def on_line(line):
@@ -257,48 +275,31 @@ def run(pace_block: float = 0.0, event_pause: float = 0.0, paced_days: tuple[dat
         f"emulator ready: {world_meta['orders_before_window']:,} orders simulated since 1 Jan 2018; {synced} Olist products synced into the shop")
 
     # ── engine ──
-    ledger = Ledger(RUN / "ledger.db")
-    sink = IdempotentSink(RUN / "sink.db")
+    engine = EngineClient()
+    h = engine.health()
+    sid = engine.new_session()
+    L["engine"] = {"pid": h["pid"], "version": h["version"], "url": engine.url, "session": sid, "agent_pid": os.getpid(),
+                   "ledger": f"{h['data']}/{sid}/ledger.db"}
+    say(datetime.combine(NORMAL_DAYS[0], datetime.min.time(), U), "agent",
+        f"connected to the engine service {engine.url} (pid {h['pid']}, version {h['version']}); session {sid}")
     observations: list[dict] = []
+
+    def send(o: dict):                              # what the agent observed goes to the engine through its API
+        observations.append(o)
+        engine.observe([o])
     att_null: dict[int, float] = {}                 # block-of-day → usual checkout attempts (frozen after the normal days)
     windows: list[WindowMap] = []
     tail = SpanTail(SPANS)                         # this run's spans only, read incrementally
     state = {"alarm": False, "fixed_at": None, "pending": []}
 
-    def counts() -> dict:
-        out = {}
-        for db, label in ((ledger, "ledger"),):
-            for (name,) in db.read("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'"):
-                out[f"{name}"] = db.read(f"SELECT COUNT(*) FROM {name}")[0][0]
-        return out
-
     def core(tid: str, question: dict, cut: datetime, specs: dict, label: str, requested_action: str | None = None):
-        port = TracingPort(observations, "demo-shop-telemetry")
-        co = TaskCoordinator(ledger, port, sink, context=TaskContext(monitors=specs))
-        before = counts()
         t0 = time.perf_counter()
-        r = co.run(task(tid, question, cut), requested_action=requested_action) if requested_action else co.run(task(tid, question, cut))
-        wall_ms = (time.perf_counter() - t0) * 1000
-        after = counts()
-        res = {}
-        for m, x in r.state.results:
-            v = getattr(x, "values", None) or {}
-            res[m] = {"status": x.status, "refusal": getattr(x, "refusal_code", None),
-                      "values": {k: v[k] for k in ("alarm", "direction", "log_wealth", "threshold", "points", "e_value") if k in v}}
-        tr = {"task_id": tid, "label": label, "sim": iso(cut), "question": question["question_kind"],
-              "variables": question.get("variables"), "outcome": r.state.outcome, "wall_ms": round(wall_ms, 2),
-              "timings_ms": dict(r.timings_ms), "requests": port.log,
-              "methods": [{"method": m, "status": st, "reason": (list(rs) or [""])[0][:160]} for m, st, rs in r.state.applicability],
-              "results": res,
-              "revisions": [{"revision": rep.get("revision"), "provisional": rep.get("provisional"),
-                             "status": rep.get("status") or rep.get("outcome")} for rep in r.reports],
-              "policy": [{"verdict": d.verdict, "reason": (list(d.reasons) or [""])[0][:200]} for d in r.decisions],
-              "ledger_delta": {k: after[k] - before.get(k, 0) for k in after if after[k] != before.get(k, 0)},
-              "findings": [f.statement[:200] for f in r.state.findings][:3]}
+        tr = engine.ask(task(tid, question, cut), specs, label, requested_action)
+        tr["round_trip_ms"] = round((time.perf_counter() - t0) * 1000, 2)
         traces.append(tr)
-        L["trace"], L["tasks"], L["ledger"] = tr, len(traces), after
+        L["trace"], L["tasks"], L["ledger"] = tr, len(traces), tr.get("ledger_totals", {})
         live.write(force=True)
-        return r, tr
+        return None, tr
 
     def apply_due(sim_now: datetime):
         for item in list(state["pending"]):
@@ -342,7 +343,7 @@ def run(pace_block: float = 0.0, event_pause: float = 0.0, paced_days: tuple[dat
         # 2. derived signals (declared nulls): checkout errors scaled by the error budget (checkout spans arrive complete
         #    and promptly; payment spans are batched by their service and can land a block late); attempts vs usual
         zp = (cerr / cn) / math.sqrt(P0 * (1 - P0) / cn) if cn else 0.0
-        observations.append(obs_point("checkout_errors_vs_budget", f"chk:{day}:{b}", zp, z, {}))
+        send(obs_point("checkout_errors_vs_budget", f"chk:{day}:{b}", zp, z, {}))
         blk["checkout_z"] = zp
         blocks.append(blk)                                       # on the chart before the engine runs
         if day in NORMAL_DAYS:
@@ -351,12 +352,12 @@ def run(pace_block: float = 0.0, event_pause: float = 0.0, paced_days: tuple[dat
         else:
             mu = max(att_null.get(b, 0.0), 1.0)
             za = (cn - mu) / math.sqrt(mu)
-            observations.append(obs_point("checkout_attempts_vs_usual", f"att:{day}:{b}", za, z, {}))
+            send(obs_point("checkout_attempts_vs_usual", f"att:{day}:{b}", za, z, {}))
             blk["attempts_usual"], blk["attempts_z"] = mu, za
         # 3. core: the payment monitor after every block
         say(z, "agent", f"block {b + 1}/8 · checkouts {cn} · failed {cerr} · telemetry {tele_ms:.0f} ms")
-        specs = {"checkout_errors_vs_budget": MonitorSpec(0.0, 1.0, family_size=2),
-                 "checkout_attempts_vs_usual": MonitorSpec(0.0, 1.0, family_size=2)}
+        specs = {"checkout_errors_vs_budget": {"null_mean": 0.0, "null_sd": 1.0, "family_size": 2},     # declared nulls
+                 "checkout_attempts_vs_usual": {"null_mean": 0.0, "null_sd": 1.0, "family_size": 2}}
         r, tr = core(f"chk-{day}-{b}", {"question_kind": "DETECT_CHANGE", "variables": ["checkout_errors_vs_budget"],
                                         "baseline_policy": "declared null: no checkout errors; noise scaled by a 1% error budget"},
                      z + timedelta(minutes=3), specs, "checkout monitor")

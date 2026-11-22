@@ -68,8 +68,8 @@ One-time setup (already done on this Mac): `~/.venvs/mkt-emulator` (duckdb, pola
 fastexcel), `~/.cache/otel-demo-3.1.0` (opentelemetry-demo @7a88536), `~/data/mkt/` folders, Docker Desktop.
 
 ```bash
-scripts/uc2_shop.sh up --traces                         # start the shop (http://localhost:8080) + Jaeger
-scripts/uc2_watch.sh                                    # watch it live, no recording: agent dashboard + Jaeger (~8 min)
+scripts/uc2_shop.sh up --traces                         # start the shop (http://localhost:8080) + Jaeger + Prometheus
+scripts/uc2_watch.sh                                    # watch it live, no recording, side by side (~8 min)
 scripts/uc2_watch.sh --fast                             # same at full speed (~6 min)
 scripts/uc2_record.sh --open                            # paced run, dashboard recorded → videos/uc2_screen.mp4
 scripts/uc2_assemble.sh                                 # → videos/uc2_silent.mp4 (3:00, subtitles track) + NARRATION_UC2.md
@@ -79,7 +79,22 @@ scripts/uc2_bundle.sh                                   # → dist/uc2_bundle/ +
 scripts/uc2_shop.sh down                                # stop the shop
 ```
 
-Watching live: the dashboard is at http://127.0.0.1:8765/scenes/uc2_live.html while a run is going. Jaeger
+Watching live: `uc2_watch.sh` opens one page, side by side (http://127.0.0.1:8765/scenes/uc2_watch.html): left, the
+agent dashboard (the real shop page a shopper just bought from, what the agent sees, its console, and every engine step
+with the engine's own log line, timing and result; the proof line shows the engine's process id, its ledger file and
+row count, and how fresh the data is); right, Jaeger traces, failed requests only, the Monitor tab (request, error and
+latency rates per service, from Prometheus) or the shop itself. The dashboard alone: http://127.0.0.1:8765/scenes/uc2_live.html.
+Two processes: the causal engine runs as its own local service (`agent/engine_service.py`, http://127.0.0.1:8770,
+started by `scripts/uc2_engine.sh start` or automatically by watch/record), holding the evidence, the ledger and the
+reasoning. The agent (`agent/uc2.py`) is a client: it sends what it observes and its questions over HTTP and gets the
+engine's answers back; it does not import the engine. The service's status page (http://127.0.0.1:8770/, also the
+"Engine service" button on the side-by-side page) lists every question with its result, policy verdict, time and a link
+to the full trace and report. The dashboard only displays what the agent writes to `outputs/uc2/live.json`; its proof
+line shows both process ids, the round trip, the ledger size and how fresh the data is.
+
+```bash
+scripts/uc2_engine.sh start | stop | status | logs
+``` Jaeger
 (http://localhost:8080/jaeger/ui/, service "checkout" or "payment") shows real requests inside the shop; during the fault,
 failed payments appear as errors. Container logs: `docker logs -f --since 1s payment`; resource use: `docker stats`.
 The agent never reads Jaeger or container logs: only the redacted span file, through marketplace-recon's telemetry port.

@@ -18,6 +18,7 @@ OPEN=0; MIC=""
 while [ $# -gt 0 ]; do case "$1" in --open) OPEN=1; shift ;; --mic) MIC="$2"; shift 2 ;; *) echo "unknown option $1"; exit 2 ;; esac; done
 
 curl -sf -o /dev/null http://localhost:8080/ || { echo "The shop is not running: scripts/uc2_shop.sh up"; exit 1; }
+scripts/uc2_engine.sh start                 # the causal engine runs as its own service; the agent calls it
 [ -x "$PY" ] || { echo "Missing venv: python3 -m venv ~/.venvs/mkt-emulator && ~/.venvs/mkt-emulator/bin/pip install duckdb polars 'pydantic>=2.7' numpy scipy pyarrow fastexcel"; exit 1; }
 mkdir -p videos outputs/uc2
 STOP="$(mktemp -u /tmp/uc2-stop.XXXX)"

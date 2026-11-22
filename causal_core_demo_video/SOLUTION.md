@@ -1,7 +1,7 @@
 # How the solution works (one page)
 
 **What it does.** It watches our numbers all the time and works out what kind of problem it sees: bad data, a real
-change, or something broken. Then it proposes what to do, with the expected effect and an honest range. A person
+change, or something broken. Then it suggests a fix, with a best guess of how much it will help and a low and high estimate. A person
 approves; only then does it act, and only in a sandbox. Shown on our experiments (Statsig) and on an online shop (the
 OpenTelemetry Astronomy Shop, with shoppers simulated from real marketplace orders).
 

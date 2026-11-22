@@ -10,8 +10,9 @@ Needs: macOS with Docker Desktop (4 GB+ memory for the shop), Python 3.11+, Node
 ./setup.sh                                   # once: Python venv, OpenTelemetry demo @7a88536, data folders
 cd demo
 scripts/uc2_shop.sh up --traces              # start the shop + Jaeger (first time pulls ~3-5 GB of images)
-scripts/uc2_watch.sh                         # WATCH IT LIVE (no recording): opens the agent dashboard and Jaeger
-                                             #   shop: http://localhost:8080 · traces: http://localhost:8080/jaeger/ui/
+scripts/uc2_engine.sh start                  # the causal engine as its own local service (watch/record also start it)
+scripts/uc2_watch.sh                         # WATCH IT LIVE (no recording): one page, side by side: the agent
+                                             #   dashboard | Jaeger traces, failed requests, Monitor rates, the shop
 scripts/uc2_record.sh --open                 # optional: run at watchable speed and record the dashboard → videos/uc2_screen.mp4
 scripts/uc2_assemble.sh                      # silent cut with subtitles → videos/uc2_silent.mp4 (≤ 3 min)
 scripts/uc2_voice.sh                         # plays the silent cut and records your voice → videos/uc2_voice.m4a
