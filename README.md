@@ -1,6 +1,6 @@
 # Marketplace Martha
 
-**Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches, investigates, asks for the evidence she needs, and says so when she can't tell.**
+**Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches, investigates, asks for the evidence she needs, and decides what to do next.**
 
 ### Why "Martha"?
 A marketplace is a living place: buyers, sellers, carriers, payments, reviews, and the software in between. When something goes wrong, dashboards show *that* a number moved. Someone still has to work out *why*, check whether it's real, and decide what to do. Martha is that caretaker:
