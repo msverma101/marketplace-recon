@@ -18,17 +18,19 @@ A marketplace is a living place: buyers, sellers, carriers, payments, reviews, a
 
 ## 🎬 Demo video
 
-[![Marketplace Martha: watching the real Astronomy Shop, raising an alarm, proposing a fix and waiting for approval](docs/media/demo_thumbnail.png)](causal_core_demo_video/videos/uc2_silent.mp4)
+[![Marketplace Martha: watching the real Astronomy Shop, raising an alarm, proposing a fix and waiting for approval](docs/media/demo_preview.gif)](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_silent.mp4)
 
-**▶ [Watch the 3-minute demo](causal_core_demo_video/videos/uc2_silent.mp4)** (marketplace watcher on the real Astronomy Shop, 3:00, subtitled)
+<sub>Animated preview (22 s of the dashboard). Click it, or the link below, to open the full video.</sub>
+
+**▶ [Watch / download the 3-minute demo (MP4)](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_silent.mp4)** (marketplace watcher on the real Astronomy Shop, 3:00, subtitled)
 
 | Video | What it shows | Length |
 |---|---|---|
-| [**Main demo**](causal_core_demo_video/videos/uc2_silent.mp4) | Shoppers from the emulator go through the real shop; payments start failing (hidden from Martha); she raises the alarm, rules out a demand drop, proposes turning the faulty flag off with an expected effect, and acts only after a person approves | 3:00 |
-| [Pitch](causal_core_demo_video/videos/uc2_pitch.mp4) | The idea and how it works | 1:40 |
-| [Demo cut](causal_core_demo_video/videos/uc2_demo_cut.mp4) | The dashboard sequence only | 1:20 |
-| [Experiment watcher](causal_core_demo_video/videos/uc1.mp4) | Second use case: Martha watching A/B experiments (Statsig-shaped), refusing to estimate a broken 50/50 split | 2:23 |
-| [Full screen recording](causal_core_demo_video/videos/uc2_screen.mp4) | The whole paced run, uncut | 6:57 |
+| [**Main demo**](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_silent.mp4) | Shoppers from the emulator go through the real shop; payments start failing (hidden from Martha); she raises the alarm, rules out a demand drop, proposes turning the faulty flag off with an expected effect, and acts only after a person approves | 3:00 |
+| [Pitch](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_pitch.mp4) | The idea and how it works | 1:40 |
+| [Demo cut](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_demo_cut.mp4) | The dashboard sequence only | 1:20 |
+| [Experiment watcher](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc1.mp4) | Second use case: Martha watching A/B experiments (Statsig-shaped), refusing to estimate a broken 50/50 split | 2:23 |
+| [Full screen recording](https://github.com/msverma101/marketplace-recon/raw/main/causal_core_demo_video/videos/uc2_screen.mp4) | The whole paced run, uncut | 6:57 |
 
 How the videos are recorded and rebuilt: [`causal_core_demo_video/README.md`](causal_core_demo_video/README.md).
 
