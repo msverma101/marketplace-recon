@@ -37,7 +37,7 @@
  ],
  "consumed_by": null,
  "heldout_plan": "stock-out share and spell length: first vs second half of snapshots",
- "seconds": 6.0,
+ "seconds": 3.4,
  "cache_key": "8e3977feb707d1d1",
  "inputs": {
   "retailrocket/category_tree.csv": [
