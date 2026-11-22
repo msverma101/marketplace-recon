@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/7ee3e0f6-abe5-433f-a240-3645c502f7d0
+
 # Marketplace Martha
 
 **Every marketplace needs a caretaker. Martha is a fully agentic monitoring system for marketplaces: she watches, investigates, asks for the evidence she needs, and says so when she can't tell.**
