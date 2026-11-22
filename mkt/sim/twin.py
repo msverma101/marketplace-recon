@@ -126,7 +126,7 @@ def run(params: ChainParams, start: date, end: date, seed: int, specs, om: Obser
     if session_params is not None:
         from .sessions import build, observe_sessions
         sess_f = build(reached, session_params, params, start, end, seed, failed=failed, demand_multiplier=demand)
-        sess_t = build(twin, session_params, params, start, end, seed)
+        sess_t = build(twin, session_params, params, start, end, seed) if specs else None   # twin only needed with interventions
         observed = pl.concat([observed, observe_sessions(*sess_f, seed=seed, web_delay_median_s=om.web_delay_median_s)],
                              how="diagonal_relaxed").sort("available_at")
         port = SessionEmulatorPort(observed, params, om, horizon[0], seed, session_params)

@@ -179,3 +179,65 @@ def diagnose_change(port: EvidenceAccessPort, metric: str, start: datetime, end:
     else:
         cls, why = "undetermined", f"identity partners gave mixed evidence ({votes}): abstaining"
     return Diagnosis(metric=metric, classification=cls, periods=flagged, rationale=why, cited_observations=[c for c in cited if c])
+
+
+class FunnelLocalisation(BaseModel):
+    model_config = ConfigDict(frozen=True, extra="forbid")
+    metric: str
+    classification: str        # "no_change" | "localised" | "undetermined" | "cannot_localise"
+    stage: str | None          # "<prev> -> <stage>" for a broken transition, or "upstream of <root>"
+    periods: list[str]
+    rationale: str
+    cited_observations: list[str]
+
+
+def localise_funnel(port: EvidenceAccessPort, metric: str, start: datetime, end: datetime, as_of: datetime,
+                    z_flag: float = 3.0, z_quiet: float = 2.0) -> FunnelLocalisation:
+    """Walk the declared funnel ("funnel_after: <previous stage>" identities) back from `metric`.
+    For each period where the metric moved, report the first transition whose ratio broke while the others
+    stayed quiet; if no ratio broke but the root level moved the same way, the change is upstream of the root."""
+    defs = {v.id: v for v in port.variables()}
+    chain = [metric]
+    while True:
+        prev = [i.split(":", 1)[1].strip() for i in (getattr(defs.get(chain[0]), "empirical_identities", []) or [])
+                if i.startswith("funnel_after:")]
+        if not prev or prev[0] not in defs or prev[0] in chain:
+            break
+        chain.insert(0, prev[0])
+    oid, series = _weekly(port, metric, start, end, as_of)
+    if not series:
+        return FunnelLocalisation(metric=metric, classification="undetermined", stage=None, periods=[], rationale="no data", cited_observations=[])
+    z = _robust_z(series)
+    flagged = [t for t, v in z.items() if abs(v) >= z_flag]
+    if not flagged:
+        return FunnelLocalisation(metric=metric, classification="no_change", stage=None, periods=[], rationale="no period beyond the threshold",
+                                  cited_observations=[oid])
+    if len(chain) == 1:
+        return FunnelLocalisation(metric=metric, classification="cannot_localise", stage=None, periods=flagged,
+                                  rationale="the metric moved, but no funnel stages are declared for it", cited_observations=[oid])
+    cited, lv = [], {}
+    for st in chain:
+        o, sr = _weekly(port, st, start, end, as_of)
+        cited.append(o); lv[st] = sr
+    weeks = sorted(set.intersection(*(set(s) for s in lv.values())))
+    ratio_z = {}
+    for a, b in zip(chain, chain[1:]):
+        ratio_z[f"{a} -> {b}"] = _robust_z({w: lv[b][w] / lv[a][w] for w in weeks if lv[a][w]})
+    root_z = _robust_z({w: lv[chain[0]][w] for w in weeks})
+    verdicts = []
+    for t in flagged:
+        broken = [k for k, rz in ratio_z.items() if abs(rz.get(t, 0)) >= z_flag]
+        quiet = [k for k, rz in ratio_z.items() if abs(rz.get(t, 0)) < z_quiet]
+        if len(broken) == 1 and len(quiet) == len(ratio_z) - 1:
+            verdicts.append(broken[0])
+        elif not broken and len(quiet) == len(ratio_z) and abs(root_z.get(t, 0)) >= z_flag and (root_z[t] > 0) == (z[t] > 0):
+            verdicts.append(f"upstream of {chain[0]}")
+        else:
+            verdicts.append(None)
+    if verdicts and all(v is not None and v == verdicts[0] for v in verdicts):
+        return FunnelLocalisation(metric=metric, classification="localised", stage=verdicts[0], periods=flagged,
+                                  rationale=f"funnel {' -> '.join(chain)}: only '{verdicts[0]}' moved in the flagged period(s)",
+                                  cited_observations=[c for c in [oid, *cited] if c])
+    return FunnelLocalisation(metric=metric, classification="undetermined", stage=None, periods=flagged,
+                              rationale=f"funnel evidence mixed across flagged periods ({verdicts}): abstaining",
+                              cited_observations=[c for c in [oid, *cited] if c])
