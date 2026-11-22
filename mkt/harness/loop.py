@@ -10,8 +10,8 @@ import hashlib
 import json
 import pathlib
 
-from Contracts.evidence import EvidenceGap
-from Contracts.tasks import TaskRevision
+from causal_core.contracts.evidence import EvidenceGap
+from causal_core.contracts.tasks import TaskRevision
 
 
 class FileSink:

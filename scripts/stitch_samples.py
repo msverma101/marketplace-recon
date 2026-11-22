@@ -15,7 +15,7 @@ from datetime import date
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-from Contracts.common import EnvironmentScope  # noqa: E402
+from causal_core.contracts.common import EnvironmentScope  # noqa: E402
 from mkt import core_port, pipeline  # noqa: E402
 from mkt.config import Config  # noqa: E402
 from mkt.stitch import samples as S  # noqa: E402
@@ -56,8 +56,8 @@ def generate(seed: int) -> tuple[dict, dict, float]:
                 if tele is None:
                     skipped[vid] = "no saved storefront spans (~/data/mkt/astronomy/live/spans.jsonl): run scripts/storefront_s5.py with the shop up"
                     continue
-                from Contracts.capabilities import GetSeries
-                from Contracts.common import TimeWindow
+                from causal_core.contracts.capabilities import GetSeries
+                from causal_core.contracts.common import TimeWindow
                 from datetime import datetime, timezone
                 U = timezone.utc
                 r = tele.query(GetSeries(schema_version="2.0", request_id=f"s:{vid}", variables=(vid,), scope=tele.scope, data_cut=S.CUT,
@@ -83,7 +83,7 @@ def generate(seed: int) -> tuple[dict, dict, float]:
                 col = "region" if vid == "buyer_region" else "device"
                 etype = "session_started"
                 vals = eng.events.filter(eng.events["event_type"] == etype)[col].drop_nulls().head(40).to_list()
-                from Contracts.observations import CategoricalValue
+                from causal_core.contracts.observations import CategoricalValue
                 samples[vid] = [S.observation(vid, CategoricalValue(shape="categorical", category=x), "synthetic_generated", emu.scope,
                                               "emulator-chain", ("mech:emulator_session_attribute",)) for x in vals]
             elif vid in B:
@@ -100,6 +100,7 @@ def generate(seed: int) -> tuple[dict, dict, float]:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--no-repeat", action="store_true", help="skip the determinism re-run")
     a = ap.parse_args()
     samples, skipped, secs = generate(a.seed)
     OUT.mkdir(parents=True, exist_ok=True)

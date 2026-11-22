@@ -4,8 +4,8 @@ import pathlib
 
 import pytest
 
-from Contracts.evidence import EvidenceRecord
-from Contracts.observations import Observation
+from causal_core.contracts.evidence import EvidenceRecord
+from causal_core.contracts.observations import Observation
 from mkt.stitch.sample_checks import check_sample
 from mkt.variable_catalog import CATALOG, build
 

@@ -6,8 +6,8 @@ import sys
 from datetime import date, datetime, timezone
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
-from Contracts.common import TimeWindow  # noqa: E402
-from Contracts.tasks import DataCut, ExecutionBudget, ExplainObservation, ReasoningTask  # noqa: E402
+from causal_core.contracts.common import TimeWindow  # noqa: E402
+from causal_core.contracts.tasks import DataCut, ExecutionBudget, ExplainObservation, ReasoningTask  # noqa: E402
 from mkt import core_port, pipeline  # noqa: E402
 from mkt.config import Config  # noqa: E402
 from mkt.sim import chain, twin  # noqa: E402

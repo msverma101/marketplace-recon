@@ -15,11 +15,11 @@ from datetime import datetime, timedelta, timezone
 import polars as pl
 from pydantic import TypeAdapter
 
-from Contracts.capabilities import CapabilityRequest, CapabilityResponse, ProviderManifest
-from Contracts.common import SCHEMA_VERSION, Clock, EnvironmentScope, ProvenanceLineage, SourceAttestation
-from Contracts.evidence import EvidenceRecord
-from Contracts.observations import AggregateStats, DataQuality, Observation, ObservationClocks, TimePoint, TimeSeries
-from Contracts.variables import MetricDefinition, MetricTimeSemantics, NumericValueSchema, PopulationCoverage
+from causal_core.contracts.capabilities import CapabilityRequest, CapabilityResponse, ProviderManifest
+from causal_core.contracts.common import SCHEMA_VERSION, Clock, EnvironmentScope, ProvenanceLineage, SourceAttestation
+from causal_core.contracts.evidence import EvidenceRecord
+from causal_core.contracts.observations import AggregateStats, DataQuality, Observation, ObservationClocks, TimePoint, TimeSeries
+from causal_core.contracts.variables import MetricDefinition, MetricTimeSemantics, NumericValueSchema, PopulationCoverage
 
 U = timezone.utc
 _REQ = TypeAdapter(CapabilityRequest)
@@ -69,7 +69,7 @@ class TelemetryPort:
         self._gen = generator_version
 
     def manifest(self) -> ProviderManifest:
-        return ProviderManifest(provider_id="storefront-telemetry", manifest_version="mkt-telemetry-1",
+        return ProviderManifest(schema_version="2.0", provider_id="storefront-telemetry", manifest_version="mkt-telemetry-1",
                                 supported_requests=("get_series", "get_aggregate"), max_rows=100_000, scopes=(self.scope,))
 
     def definitions(self) -> tuple:
@@ -93,7 +93,7 @@ class TelemetryPort:
         fp = hashlib.sha256(req.model_dump_json().encode()).hexdigest()
 
         def resp(status, reason=None, obs=()):
-            return CapabilityResponse(request_id=req.request_id, request_fingerprint=fp, status=status, observations=tuple(obs), reason=reason)
+            return CapabilityResponse(schema_version="2.0", request_id=req.request_id, request_fingerprint=fp, status=status, observations=tuple(obs), reason=reason)
         if req.request not in ("get_series", "get_aggregate"):
             return resp("UNSUPPORTED", f"{req.request} not served by storefront telemetry")
         known = {d.variable_id for d in self.definitions()}
@@ -134,5 +134,5 @@ class TelemetryPort:
         return resp("OK", None, obs)
 
     def evidence_record(self, obs: Observation) -> EvidenceRecord:
-        return EvidenceRecord(evidence_id=f"ev:{obs.observation_id}", lineage=obs.lineage, scope=obs.scope,
+        return EvidenceRecord(schema_version="2.0", evidence_id=f"ev:{obs.observation_id}", lineage=obs.lineage, scope=obs.scope,
                               provenance_role="SANDBOX_OBSERVED", content_hash=obs.lineage.content_hash)

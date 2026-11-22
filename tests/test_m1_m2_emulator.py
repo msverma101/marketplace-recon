@@ -4,8 +4,8 @@ from datetime import date, datetime, timezone
 
 import pytest
 
-from Contracts.capabilities import GetSeries
-from Contracts.common import TimeWindow
+from causal_core.contracts.capabilities import GetSeries
+from causal_core.contracts.common import TimeWindow
 from mkt import pipeline, registry
 from mkt.emulator.api import Emulator, EmulatorConfig
 from mkt.sim import chain

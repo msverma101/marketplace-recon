@@ -15,12 +15,12 @@ from zoneinfo import ZoneInfo
 import polars as pl
 from pydantic import TypeAdapter
 
-from Contracts.capabilities import CapabilityRequest, CapabilityResponse, ProviderManifest
-from Contracts.common import SCHEMA_VERSION, Clock, EnvironmentScope, ProvenanceLineage, SourceAttestation
-from Contracts.evidence import EvidenceRecord
-from Contracts.observations import (AggregateStats, DataQuality, EventBatch, EventRecord, Observation,
+from causal_core.contracts.capabilities import CapabilityRequest, CapabilityResponse, ProviderManifest
+from causal_core.contracts.common import SCHEMA_VERSION, Clock, EnvironmentScope, ProvenanceLineage, SourceAttestation
+from causal_core.contracts.evidence import EvidenceRecord
+from causal_core.contracts.observations import (AggregateStats, DataQuality, EventBatch, EventRecord, Observation,
                                     ObservationClocks, TimePoint, TimeSeries)
-from Contracts.variables import (EventPayloadSchema, EventVariableDefinition, FormulaBinOp, FormulaRef,
+from causal_core.contracts.variables import (EventPayloadSchema, EventVariableDefinition, FormulaBinOp, FormulaRef,
                                  MetricDefinition, MetricTimeSemantics, NumericValueSchema, PopulationCoverage)
 
 
@@ -100,7 +100,7 @@ class ContractPort:
         return tuple(out)
 
     def manifest(self) -> ProviderManifest:
-        return ProviderManifest(provider_id=self.provider_id, manifest_version="mkt-core-port-1", supported_requests=SERVED,
+        return ProviderManifest(schema_version="2.0", provider_id=self.provider_id, manifest_version="mkt-core-port-1", supported_requests=SERVED,
                                 max_rows=self._e.event_rows_max, scopes=(self.scope,))
 
     # -------------------------------------------------------------- queries
@@ -109,7 +109,7 @@ class ContractPort:
         fp = _sha(req.model_dump(mode="json"))
 
         def resp(status, reason=None, obs=(), truncated=False):
-            return CapabilityResponse(request_id=req.request_id, request_fingerprint=fp, status=status, observations=tuple(obs),
+            return CapabilityResponse(schema_version="2.0", request_id=req.request_id, request_fingerprint=fp, status=status, observations=tuple(obs),
                                       reason=reason, truncated=truncated, available_at=req.data_cut)
         if req.request not in SERVED:
             return resp("UNSUPPORTED", f"{req.request} is not served by {self.provider_id}: no studies, panels, strata or "
@@ -225,7 +225,7 @@ class ContractPort:
                                           missingness="declared", selection="unknown"))
 
     def evidence_record(self, obs: Observation) -> EvidenceRecord:
-        return EvidenceRecord(evidence_id=f"ev:{obs.observation_id}", lineage=obs.lineage, scope=obs.scope,
+        return EvidenceRecord(schema_version="2.0", evidence_id=f"ev:{obs.observation_id}", lineage=obs.lineage, scope=obs.scope,
                               provenance_role=self.role, content_hash=obs.lineage.content_hash)
 
 

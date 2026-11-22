@@ -12,8 +12,8 @@ import json
 import pathlib
 from datetime import date, datetime, timedelta, timezone
 
-from Contracts.common import TimeWindow
-from Contracts.tasks import DataCut, ExecutionBudget, ExplainObservation, ReasoningTask
+from causal_core.contracts.common import TimeWindow
+from causal_core.contracts.tasks import DataCut, ExecutionBudget, ExplainObservation, ReasoningTask
 
 from ..emulator.api import Emulator, EmulatorConfig
 from ..sim.chain import uniform

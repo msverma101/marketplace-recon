@@ -1,8 +1,8 @@
 """Checks every sample against its Contracts definition. Returns a list of problems (empty = pass)."""
 from __future__ import annotations
 
-from Contracts.evidence import EvidenceRecord
-from Contracts.observations import ALLOWED_SHAPES, Observation
+from causal_core.contracts.evidence import EvidenceRecord
+from causal_core.contracts.observations import ALLOWED_SHAPES, Observation
 
 TYPES = {"real": (float, int), "integer": (int,), "boolean": (bool,), "text": (str,), "category": (str,)}
 BANNED = ("fraud_label", "true_late", "latent", "flag_state", "twin", "oracle", "answer.json", "paymentfailure")

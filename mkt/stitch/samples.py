@@ -17,10 +17,10 @@ from datetime import date, datetime, timedelta, timezone
 
 import numpy as np
 
-from Contracts.capabilities import GetEventBatch, GetSeries
-from Contracts.common import SCHEMA_VERSION, Clock, EnvironmentScope, ProvenanceLineage, TimeWindow
-from Contracts.evidence import EvidenceRecord
-from Contracts.observations import (AssignedUnit, AssignmentOutcomes, CategoricalValue, DataQuality, EventBatch, EventRecord,
+from causal_core.contracts.capabilities import GetEventBatch, GetSeries
+from causal_core.contracts.common import SCHEMA_VERSION, Clock, EnvironmentScope, ProvenanceLineage, TimeWindow
+from causal_core.contracts.evidence import EvidenceRecord
+from causal_core.contracts.observations import (AssignedUnit, AssignmentOutcomes, CategoricalValue, DataQuality, EventBatch, EventRecord,
                                     Observation, ObservationClocks, StateSample, StateTrajectory, TimePoint, TimeSeries)
 
 from .fitters import ITEMS, O, ORD, RAW, REV, db, q
@@ -63,24 +63,29 @@ def observation(vid, payload, origin, sc: EnvironmentScope, source_id, mechanism
                     clocks=ObservationClocks(observed_at=Clock(quality="KNOWN", value=obs_at), available_at=Clock(quality="KNOWN", value=CUT),
                                              as_of=CUT, source_timezone="America/Sao_Paulo"),
                     dq=DataQuality(missingness="declared", selection="declared"), observation_mechanisms=tuple(mechanisms))
-    ev = EvidenceRecord(evidence_id=f"ev:{o.observation_id}", lineage=lin, scope=sc, provenance_role=ROLE[origin], content_hash=lin.content_hash)
+    ev = EvidenceRecord(schema_version="2.0", evidence_id=f"ev:{o.observation_id}", lineage=lin, scope=sc, provenance_role=ROLE[origin], content_hash=lin.content_hash)
     return o, ev
+
+
+def utc(t: datetime) -> datetime:
+    """UTC on the wire (contracts v3.2 §2.2): naive = UTC; aware = converted."""
+    return t.astimezone(U) if t.tzinfo else t.replace(tzinfo=U)
 
 
 def ts(points) -> TimeSeries:
     pts = sorted({t: v for t, v in points}.items())
-    return TimeSeries(shape="time_series", points=tuple(TimePoint(t=t if t.tzinfo else t.replace(tzinfo=U), value=None if v is None else float(v))
+    return TimeSeries(shape="time_series", points=tuple(TimePoint(t=utc(t), value=None if v is None else float(v))
                                                       for t, v in pts))
 
 
 def traj(samples) -> StateTrajectory:
-    s = sorted({(t if t.tzinfo else t.replace(tzinfo=U)): v for t, v in samples}.items())
+    s = sorted({utc(t): v for t, v in samples}.items())
     return StateTrajectory(shape="state_trajectory", samples=tuple(StateSample(t=t, state=v) for t, v in s))
 
 
 def events(rows, vid) -> EventBatch:
     return EventBatch(shape="event_batch", events=tuple(
-        EventRecord(event_id=f"{vid}:{i}", occurred_at=Clock(quality="KNOWN", value=t if t.tzinfo else t.replace(tzinfo=U)), attributes=a)
+        EventRecord(event_id=f"{vid}:{i}", occurred_at=Clock(quality="KNOWN", value=utc(t)), attributes=a)
         for i, (t, a) in enumerate(rows)))
 
 

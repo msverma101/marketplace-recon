@@ -9,8 +9,8 @@ from datetime import datetime, timedelta, timezone
 import polars as pl
 import pytest
 
-from Contracts.capabilities import CapabilityResponse, GetAggregate, GetSeries
-from Contracts.common import TimeWindow
+from causal_core.contracts.capabilities import CapabilityResponse, GetAggregate, GetSeries
+from causal_core.contracts.common import TimeWindow
 from mkt.adapters.astronomy import storefront as sf
 from mkt.adapters.astronomy.telemetry import TelemetryPort, WindowMap
 

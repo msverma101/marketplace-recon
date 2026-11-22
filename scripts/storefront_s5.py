@@ -14,7 +14,7 @@ from datetime import date, datetime, timezone
 import polars as pl
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
-from Contracts.capabilities import GetAggregate  # noqa: E402
+from causal_core.contracts.capabilities import GetAggregate  # noqa: E402
 from mkt import pipeline  # noqa: E402
 from mkt.adapters.astronomy import storefront as sf  # noqa: E402
 from mkt.adapters.astronomy.telemetry import TelemetryPort, WindowMap, load_spans  # noqa: E402
@@ -87,7 +87,7 @@ spans = load_spans(HOME / "data/mkt/astronomy/live/spans.jsonl")
 wins = [WindowMap(walls[0][0], walls[0][1], datetime(2018, 2, 20, tzinfo=U), datetime(2018, 2, 21, tzinfo=U)),
         WindowMap(walls[1][0], walls[1][1], datetime(2018, 2, 21, tzinfo=U), datetime(2018, 2, 22, tzinfo=U))]
 tp = TelemetryPort(spans, wins, SEED, generator_version="storefront-3.1.0+" + emu.run_id)
-from Contracts.common import TimeWindow  # noqa: E402
+from causal_core.contracts.common import TimeWindow  # noqa: E402
 rates = {}
 for name, (a, b) in {"A": (datetime(2018, 2, 20, tzinfo=U), datetime(2018, 2, 21, tzinfo=U)),
                      "B": (datetime(2018, 2, 21, tzinfo=U), datetime(2018, 2, 22, tzinfo=U))}.items():

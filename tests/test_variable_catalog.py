@@ -3,7 +3,7 @@ import collections
 
 import pytest
 
-from Contracts.common import EnvironmentScope
+from causal_core.contracts.common import EnvironmentScope
 from mkt import taxonomy as TX
 from mkt.variable_catalog import CATALOG, EXCLUDED, build
 

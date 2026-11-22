@@ -14,8 +14,8 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from Contracts.common import SCHEMA_VERSION, EnvironmentScope, SourceAttestation
-from Contracts.variables import (CategoricalValueSchema, CategoricalVariableDefinition, EventPayloadSchema, EventVariableDefinition,
+from causal_core.contracts.common import SCHEMA_VERSION, EnvironmentScope, SourceAttestation
+from causal_core.contracts.variables import (CategoricalValueSchema, CategoricalVariableDefinition, EventPayloadSchema, EventVariableDefinition,
                                  MetricDefinition, MetricTimeSemantics, NumericValueSchema, PopulationCoverage,
                                  StateVariableDefinition)
 
@@ -239,7 +239,7 @@ EXCLUDED = [  # dataset fields considered and NOT turned into monitoring variabl
 
 def build(v: Var, scope: EnvironmentScope):
     """The Contracts VariableDefinition for a catalogue entry."""
-    from Contracts.variables import FormulaBinOp, FormulaRef
+    from causal_core.contracts.variables import FormulaBinOp, FormulaRef
     base = dict(schema_version=SCHEMA_VERSION, variable_id=v.variable_id, scope=scope, entity_ref=v.entity, description=v.meaning,
                 provenance=SourceAttestation(source_id="mkt-catalog", method="adapter_declared"),
                 extensions={"mkt:layer": v.layer, "mkt:status": v.status, "mkt:sources": v.sources[:200]})

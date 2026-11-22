@@ -6,10 +6,10 @@ from datetime import date, datetime, timezone
 
 import pytest
 
-from Contracts.capabilities import CapabilityResponse, GetAggregate, GetAssignmentOutcomes, GetEventBatch, GetSeries
-from Contracts.common import TimeWindow
-from Contracts.evidence import EvidenceRecord
-from Contracts.ports import EvidenceAccessPort
+from causal_core.contracts.capabilities import CapabilityResponse, GetAggregate, GetAssignmentOutcomes, GetEventBatch, GetSeries
+from causal_core.contracts.common import TimeWindow
+from causal_core.contracts.evidence import EvidenceRecord
+from causal_core.contracts.ports import EvidenceAccessPort
 from mkt import core_port, pipeline, registry
 from mkt.sim import chain, twin
 
@@ -132,8 +132,8 @@ def test_import_boundary_core_side():
 
 
 # ---------------------------------------------------------------- variable taxonomy (G1)
-from Contracts.observations import ALLOWED_SHAPES  # noqa: E402
-from Contracts.variables import METRIC_ONLY_FIELDS  # noqa: E402
+from causal_core.contracts.observations import ALLOWED_SHAPES  # noqa: E402
+from causal_core.contracts.variables import METRIC_ONLY_FIELDS  # noqa: E402
 
 
 @pytest.fixture(scope="module")

@@ -13,11 +13,11 @@ import json
 import math
 from statistics import median
 
-from Contracts.capabilities import GetSeries
-from Contracts.common import SCHEMA_VERSION
-from Contracts.evidence import EvidenceGap
-from Contracts.tasks import Finding, Pins, ReasoningTask, TaskRevision
-from Contracts.variables import FormulaBinOp, FormulaRef, MetricDefinition
+from causal_core.contracts.capabilities import GetSeries
+from causal_core.contracts.common import SCHEMA_VERSION
+from causal_core.contracts.evidence import EvidenceGap
+from causal_core.contracts.tasks import Finding, Pins, ReasoningTask, TaskRevision
+from causal_core.contracts.variables import FormulaBinOp, FormulaRef, MetricDefinition
 
 Z_FLAG, Z_QUIET = 3.0, 2.0
 
@@ -106,7 +106,7 @@ class StandinCore:
             identities = [d for d in ratios if d.identity_tolerance is not None]
             stages = [d for d in ratios if d.identity_tolerance is None]
             if not identities and not stages:
-                gaps.append(EvidenceGap(gap_id=f"{task.task_id}:{vid}:gap", task_id=task.task_id,
+                gaps.append(EvidenceGap(schema_version="2.0", gap_id=f"{task.task_id}:{vid}:gap", task_id=task.task_id,
                                         missing=f"no independent measurement or declared ratio involving {vid}",
                                         recommended_measurements=(f"independent_measurement:{vid}",), blocks_claim="DQ_FAILURE",
                                         executable_now=False))
@@ -143,7 +143,7 @@ class StandinCore:
                                                 statement=f"{day}: identity {d.variable_id} neither clearly held nor broke", support_refs=(oid, rid)))
             if stages:
                 findings.append(self._localise(task, vid, flagged, stages, defs, cited))
-        rev = TaskRevision(task_id=task.task_id, revision=revision, supersedes_revision=revision - 1 if revision > 1 else None,
+        rev = TaskRevision(schema_version="2.0", task_id=task.task_id, revision=revision, supersedes_revision=revision - 1 if revision > 1 else None,
                            outcome=outcome, findings=tuple(findings), evidence_gap_ids=tuple(g.gap_id for g in gaps),
                            pins=Pins(graph_version=0, data_cut=task.data_cut.as_of, method_versions={"standin": self.method_version}),
                            idempotency_key=_sha([task.model_dump(mode="json"), revision, [f.statement for f in findings]]))
