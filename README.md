@@ -1,4 +1,4 @@
-# Marketplace Emulator × Causal Core
+# Marketplace Martha
 
 **An autonomous monitoring agent that investigates a realistic, data-grounded marketplace, and knows when it can't tell.**
 
