@@ -2,4 +2,4 @@
 services:
   otel-collector:
     volumes:
-      - /home/sneha/data/mkt/astronomy/out:/m0out
+      - ${HOME}/data/mkt/astronomy/out:/m0out

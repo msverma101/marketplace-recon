@@ -2,4 +2,4 @@
 services:
   flagd:
     volumes: !override
-      - /home/sneha/marketplace-recon/deploy/m0/flagd-e3:/etc/flagd
+      - ${HOME}/marketplace-recon/deploy/m0/flagd-e3:/etc/flagd
