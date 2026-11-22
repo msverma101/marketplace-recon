@@ -47,19 +47,16 @@ BASELINE = CapabilitySpec(
 
 MIN_TRAINING_DAYS = 56
 DEFAULT_TAU = 0.5            # mixture scale in residual-SD units (measured: 0.25 valid but weaker; report §B3)
-P = 7                        # intercept + 6 weekday indicators (+1 when the optional linear trend is used)
+P = 7                        # intercept + 6 weekday indicators
 
 
-def _features(ts: list[datetime], origin: datetime | None = None) -> np.ndarray:
-    """Intercept + weekday indicators; with `origin`, also a linear trend in weeks since `origin` (opt-in, v1.1)."""
-    X = np.zeros((len(ts), P + (origin is not None)))
+def _features(ts: list[datetime]) -> np.ndarray:
+    X = np.zeros((len(ts), P))
     X[:, 0] = 1.0
     for i, t in enumerate(ts):
         wd = t.weekday()
         if wd:
             X[i, wd] = 1.0
-        if origin is not None:
-            X[i, P] = (t - origin).total_seconds() / (7 * 86400)
     return X
 
 
@@ -74,11 +71,6 @@ class LearnedBaseline:
     train_end: datetime
     lag1_autocorrelation: float
     features: str = "intercept + weekday indicators (UTC)"
-    trend: bool = False                           # linear trend in weeks since train_start (opt-in)
-
-    @property
-    def origin(self) -> datetime | None:
-        return self.train_start if self.trend else None
 
     @property
     def problems(self) -> list[tuple[str, str]]:
@@ -93,36 +85,30 @@ class LearnedBaseline:
         return out
 
 
-def learn_baseline(points: list[tuple[datetime, float]], trend: bool = False) -> LearnedBaseline:
-    """Fit on a closed training window. Pure; the caller freezes and registers the result (CP-023).
-    trend=True adds a linear trend (weeks since the first training point) for growing or shrinking series; its
-    extrapolation error is part of the null through the same X (X_trᵀX_tr)⁻¹ Xᵀ term as the other coefficients."""
+def learn_baseline(points: list[tuple[datetime, float]]) -> LearnedBaseline:
+    """Fit on a closed training window. Pure; the caller freezes and registers the result (CP-023)."""
     pts = sorted((t, v) for t, v in points if v is not None)
     ts, y = [t for t, _ in pts], np.array([v for _, v in pts], dtype=float)
-    origin = ts[0] if (trend and ts) else None
-    X = _features(ts, origin)
-    p = X.shape[1]
+    X = _features(ts)
     G = X.T @ X
-    feats = "intercept + weekday indicators (UTC)" + (" + linear trend (weeks)" if trend else "")
-    if len(y) <= p or np.linalg.matrix_rank(G) < p:
-        return LearnedBaseline(tuple([float("nan")] * p), tuple(tuple(r) for r in G.tolist()), 0.0, len(y),
-                               ts[0] if ts else datetime.min, ts[-1] if ts else datetime.min, 0.0, feats, trend)
+    if len(y) <= P or np.linalg.matrix_rank(G) < P:
+        return LearnedBaseline(tuple([float("nan")] * P), tuple(tuple(r) for r in G.tolist()), 0.0, len(y),
+                               ts[0] if ts else datetime.min, ts[-1] if ts else datetime.min, 0.0)
     b = np.linalg.solve(G, X.T @ y)
     res = y - X @ b
-    sd = math.sqrt(float(res @ res) / (len(y) - p))
+    sd = math.sqrt(float(res @ res) / (len(y) - P))
     r1 = float(np.corrcoef(res[:-1], res[1:])[0, 1]) if len(res) > 2 and res.std() > 0 else 0.0
     return LearnedBaseline(tuple(float(x) for x in b), tuple(tuple(float(x) for x in row) for row in G), sd, len(y),
-                           ts[0], ts[-1], r1, feats, trend)
+                           ts[0], ts[-1], r1)
 
 
 def mixture_log_wealth(baseline: LearnedBaseline, ts: list[datetime], y: list[float], tau: float = DEFAULT_TAU) -> np.ndarray:
     """log L_t for t = 1..T (see module docstring)."""
     b, G, s2 = np.array(baseline.coefficients), np.array(baseline.gram), baseline.residual_sd ** 2
-    Xm = _features(ts, baseline.origin)
-    p = Xm.shape[1]
+    Xm = _features(ts)
     r = np.array(y, dtype=float) - Xm @ b
     t2 = tau * tau * s2
-    out, Gm, Sx1, Sxr, n1, s1r = [], np.zeros((p, p)), np.zeros(p), np.zeros(p), 0.0, 0.0
+    out, Gm, Sx1, Sxr, n1, s1r = [], np.zeros((P, P)), np.zeros(P), np.zeros(P), 0.0, 0.0
     for t in range(len(r)):
         x = Xm[t]
         Gm += np.outer(x, x); Sx1 += x; Sxr += x * r[t]; n1 += 1.0; s1r += r[t]
@@ -150,7 +136,7 @@ def evaluate_baseline_shift(baseline: LearnedBaseline, points: list[tuple[dateti
     thr = math.log(1.0 / a)
     peak = float(path.max()) if len(path) else 0.0
     first = int(np.argmax(path >= thr)) if peak >= thr else None
-    resid = [v - float(_features([t], baseline.origin)[0] @ np.array(baseline.coefficients)) for t, v in pts]
+    resid = [v - float(_features([t])[0] @ np.array(baseline.coefficients)) for t, v in pts]
     direction = None if first is None else ("down" if np.mean(resid[:first + 1]) < 0 else "up")
     return MethodResult(spec.id, spec.version, "OK", "DESCRIPTIVE",
                         {"log_wealth": float(path[-1]) if len(path) else 0.0, "peak_log_wealth": peak, "threshold": thr,

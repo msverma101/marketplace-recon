@@ -1352,3 +1352,42 @@ The user: "take all recommended decisions and fix issues", and confirmed TabPFN 
   straight line covers the true effect 13% of the time in curved worlds. TabPFN columns: not run (licence).
 
 Validation: 185 tests; demos 0–7; schemas re-frozen and checked; baseline hashes; fixture manifest; firewall clean.
+
+### CP-037 update — TabPFN evaluated (2026-11-22, internal use)
+
+- The user set `TABPFN_TOKEN`. The package defaults to TabPFN 3.5, whose licence was not yet accepted on the account;
+  v2.5, v2.6 and v3 likewise. TabPFN v2 runs without a further acceptance: weights 42 MB in ~/Library/Caches/tabpfn.
+  `scripts/tabpfn_eval.py` now takes `TABPFN_MODEL_VERSION` (default v2).
+- Results (docs/tabpfn/eval.json; emulator worlds; CPU; 12.8 s for 25 fits):
+  - A. covariate baseline prediction (allowed use, §6.4): unexplained variance on held-out days — calendar only 10.0,
+    calendar + linear driver 4.8, **TabPFN 2.31** (noise floor 2.25). Residual SD 1.52 vs 2.20: roughly 1.45× the
+    signal-to-noise for a learned monitoring baseline.
+  - B. equation shape (exploratory, outside §6.4): effect of spend 100 → 130 in curved worlds — straight line error 12.0
+    (interval covers truth 13%), **core shape set 5.8 (covers 80%)**, TabPFN 7.6 (no effect interval).
+- Reading: TabPFN does not earn a place in the what-if engine (the shape set is more accurate and has intervals).
+  It is a strong candidate for the learned monitoring baseline's extra covariates (CURE-style, CP-030 follow-up). Its
+  use there would NOT inherit CP-030's exact false-alarm guarantee (that covers the linear fit's error only): false
+  alarms would have to be measured on change-free periods, and the blueprint's §6.4 rules apply (lazy optional import,
+  caps, logged model/weights version and seed, replay of recorded outputs, NumPy fallback). Not integrated: needs the
+  user's decision.
+
+## CP-038 — Stitch marketplace adapter — USER_DECIDED 2026-11-22
+
+**Trigger:** the user asked to look at `stitch_samples.zip` (marketplace-recon output: 106 variables, layers L0–L9,
+real public datasets stitched to an emulator chain) and decided: "inject missing schema version if the data types
+otherwise comply, no manifest for now. build the stitch adapter."
+
+- marketplace-recon builds against a Phase 1 copy of the contracts (`Contracts/`), so its evidence records lack
+  `schema_version` (required since CP-002) and two external adapters emit non-UTC timestamps (rejected since CP-003).
+- `adapters/sources/stitch_port.py` reads the zip in memory and: injects `schema_version` "2.0" only into evidence
+  that then passes every other check (340/340 on the real samples); converts non-UTC timestamps to UTC as CP-003
+  assigns to adapters, keeping the offset in `clocks.source_timezone` (3 observations: +02:00 ×2, +01:00 ×1);
+  quarantines everything else with the failing field (0 on the real samples; tested on an invented fixture: a
+  contradictory evidence role, a negative count and an invalid definition stay quarantined).
+- Definitions are offered through `definitions()` outside the port protocol (no manifest change, per the user).
+- Through the core: 10 of 12 ratio identities verify exactly; 2 are UNVERIFIED because the ratio and its parts live in
+  different environments. 7 of 8 telemetry series monitored without alarm; 1 refused (lag-1 autocorrelation 0.27).
+  Hillstrom sample: no design → waiting; with the published design, one contrast refused (no variance), one estimated.
+- Not adopted for now: marketplace-recon's two contract suggestions (manifest variable catalogue; typed
+  measurement requests). Real data is not committed; tests use an invented fixture.
+- Demo: `python3 -m scripts.stitch_demo`. Tests: `tests/test_stitch_adapter.py` (4).
