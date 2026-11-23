@@ -1,7 +1,4 @@
 
-
-https://github.com/user-attachments/assets/87a06dde-1d6d-4acd-87c3-0dfa1a258f65
-
 # Marketplace Martha
 
 **MARTHA: MARketplace Tracing through causal Hindsight & Adaptation**
@@ -10,7 +7,7 @@ Every marketplace needs a caretaker. Martha is a fully agentic monitoring system
 
 ## Demo
 
-https://github.com/user-attachments/assets/7ee3e0f6-abe5-433f-a240-3645c502f7d0
+https://github.com/user-attachments/assets/87a06dde-1d6d-4acd-87c3-0dfa1a258f65
 
 ## Overview
 
